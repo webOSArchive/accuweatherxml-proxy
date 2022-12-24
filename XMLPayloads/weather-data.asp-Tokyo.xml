@@ -1,0 +1,1224 @@
+<?xml version="1.0"  encoding="utf-8"?>
+	<adc_database xmlns="http://www.accuweather.com">
+		<units>
+			<temp>F</temp>
+			<dist>MI</dist>
+			<speed>MPH</speed>
+			<pres>IN</pres>
+			<prec>IN</prec>
+		</units>
+	
+	<local>
+	<city>Tokyo</city>
+        
+	<adminArea code="13">Tokyo</adminArea> 
+        <country code="JP">Japan</country>
+	<cityId>226396</cityId>
+	<primaryCityId></primaryCityId>
+	
+    <locationKey>226396</locationKey>
+	
+	<lat>35.68301</lat> 
+	<lon>139.809</lon> 
+	<time>01:53</time> 
+	<timeZone>9</timeZone>
+	<obsDaylight>
+	0
+	</obsDaylight>
+	<currentGmtOffset>9</currentGmtOffset>
+	<timeZoneAbbreviation>JST</timeZoneAbbreviation>	
+	</local>
+	
+                <currentconditions daylight="False">
+                    <url>http://www.accuweather.com/en-us/JP/13/Tokyo/Quick-Look.aspx?p=blstreamhptablet&amp;cityId=226396</url>
+			<observationtime>1:53 AM</observationtime>
+			<pressure state="Steady">29.95</pressure>
+			<temperature>39</temperature>
+			<realfeel>31</realfeel>
+			<humidity>63%</humidity>
+			<weathertext>Clear</weathertext>
+			<weathericon>33</weathericon>
+			<windgusts>12</windgusts>
+			<windspeed>11</windspeed>
+			<winddirection>NNE</winddirection>
+			<visibility>10</visibility>
+			<precip>0.00</precip>
+			<uvindex index="0">Low</uvindex>
+			<dewpoint>27</dewpoint>
+			<cloudcover>1%</cloudcover>
+			<apparenttemp>39</apparenttemp>
+			<windchill>32</windchill>
+		</currentconditions>
+
+			<forecast>
+				<url>http://www.accuweather.com/en-us/JP/13/Tokyo/Forecast.aspx?p=blstreamhptablet&amp;cityId=226396</url>
+					
+					<day number="1">
+						<url>http://www.accuweather.com/en-us/JP/13/Tokyo/Details1.aspx?partner=blstreamhptablet&amp;cityId=226396</url>
+					<obsdate>12/26/2020</obsdate>
+					<daycode>Saturday</daycode>
+					
+						<sunrise>6:49 AM</sunrise>
+						<sunset>4:34 PM</sunset>
+					
+					<daytime>
+						<txtshort>Sunshine</txtshort>
+						<txtlong>Sunshine</txtlong>
+						<weathericon>01</weathericon>
+						<hightemperature>52</hightemperature>
+						<lowtemperature>37</lowtemperature>
+						<realfeelhigh>55</realfeelhigh>
+						<realfeellow>34</realfeellow>
+						<windspeed>5</windspeed>
+						<winddirection>W</winddirection>
+						<windgust>7</windgust>
+						<maxuv>3</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Partly cloudy</txtshort>
+						<txtlong>Partly cloudy</txtlong>
+						<weathericon>35</weathericon>
+						<hightemperature>52</hightemperature>
+						<lowtemperature>37</lowtemperature>
+						<realfeelhigh>45</realfeelhigh>
+						<realfeellow>31</realfeellow>
+						<windspeed>6</windspeed>
+						<winddirection>NNE</winddirection>
+						<windgust>10</windgust>
+						<maxuv>3</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="2">
+						<url>http://www.accuweather.com/en-us/JP/13/Tokyo/Details2.aspx?partner=blstreamhptablet&amp;cityId=226396</url>
+					<obsdate>12/27/2020</obsdate>
+					<daycode>Sunday</daycode>
+					
+						<sunrise>6:49 AM</sunrise>
+						<sunset>4:35 PM</sunset>
+					
+					<daytime>
+						<txtshort>Partly sunny</txtshort>
+						<txtlong>Partly sunny</txtlong>
+						<weathericon>03</weathericon>
+						<hightemperature>49</hightemperature>
+						<lowtemperature>40</lowtemperature>
+						<realfeelhigh>50</realfeelhigh>
+						<realfeellow>35</realfeellow>
+						<windspeed>5</windspeed>
+						<winddirection>ENE</winddirection>
+						<windgust>9</windgust>
+						<maxuv>3</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Mostly cloudy, a little rain</txtshort>
+						<txtlong>Mostly cloudy with a touch of rain</txtlong>
+						<weathericon>12</weathericon>
+						<hightemperature>49</hightemperature>
+						<lowtemperature>40</lowtemperature>
+						<realfeelhigh>41</realfeelhigh>
+						<realfeellow>34</realfeellow>
+						<windspeed>5</windspeed>
+						<winddirection>NE</winddirection>
+						<windgust>10</windgust>
+						<maxuv>3</maxuv>
+						<rainamount>0.39</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.39</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="3">
+						<url>http://www.accuweather.com/en-us/JP/13/Tokyo/Details3.aspx?partner=blstreamhptablet&amp;cityId=226396</url>
+					<obsdate>12/28/2020</obsdate>
+					<daycode>Monday</daycode>
+					
+						<sunrise>6:50 AM</sunrise>
+						<sunset>4:35 PM</sunset>
+					
+					<daytime>
+						<txtshort>A little a.m. rain; clearing</txtshort>
+						<txtlong>A bit of morning rain; otherwise, clouds to start, then sunshine returns</txtlong>
+						<weathericon>14</weathericon>
+						<hightemperature>52</hightemperature>
+						<lowtemperature>38</lowtemperature>
+						<realfeelhigh>48</realfeelhigh>
+						<realfeellow>33</realfeellow>
+						<windspeed>10</windspeed>
+						<winddirection>N</winddirection>
+						<windgust>20</windgust>
+						<maxuv>2</maxuv>
+						<rainamount>0.20</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.20</precipamount>
+						<tstormprob>20</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Mainly clear</txtshort>
+						<txtlong>Mainly clear</txtlong>
+						<weathericon>34</weathericon>
+						<hightemperature>52</hightemperature>
+						<lowtemperature>38</lowtemperature>
+						<realfeelhigh>42</realfeelhigh>
+						<realfeellow>38</realfeellow>
+						<windspeed>4</windspeed>
+						<winddirection>WNW</winddirection>
+						<windgust>13</windgust>
+						<maxuv>2</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="4">
+						<url>http://www.accuweather.com/en-us/JP/13/Tokyo/Details4.aspx?partner=blstreamhptablet&amp;cityId=226396</url>
+					<obsdate>12/29/2020</obsdate>
+					<daycode>Tuesday</daycode>
+					
+						<sunrise>6:50 AM</sunrise>
+						<sunset>4:36 PM</sunset>
+					
+					<daytime>
+						<txtshort>Sunny</txtshort>
+						<txtlong>Sunny</txtlong>
+						<weathericon>01</weathericon>
+						<hightemperature>56</hightemperature>
+						<lowtemperature>44</lowtemperature>
+						<realfeelhigh>61</realfeelhigh>
+						<realfeellow>42</realfeellow>
+						<windspeed>3</windspeed>
+						<winddirection>SE</winddirection>
+						<windgust>13</windgust>
+						<maxuv>3</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Cloudy, a little rain late</txtshort>
+						<txtlong>Plenty of clouds with a touch of rain late</txtlong>
+						<weathericon>12</weathericon>
+						<hightemperature>56</hightemperature>
+						<lowtemperature>44</lowtemperature>
+						<realfeelhigh>48</realfeelhigh>
+						<realfeellow>34</realfeellow>
+						<windspeed>9</windspeed>
+						<winddirection>SW</winddirection>
+						<windgust>28</windgust>
+						<maxuv>3</maxuv>
+						<rainamount>0.09</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.09</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="5">
+						<url>http://www.accuweather.com/en-us/JP/13/Tokyo/Details5.aspx?partner=blstreamhptablet&amp;cityId=226396</url>
+					<obsdate>12/30/2020</obsdate>
+					<daycode>Wednesday</daycode>
+					
+						<sunrise>6:50 AM</sunrise>
+						<sunset>4:37 PM</sunset>
+					
+					<daytime>
+						<txtshort>Breezy with periods of rain</txtshort>
+						<txtlong>Breezy with periods of rain</txtlong>
+						<weathericon>18</weathericon>
+						<hightemperature>52</hightemperature>
+						<lowtemperature>31</lowtemperature>
+						<realfeelhigh>41</realfeelhigh>
+						<realfeellow>27</realfeellow>
+						<windspeed>12</windspeed>
+						<winddirection>SW</winddirection>
+						<windgust>37</windgust>
+						<maxuv>2</maxuv>
+						<rainamount>0.59</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.59</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Mainly clear and breezy</txtshort>
+						<txtlong>Mainly clear and breezy</txtlong>
+						<weathericon>34</weathericon>
+						<hightemperature>52</hightemperature>
+						<lowtemperature>31</lowtemperature>
+						<realfeelhigh>36</realfeelhigh>
+						<realfeellow>21</realfeellow>
+						<windspeed>13</windspeed>
+						<winddirection>W</winddirection>
+						<windgust>28</windgust>
+						<maxuv>2</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="6">
+						<url>http://www.accuweather.com/en-us/JP/13/Tokyo/Details6.aspx?partner=blstreamhptablet&amp;cityId=226396</url>
+					<obsdate>12/31/2020</obsdate>
+					<daycode>Thursday</daycode>
+					
+						<sunrise>6:50 AM</sunrise>
+						<sunset>4:38 PM</sunset>
+					
+					<daytime>
+						<txtshort>Sunny</txtshort>
+						<txtlong>Sunny</txtlong>
+						<weathericon>01</weathericon>
+						<hightemperature>42</hightemperature>
+						<lowtemperature>29</lowtemperature>
+						<realfeelhigh>38</realfeelhigh>
+						<realfeellow>30</realfeellow>
+						<windspeed>9</windspeed>
+						<winddirection>NW</winddirection>
+						<windgust>23</windgust>
+						<maxuv>3</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Clear and cold</txtshort>
+						<txtlong>Clear and cold</txtlong>
+						<weathericon>33</weathericon>
+						<hightemperature>42</hightemperature>
+						<lowtemperature>29</lowtemperature>
+						<realfeelhigh>36</realfeelhigh>
+						<realfeellow>26</realfeellow>
+						<windspeed>5</windspeed>
+						<winddirection>NW</winddirection>
+						<windgust>17</windgust>
+						<maxuv>3</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="7">
+						<url>http://www.accuweather.com/en-us/JP/13/Tokyo/Details7.aspx?partner=blstreamhptablet&amp;cityId=226396</url>
+					<obsdate>1/1/2021</obsdate>
+					<daycode>Friday</daycode>
+					
+						<sunrise>6:51 AM</sunrise>
+						<sunset>4:38 PM</sunset>
+					
+					<daytime>
+						<txtshort>Mostly sunny</txtshort>
+						<txtlong>Mostly sunny</txtlong>
+						<weathericon>02</weathericon>
+						<hightemperature>44</hightemperature>
+						<lowtemperature>31</lowtemperature>
+						<realfeelhigh>46</realfeelhigh>
+						<realfeellow>36</realfeellow>
+						<windspeed>5</windspeed>
+						<winddirection>SSW</winddirection>
+						<windgust>16</windgust>
+						<maxuv>3</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Clear and cold</txtshort>
+						<txtlong>Clear and cold</txtlong>
+						<weathericon>33</weathericon>
+						<hightemperature>44</hightemperature>
+						<lowtemperature>31</lowtemperature>
+						<realfeelhigh>36</realfeelhigh>
+						<realfeellow>24</realfeellow>
+						<windspeed>6</windspeed>
+						<winddirection>SW</winddirection>
+						<windgust>14</windgust>
+						<maxuv>3</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="8">
+						<url>http://www.accuweather.com/en-us/JP/13/Tokyo/Details8.aspx?partner=blstreamhptablet&amp;cityId=226396</url>
+					<obsdate>1/2/2021</obsdate>
+					<daycode>Saturday</daycode>
+					
+						<sunrise>6:51 AM</sunrise>
+						<sunset>4:39 PM</sunset>
+					
+					<daytime>
+						<txtshort>Plenty of sun</txtshort>
+						<txtlong>Plenty of sun</txtlong>
+						<weathericon>01</weathericon>
+						<hightemperature>46</hightemperature>
+						<lowtemperature>32</lowtemperature>
+						<realfeelhigh>41</realfeelhigh>
+						<realfeellow>24</realfeellow>
+						<windspeed>9</windspeed>
+						<winddirection>SW</winddirection>
+						<windgust>23</windgust>
+						<maxuv>3</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Patchy clouds</txtshort>
+						<txtlong>Patchy clouds</txtlong>
+						<weathericon>35</weathericon>
+						<hightemperature>46</hightemperature>
+						<lowtemperature>32</lowtemperature>
+						<realfeelhigh>29</realfeelhigh>
+						<realfeellow>26</realfeellow>
+						<windspeed>9</windspeed>
+						<winddirection>SW</winddirection>
+						<windgust>23</windgust>
+						<maxuv>3</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="9">
+						<url>http://www.accuweather.com/en-us/JP/13/Tokyo/Details9.aspx?partner=blstreamhptablet&amp;cityId=226396</url>
+					<obsdate>1/3/2021</obsdate>
+					<daycode>Sunday</daycode>
+					
+						<sunrise>6:51 AM</sunrise>
+						<sunset>4:39 PM</sunset>
+					
+					<daytime>
+						<txtshort>Partly sunny</txtshort>
+						<txtlong>Partly sunny</txtlong>
+						<weathericon>03</weathericon>
+						<hightemperature>47</hightemperature>
+						<lowtemperature>32</lowtemperature>
+						<realfeelhigh>42</realfeelhigh>
+						<realfeellow>29</realfeellow>
+						<windspeed>8</windspeed>
+						<winddirection>W</winddirection>
+						<windgust>21</windgust>
+						<maxuv>3</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Mainly clear</txtshort>
+						<txtlong>Mainly clear</txtlong>
+						<weathericon>34</weathericon>
+						<hightemperature>47</hightemperature>
+						<lowtemperature>32</lowtemperature>
+						<realfeelhigh>34</realfeelhigh>
+						<realfeellow>26</realfeellow>
+						<windspeed>6</windspeed>
+						<winddirection>WSW</winddirection>
+						<windgust>17</windgust>
+						<maxuv>3</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="10">
+						<url>http://www.accuweather.com/en-us/JP/13/Tokyo/Details10.aspx?partner=blstreamhptablet&amp;cityId=226396</url>
+					<obsdate>1/4/2021</obsdate>
+					<daycode>Monday</daycode>
+					
+						<sunrise>6:51 AM</sunrise>
+						<sunset>4:40 PM</sunset>
+					
+					<daytime>
+						<txtshort>Mostly sunny</txtshort>
+						<txtlong>Mostly sunny</txtlong>
+						<weathericon>02</weathericon>
+						<hightemperature>49</hightemperature>
+						<lowtemperature>32</lowtemperature>
+						<realfeelhigh>47</realfeelhigh>
+						<realfeellow>25</realfeellow>
+						<windspeed>8</windspeed>
+						<winddirection>W</winddirection>
+						<windgust>22</windgust>
+						<maxuv>3</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Clear</txtshort>
+						<txtlong>Clear</txtlong>
+						<weathericon>33</weathericon>
+						<hightemperature>49</hightemperature>
+						<lowtemperature>32</lowtemperature>
+						<realfeelhigh>36</realfeelhigh>
+						<realfeellow>34</realfeellow>
+						<windspeed>4</windspeed>
+						<winddirection>NW</winddirection>
+						<windgust>17</windgust>
+						<maxuv>3</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="11">
+						<url>http://www.accuweather.com/en-us/JP/13/Tokyo/Details11.aspx?partner=blstreamhptablet&amp;cityId=226396</url>
+					<obsdate>1/5/2021</obsdate>
+					<daycode>Tuesday</daycode>
+					
+						<sunrise>6:51 AM</sunrise>
+						<sunset>4:41 PM</sunset>
+					
+					<daytime>
+						<txtshort>Sunshine</txtshort>
+						<txtlong>Sunshine</txtlong>
+						<weathericon>01</weathericon>
+						<hightemperature>47</hightemperature>
+						<lowtemperature>31</lowtemperature>
+						<realfeelhigh>52</realfeelhigh>
+						<realfeellow>35</realfeellow>
+						<windspeed>4</windspeed>
+						<winddirection>WSW</winddirection>
+						<windgust>15</windgust>
+						<maxuv>3</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Partly cloudy and cold</txtshort>
+						<txtlong>Partly cloudy and cold</txtlong>
+						<weathericon>35</weathericon>
+						<hightemperature>47</hightemperature>
+						<lowtemperature>31</lowtemperature>
+						<realfeelhigh>34</realfeelhigh>
+						<realfeellow>27</realfeellow>
+						<windspeed>7</windspeed>
+						<winddirection>W</winddirection>
+						<windgust>18</windgust>
+						<maxuv>3</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="12">
+						<url>http://www.accuweather.com/en-us/JP/13/Tokyo/Details12.aspx?partner=blstreamhptablet&amp;cityId=226396</url>
+					<obsdate>1/6/2021</obsdate>
+					<daycode>Wednesday</daycode>
+					
+						<sunrise>6:51 AM</sunrise>
+						<sunset>4:42 PM</sunset>
+					
+					<daytime>
+						<txtshort>Partly sunny</txtshort>
+						<txtlong>Partly sunny</txtlong>
+						<weathericon>03</weathericon>
+						<hightemperature>46</hightemperature>
+						<lowtemperature>32</lowtemperature>
+						<realfeelhigh>44</realfeelhigh>
+						<realfeellow>27</realfeellow>
+						<windspeed>7</windspeed>
+						<winddirection>N</winddirection>
+						<windgust>19</windgust>
+						<maxuv>3</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Clear and cold</txtshort>
+						<txtlong>Clear and cold</txtlong>
+						<weathericon>33</weathericon>
+						<hightemperature>46</hightemperature>
+						<lowtemperature>32</lowtemperature>
+						<realfeelhigh>36</realfeelhigh>
+						<realfeellow>29</realfeellow>
+						<windspeed>5</windspeed>
+						<winddirection>N</winddirection>
+						<windgust>14</windgust>
+						<maxuv>3</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="13">
+						<url>http://www.accuweather.com/en-us/JP/13/Tokyo/Details13.aspx?partner=blstreamhptablet&amp;cityId=226396</url>
+					<obsdate>1/7/2021</obsdate>
+					<daycode>Thursday</daycode>
+					
+						<sunrise>6:51 AM</sunrise>
+						<sunset>4:43 PM</sunset>
+					
+					<daytime>
+						<txtshort>Mostly sunny</txtshort>
+						<txtlong>Mostly sunny</txtlong>
+						<weathericon>02</weathericon>
+						<hightemperature>47</hightemperature>
+						<lowtemperature>31</lowtemperature>
+						<realfeelhigh>54</realfeelhigh>
+						<realfeellow>32</realfeellow>
+						<windspeed>2</windspeed>
+						<winddirection>ENE</winddirection>
+						<windgust>9</windgust>
+						<maxuv>3</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Clear</txtshort>
+						<txtlong>Clear</txtlong>
+						<weathericon>33</weathericon>
+						<hightemperature>47</hightemperature>
+						<lowtemperature>31</lowtemperature>
+						<realfeelhigh>44</realfeelhigh>
+						<realfeellow>29</realfeellow>
+						<windspeed>3</windspeed>
+						<winddirection>WNW</winddirection>
+						<windgust>11</windgust>
+						<maxuv>3</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="14">
+						<url>http://www.accuweather.com/en-us/JP/13/Tokyo/Details14.aspx?partner=blstreamhptablet&amp;cityId=226396</url>
+					<obsdate>1/8/2021</obsdate>
+					<daycode>Friday</daycode>
+					
+						<sunrise>6:51 AM</sunrise>
+						<sunset>4:44 PM</sunset>
+					
+					<daytime>
+						<txtshort>Times of sun and clouds</txtshort>
+						<txtlong>Times of sun and clouds</txtlong>
+						<weathericon>04</weathericon>
+						<hightemperature>47</hightemperature>
+						<lowtemperature>32</lowtemperature>
+						<realfeelhigh>49</realfeelhigh>
+						<realfeellow>32</realfeellow>
+						<windspeed>5</windspeed>
+						<winddirection>N</winddirection>
+						<windgust>10</windgust>
+						<maxuv>2</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Partly cloudy</txtshort>
+						<txtlong>Partly cloudy</txtlong>
+						<weathericon>35</weathericon>
+						<hightemperature>47</hightemperature>
+						<lowtemperature>32</lowtemperature>
+						<realfeelhigh>40</realfeelhigh>
+						<realfeellow>22</realfeellow>
+						<windspeed>10</windspeed>
+						<winddirection>N</winddirection>
+						<windgust>20</windgust>
+						<maxuv>2</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="15">
+						<url>http://www.accuweather.com/en-us/JP/13/Tokyo/Details15.aspx?partner=blstreamhptablet&amp;cityId=226396</url>
+					<obsdate>1/9/2021</obsdate>
+					<daycode>Saturday</daycode>
+					
+						<sunrise>6:51 AM</sunrise>
+						<sunset>4:45 PM</sunset>
+					
+					<daytime>
+						<txtshort>Partial sunshine</txtshort>
+						<txtlong>Partial sunshine</txtlong>
+						<weathericon>03</weathericon>
+						<hightemperature>46</hightemperature>
+						<lowtemperature>33</lowtemperature>
+						<realfeelhigh>42</realfeelhigh>
+						<realfeellow>22</realfeellow>
+						<windspeed>9</windspeed>
+						<winddirection>N</winddirection>
+						<windgust>18</windgust>
+						<maxuv>2</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Partly cloudy</txtshort>
+						<txtlong>Partly cloudy</txtlong>
+						<weathericon>36</weathericon>
+						<hightemperature>46</hightemperature>
+						<lowtemperature>33</lowtemperature>
+						<realfeelhigh>32</realfeelhigh>
+						<realfeellow>24</realfeellow>
+						<windspeed>10</windspeed>
+						<winddirection>N</winddirection>
+						<windgust>17</windgust>
+						<maxuv>2</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+                                <hourly>
+                                
+                                 <hour time="2 AM">
+                                 
+                                            <weathericon>33</weathericon>
+                                        
+                                            <temperature>38</temperature>
+                                        
+                                            <realfeel>30</realfeel>
+                                        
+                                            <dewpoint>24</dewpoint>
+                                        
+                                            <humidity>59</humidity>
+                                        
+                                            <precip>0</precip>
+                                        
+                                            <rain>0</rain>
+                                        
+                                            <snow>0</snow>
+                                        
+                                            <ice>0</ice>
+                                        
+                                            <windspeed>8</windspeed>
+                                        
+						<winddirection>N</winddirection>
+					    
+                                            <windgust>15</windgust>
+                                        
+						<txtshort>Clear</txtshort>
+					    
+                                            <traditionalLink>http://www.accuweather.com/en-us/JP/13/Tokyo/hourly2.aspx?partner=blstreamhptablet&amp;cityId=226396</traditionalLink>
+                                        
+                                 
+                                 </hour>
+                                 
+                                 <hour time="3 AM">
+                                 
+                                            <weathericon>33</weathericon>
+                                        
+                                            <temperature>36</temperature>
+                                        
+                                            <realfeel>30</realfeel>
+                                        
+                                            <dewpoint>25</dewpoint>
+                                        
+                                            <humidity>62</humidity>
+                                        
+                                            <precip>0</precip>
+                                        
+                                            <rain>0</rain>
+                                        
+                                            <snow>0</snow>
+                                        
+                                            <ice>0</ice>
+                                        
+                                            <windspeed>8</windspeed>
+                                        
+						<winddirection>N</winddirection>
+					    
+                                            <windgust>13</windgust>
+                                        
+						<txtshort>Clear</txtshort>
+					    
+                                            <traditionalLink>http://www.accuweather.com/en-us/JP/13/Tokyo/hourly3.aspx?partner=blstreamhptablet&amp;cityId=226396</traditionalLink>
+                                        
+                                 
+                                 </hour>
+                                 
+                                 <hour time="4 AM">
+                                 
+                                            <weathericon>33</weathericon>
+                                        
+                                            <temperature>35</temperature>
+                                        
+                                            <realfeel>29</realfeel>
+                                        
+                                            <dewpoint>25</dewpoint>
+                                        
+                                            <humidity>66</humidity>
+                                        
+                                            <precip>0</precip>
+                                        
+                                            <rain>0</rain>
+                                        
+                                            <snow>0</snow>
+                                        
+                                            <ice>0</ice>
+                                        
+                                            <windspeed>7</windspeed>
+                                        
+						<winddirection>NNW</winddirection>
+					    
+                                            <windgust>12</windgust>
+                                        
+						<txtshort>Clear</txtshort>
+					    
+                                            <traditionalLink>http://www.accuweather.com/en-us/JP/13/Tokyo/hourly4.aspx?partner=blstreamhptablet&amp;cityId=226396</traditionalLink>
+                                        
+                                 
+                                 </hour>
+                                 
+                                 <hour time="5 AM">
+                                 
+                                            <weathericon>33</weathericon>
+                                        
+                                            <temperature>34</temperature>
+                                        
+                                            <realfeel>30</realfeel>
+                                        
+                                            <dewpoint>24</dewpoint>
+                                        
+                                            <humidity>67</humidity>
+                                        
+                                            <precip>0</precip>
+                                        
+                                            <rain>0</rain>
+                                        
+                                            <snow>0</snow>
+                                        
+                                            <ice>0</ice>
+                                        
+                                            <windspeed>6</windspeed>
+                                        
+						<winddirection>NW</winddirection>
+					    
+                                            <windgust>9</windgust>
+                                        
+						<txtshort>Clear</txtshort>
+					    
+                                            <traditionalLink>http://www.accuweather.com/en-us/JP/13/Tokyo/hourly5.aspx?partner=blstreamhptablet&amp;cityId=226396</traditionalLink>
+                                        
+                                 
+                                 </hour>
+                                 
+                                 <hour time="6 AM">
+                                 
+                                            <weathericon>33</weathericon>
+                                        
+                                            <temperature>36</temperature>
+                                        
+                                            <realfeel>32</realfeel>
+                                        
+                                            <dewpoint>26</dewpoint>
+                                        
+                                            <humidity>68</humidity>
+                                        
+                                            <precip>0</precip>
+                                        
+                                            <rain>0</rain>
+                                        
+                                            <snow>0</snow>
+                                        
+                                            <ice>0</ice>
+                                        
+                                            <windspeed>6</windspeed>
+                                        
+						<winddirection>W</winddirection>
+					    
+                                            <windgust>8</windgust>
+                                        
+						<txtshort>Clear</txtshort>
+					    
+                                            <traditionalLink>http://www.accuweather.com/en-us/JP/13/Tokyo/hourly6.aspx?partner=blstreamhptablet&amp;cityId=226396</traditionalLink>
+                                        
+                                 
+                                 </hour>
+                                 
+                                 <hour time="7 AM">
+                                 
+                                            <weathericon>01</weathericon>
+                                        
+                                            <temperature>38</temperature>
+                                        
+                                            <realfeel>34</realfeel>
+                                        
+                                            <dewpoint>28</dewpoint>
+                                        
+                                            <humidity>67</humidity>
+                                        
+                                            <precip>0</precip>
+                                        
+                                            <rain>0</rain>
+                                        
+                                            <snow>0</snow>
+                                        
+                                            <ice>0</ice>
+                                        
+                                            <windspeed>5</windspeed>
+                                        
+						<winddirection>WNW</winddirection>
+					    
+                                            <windgust>7</windgust>
+                                        
+						<txtshort>Sunny</txtshort>
+					    
+                                            <traditionalLink>http://www.accuweather.com/en-us/JP/13/Tokyo/hourly7.aspx?partner=blstreamhptablet&amp;cityId=226396</traditionalLink>
+                                        
+                                 
+                                 </hour>
+                                 
+                                 <hour time="8 AM">
+                                 
+                                            <weathericon>01</weathericon>
+                                        
+                                            <temperature>40</temperature>
+                                        
+                                            <realfeel>38</realfeel>
+                                        
+                                            <dewpoint>28</dewpoint>
+                                        
+                                            <humidity>62</humidity>
+                                        
+                                            <precip>0</precip>
+                                        
+                                            <rain>0</rain>
+                                        
+                                            <snow>0</snow>
+                                        
+                                            <ice>0</ice>
+                                        
+                                            <windspeed>6</windspeed>
+                                        
+						<winddirection>NNW</winddirection>
+					    
+                                            <windgust>7</windgust>
+                                        
+						<txtshort>Sunny</txtshort>
+					    
+                                            <traditionalLink>http://www.accuweather.com/en-us/JP/13/Tokyo/hourly8.aspx?partner=blstreamhptablet&amp;cityId=226396</traditionalLink>
+                                        
+                                 
+                                 </hour>
+                                 
+                                 <hour time="9 AM">
+                                 
+                                            <weathericon>01</weathericon>
+                                        
+                                            <temperature>43</temperature>
+                                        
+                                            <realfeel>42</realfeel>
+                                        
+                                            <dewpoint>27</dewpoint>
+                                        
+                                            <humidity>54</humidity>
+                                        
+                                            <precip>0</precip>
+                                        
+                                            <rain>0</rain>
+                                        
+                                            <snow>0</snow>
+                                        
+                                            <ice>0</ice>
+                                        
+                                            <windspeed>6</windspeed>
+                                        
+						<winddirection>NNW</winddirection>
+					    
+                                            <windgust>7</windgust>
+                                        
+						<txtshort>Sunny</txtshort>
+					    
+                                            <traditionalLink>http://www.accuweather.com/en-us/JP/13/Tokyo/hourly9.aspx?partner=blstreamhptablet&amp;cityId=226396</traditionalLink>
+                                        
+                                 
+                                 </hour>
+                                 
+                                 <hour time="10 AM">
+                                 
+                                            <weathericon>01</weathericon>
+                                        
+                                            <temperature>45</temperature>
+                                        
+                                            <realfeel>46</realfeel>
+                                        
+                                            <dewpoint>26</dewpoint>
+                                        
+                                            <humidity>47</humidity>
+                                        
+                                            <precip>0</precip>
+                                        
+                                            <rain>0</rain>
+                                        
+                                            <snow>0</snow>
+                                        
+                                            <ice>0</ice>
+                                        
+                                            <windspeed>5</windspeed>
+                                        
+						<winddirection>NNW</winddirection>
+					    
+                                            <windgust>7</windgust>
+                                        
+						<txtshort>Sunny</txtshort>
+					    
+                                            <traditionalLink>http://www.accuweather.com/en-us/JP/13/Tokyo/hourly10.aspx?partner=blstreamhptablet&amp;cityId=226396</traditionalLink>
+                                        
+                                 
+                                 </hour>
+                                 
+                                 <hour time="11 AM">
+                                 
+                                            <weathericon>02</weathericon>
+                                        
+                                            <temperature>47</temperature>
+                                        
+                                            <realfeel>50</realfeel>
+                                        
+                                            <dewpoint>25</dewpoint>
+                                        
+                                            <humidity>41</humidity>
+                                        
+                                            <precip>0</precip>
+                                        
+                                            <rain>0</rain>
+                                        
+                                            <snow>0</snow>
+                                        
+                                            <ice>0</ice>
+                                        
+                                            <windspeed>5</windspeed>
+                                        
+						<winddirection>NW</winddirection>
+					    
+                                            <windgust>7</windgust>
+                                        
+						<txtshort>Mostly sunny</txtshort>
+					    
+                                            <traditionalLink>http://www.accuweather.com/en-us/JP/13/Tokyo/hourly11.aspx?partner=blstreamhptablet&amp;cityId=226396</traditionalLink>
+                                        
+                                 
+                                 </hour>
+                                 
+                                 <hour time="12 PM">
+                                 
+                                            <weathericon>02</weathericon>
+                                        
+                                            <temperature>50</temperature>
+                                        
+                                            <realfeel>53</realfeel>
+                                        
+                                            <dewpoint>24</dewpoint>
+                                        
+                                            <humidity>37</humidity>
+                                        
+                                            <precip>0</precip>
+                                        
+                                            <rain>0</rain>
+                                        
+                                            <snow>0</snow>
+                                        
+                                            <ice>0</ice>
+                                        
+                                            <windspeed>5</windspeed>
+                                        
+						<winddirection>WNW</winddirection>
+					    
+                                            <windgust>7</windgust>
+                                        
+						<txtshort>Mostly sunny</txtshort>
+					    
+                                            <traditionalLink>http://www.accuweather.com/en-us/JP/13/Tokyo/hourly12.aspx?partner=blstreamhptablet&amp;cityId=226396</traditionalLink>
+                                        
+                                 
+                                 </hour>
+                                 
+                                 <hour time="1 PM">
+                                 
+                                            <weathericon>02</weathericon>
+                                        
+                                            <temperature>50</temperature>
+                                        
+                                            <realfeel>54</realfeel>
+                                        
+                                            <dewpoint>23</dewpoint>
+                                        
+                                            <humidity>34</humidity>
+                                        
+                                            <precip>0</precip>
+                                        
+                                            <rain>0</rain>
+                                        
+                                            <snow>0</snow>
+                                        
+                                            <ice>0</ice>
+                                        
+                                            <windspeed>5</windspeed>
+                                        
+						<winddirection>WNW</winddirection>
+					    
+                                            <windgust>7</windgust>
+                                        
+						<txtshort>Mostly sunny</txtshort>
+					    
+                                            <traditionalLink>http://www.accuweather.com/en-us/JP/13/Tokyo/hourly13.aspx?partner=blstreamhptablet&amp;cityId=226396</traditionalLink>
+                                        
+                                 
+                                 </hour>
+                                 
+                                 </hourly>
+                                
+			</forecast>
+			
+			<hurricane>
+				<wxh url="http://hurricane.accuweather.com/hurricane/index.asp?partner=blstreamhptablet" sat="http://sirocco.accuweather.com/adc_sat_108x81_public/ir/iscar.gif" cnt="0"/>
+				
+			</hurricane>
+			
+			    <indices>
+					<indice name="grassGrowing" value="0"></indice>
+<indice name="arthritis_daytime" value="1"></indice>
+<indice name="arthritis_nighttime" value="0"></indice>
+<indice name="asthma" value="2"></indice>
+<indice name="barbeque" value="5"></indice>
+<indice name="Beach Going" value="2"></indice>
+<indice name="Biking" value="8"></indice>
+<indice name="cold" value="0"></indice>
+<indice name="Outdoor Concert" value="2"></indice>
+<indice name="Fishing" value="3"></indice>
+<indice name="flu" value="0"></indice>
+<indice name="Golf" value="7"></indice>
+<indice name="Hiking" value="8"></indice>
+<indice name="Jogging" value="7"></indice>
+<indice name="Kite Flying" value="5"></indice>
+<indice name="migraine" value="0"></indice>
+<indice name="mosquito" value="0"></indice>
+<indice name="lawnMowing" value="8"></indice>
+<indice name="outdoor" value="6"></indice>
+<indice name="Running" value="8"></indice>
+<indice name="Sailing" value="7"></indice>
+<indice name="sinus" value="3"></indice>
+<indice name="Skating" value="7"></indice>
+<indice name="Skiing" value="1"></indice>
+<indice name="Star Gazing" value="5"></indice>
+<indice name="Tennis" value="8"></indice>
+<indice name="travel" value="0"></indice>
+<indice name="dogWalking" value="0"></indice>
+<indice name="indoorActivity" value="4"></indice>
+<indice name="frizz" value="2"></indice>
+
+		        </indices>
+		    
+                    <video>
+                        <clipCode></clipCode>
+                    </video>
+                    
+		<copyright>Copyright 2020 AccuWeather.com</copyright>
+		<use>This document is intended only for use by authorized licensees of AccuWeather.com. Unauthorized use is prohibited. All Rights Reserved.</use>
+		<product>blstream</product>
+		<redistribution>Redistribution Prohibited.</redistribution>
+	</adc_database>

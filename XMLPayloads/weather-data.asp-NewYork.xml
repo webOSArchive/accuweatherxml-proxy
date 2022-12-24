@@ -1,0 +1,1230 @@
+<?xml version="1.0"  encoding="utf-8"?>
+	<adc_database xmlns="http://www.accuweather.com">
+		<units>
+			<temp>F</temp>
+			<dist>MI</dist>
+			<speed>MPH</speed>
+			<pres>IN</pres>
+			<prec>IN</prec>
+		</units>
+	
+	<local>
+	<city>New York</city>
+        
+	<adminArea code="NY">New York</adminArea> 
+        <country code="US">United States</country>
+	<cityId>349727</cityId>
+	<primaryPostalCode>10007</primaryPostalCode>
+	
+    <locationKey>349727</locationKey>
+	
+	<lat>40.779</lat> 
+	<lon>-73.969</lon> 
+	<time>10:49</time> 
+	<timeZone>-5</timeZone>
+	<obsDaylight>
+	0
+	</obsDaylight>
+	<currentGmtOffset>-5</currentGmtOffset>
+	<timeZoneAbbreviation>EST</timeZoneAbbreviation>	
+	</local>
+	
+					<watchwarnareas zone="NYZ073" county="NYC005" isactive="0">
+					
+						<url>http://www.accuweather.com/watches-warnings.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;county=NYC005&amp;zone=NYZ073</url>
+					
+					</watchwarnareas>
+					
+                <currentconditions daylight="True">
+                    <url>http://www.accuweather.com/index-forecast.asp?partner=blstreamhptablet&amp;zipcode=10007</url>
+			<observationtime>10:49 AM</observationtime>
+			<pressure state="Steady">29.52</pressure>
+			<temperature>54</temperature>
+			<realfeel>45</realfeel>
+			<humidity>89%</humidity>
+			<weathertext>Cloudy</weathertext>
+			<weathericon>07</weathericon>
+			<windgusts>23</windgusts>
+			<windspeed>10</windspeed>
+			<winddirection>SSE</winddirection>
+			<visibility>10</visibility>
+			<precip>0.01</precip>
+			<uvindex index="0">Low</uvindex>
+			<dewpoint>51</dewpoint>
+			<cloudcover>100%</cloudcover>
+			<apparenttemp>60</apparenttemp>
+			<windchill>54</windchill>
+		</currentconditions>
+
+			<forecast>
+				<url>http://www.accuweather.com/forecast.asp?partner=blstreamhptablet&amp;zipcode=10007</url>
+					
+					<day number="1">
+						<url>http://www.accuweather.com/forecast-details.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=1</url>
+					<obsdate>12/25/2020</obsdate>
+					<daycode>Friday</daycode>
+					
+						<sunrise>7:19 AM</sunrise>
+						<sunset>4:34 PM</sunset>
+					
+					<daytime>
+						<txtshort>Morning rain; mostly cloudy</txtshort>
+						<txtlong>Rain this morning; otherwise, considerable clouds</txtlong>
+						<weathericon>12</weathericon>
+						<hightemperature>56</hightemperature>
+						<lowtemperature>27</lowtemperature>
+						<realfeelhigh>50</realfeelhigh>
+						<realfeellow>35</realfeellow>
+						<windspeed>8</windspeed>
+						<winddirection>SW</winddirection>
+						<windgust>23</windgust>
+						<maxuv>1</maxuv>
+						<rainamount>0.26</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.26</precipamount>
+						<tstormprob>1</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Partly cloudy and much colder</txtshort>
+						<txtlong>Partly cloudy and much colder</txtlong>
+						<weathericon>35</weathericon>
+						<hightemperature>56</hightemperature>
+						<lowtemperature>27</lowtemperature>
+						<realfeelhigh>33</realfeelhigh>
+						<realfeellow>14</realfeellow>
+						<windspeed>10</windspeed>
+						<winddirection>WSW</winddirection>
+						<windgust>16</windgust>
+						<maxuv>1</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="2">
+						<url>http://www.accuweather.com/forecast-details.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=2</url>
+					<obsdate>12/26/2020</obsdate>
+					<daycode>Saturday</daycode>
+					
+						<sunrise>7:19 AM</sunrise>
+						<sunset>4:35 PM</sunset>
+					
+					<daytime>
+						<txtshort>Breezy and much colder</txtshort>
+						<txtlong>Partly sunny, breezy and much colder</txtlong>
+						<weathericon>03</weathericon>
+						<hightemperature>34</hightemperature>
+						<lowtemperature>27</lowtemperature>
+						<realfeelhigh>18</realfeelhigh>
+						<realfeellow>9</realfeellow>
+						<windspeed>17</windspeed>
+						<winddirection>WSW</winddirection>
+						<windgust>20</windgust>
+						<maxuv>2</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Mainly clear</txtshort>
+						<txtlong>Mainly clear</txtlong>
+						<weathericon>34</weathericon>
+						<hightemperature>34</hightemperature>
+						<lowtemperature>27</lowtemperature>
+						<realfeelhigh>27</realfeelhigh>
+						<realfeellow>21</realfeellow>
+						<windspeed>6</windspeed>
+						<winddirection>WSW</winddirection>
+						<windgust>11</windgust>
+						<maxuv>2</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="3">
+						<url>http://www.accuweather.com/forecast-details.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=3</url>
+					<obsdate>12/27/2020</obsdate>
+					<daycode>Sunday</daycode>
+					
+						<sunrise>7:19 AM</sunrise>
+						<sunset>4:36 PM</sunset>
+					
+					<daytime>
+						<txtshort>Mostly sunny and not as cold</txtshort>
+						<txtlong>Mostly sunny and not as cold</txtlong>
+						<weathericon>02</weathericon>
+						<hightemperature>40</hightemperature>
+						<lowtemperature>36</lowtemperature>
+						<realfeelhigh>44</realfeelhigh>
+						<realfeellow>29</realfeellow>
+						<windspeed>3</windspeed>
+						<winddirection>SW</winddirection>
+						<windgust>6</windgust>
+						<maxuv>2</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Patchy clouds</txtshort>
+						<txtlong>Patchy clouds</txtlong>
+						<weathericon>35</weathericon>
+						<hightemperature>40</hightemperature>
+						<lowtemperature>36</lowtemperature>
+						<realfeelhigh>39</realfeelhigh>
+						<realfeellow>35</realfeellow>
+						<windspeed>4</windspeed>
+						<winddirection>S</winddirection>
+						<windgust>7</windgust>
+						<maxuv>2</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="4">
+						<url>http://www.accuweather.com/forecast-details.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=4</url>
+					<obsdate>12/28/2020</obsdate>
+					<daycode>Monday</daycode>
+					
+						<sunrise>7:20 AM</sunrise>
+						<sunset>4:36 PM</sunset>
+					
+					<daytime>
+						<txtshort>Rather cloudy</txtshort>
+						<txtlong>Rather cloudy</txtlong>
+						<weathericon>06</weathericon>
+						<hightemperature>48</hightemperature>
+						<lowtemperature>32</lowtemperature>
+						<realfeelhigh>46</realfeelhigh>
+						<realfeellow>37</realfeellow>
+						<windspeed>6</windspeed>
+						<winddirection>SSW</winddirection>
+						<windgust>9</windgust>
+						<maxuv>1</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Clear to partly cloudy</txtshort>
+						<txtlong>Clear to partly cloudy</txtlong>
+						<weathericon>34</weathericon>
+						<hightemperature>48</hightemperature>
+						<lowtemperature>32</lowtemperature>
+						<realfeelhigh>39</realfeelhigh>
+						<realfeellow>25</realfeellow>
+						<windspeed>8</windspeed>
+						<winddirection>W</winddirection>
+						<windgust>10</windgust>
+						<maxuv>1</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>2</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="5">
+						<url>http://www.accuweather.com/forecast-details.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=5</url>
+					<obsdate>12/29/2020</obsdate>
+					<daycode>Tuesday</daycode>
+					
+						<sunrise>7:20 AM</sunrise>
+						<sunset>4:37 PM</sunset>
+					
+					<daytime>
+						<txtshort>Sunny and colder</txtshort>
+						<txtlong>Colder with plenty of sunshine</txtlong>
+						<weathericon>01</weathericon>
+						<hightemperature>37</hightemperature>
+						<lowtemperature>26</lowtemperature>
+						<realfeelhigh>31</realfeelhigh>
+						<realfeellow>23</realfeellow>
+						<windspeed>9</windspeed>
+						<winddirection>NW</winddirection>
+						<windgust>11</windgust>
+						<maxuv>2</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Clear</txtshort>
+						<txtlong>Clear</txtlong>
+						<weathericon>33</weathericon>
+						<hightemperature>37</hightemperature>
+						<lowtemperature>26</lowtemperature>
+						<realfeelhigh>29</realfeelhigh>
+						<realfeellow>25</realfeellow>
+						<windspeed>4</windspeed>
+						<winddirection>NW</winddirection>
+						<windgust>7</windgust>
+						<maxuv>2</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="6">
+						<url>http://www.accuweather.com/forecast-details.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=6</url>
+					<obsdate>12/30/2020</obsdate>
+					<daycode>Wednesday</daycode>
+					
+						<sunrise>7:20 AM</sunrise>
+						<sunset>4:38 PM</sunset>
+					
+					<daytime>
+						<txtshort>Partly sunny</txtshort>
+						<txtlong>Partly sunny</txtlong>
+						<weathericon>03</weathericon>
+						<hightemperature>40</hightemperature>
+						<lowtemperature>39</lowtemperature>
+						<realfeelhigh>44</realfeelhigh>
+						<realfeellow>30</realfeellow>
+						<windspeed>3</windspeed>
+						<winddirection>W</winddirection>
+						<windgust>7</windgust>
+						<maxuv>2</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Increasing cloudiness</txtshort>
+						<txtlong>Increasing cloudiness</txtlong>
+						<weathericon>36</weathericon>
+						<hightemperature>40</hightemperature>
+						<lowtemperature>39</lowtemperature>
+						<realfeelhigh>40</realfeelhigh>
+						<realfeellow>37</realfeellow>
+						<windspeed>5</windspeed>
+						<winddirection>S</winddirection>
+						<windgust>11</windgust>
+						<maxuv>2</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="7">
+						<url>http://www.accuweather.com/forecast-details.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=7</url>
+					<obsdate>12/31/2020</obsdate>
+					<daycode>Thursday</daycode>
+					
+						<sunrise>7:20 AM</sunrise>
+						<sunset>4:39 PM</sunset>
+					
+					<daytime>
+						<txtshort>Cloudy with rain possible</txtshort>
+						<txtlong>Cloudy with rain possible</txtlong>
+						<weathericon>18</weathericon>
+						<hightemperature>46</hightemperature>
+						<lowtemperature>36</lowtemperature>
+						<realfeelhigh>38</realfeelhigh>
+						<realfeellow>35</realfeellow>
+						<windspeed>10</windspeed>
+						<winddirection>SE</winddirection>
+						<windgust>18</windgust>
+						<maxuv>1</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>2</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Cloudy with rain possible</txtshort>
+						<txtlong>Cloudy with rain possible</txtlong>
+						<weathericon>18</weathericon>
+						<hightemperature>46</hightemperature>
+						<lowtemperature>36</lowtemperature>
+						<realfeelhigh>35</realfeelhigh>
+						<realfeellow>30</realfeellow>
+						<windspeed>11</windspeed>
+						<winddirection>SSE</winddirection>
+						<windgust>22</windgust>
+						<maxuv>1</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="8">
+						<url>http://www.accuweather.com/forecast-details.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=8</url>
+					<obsdate>1/1/2021</obsdate>
+					<daycode>Friday</daycode>
+					
+						<sunrise>7:20 AM</sunrise>
+						<sunset>4:39 PM</sunset>
+					
+					<daytime>
+						<txtshort>Rain possible in the morning</txtshort>
+						<txtlong>Chance of rain in the morning; otherwise, cloudy</txtlong>
+						<weathericon>07</weathericon>
+						<hightemperature>45</hightemperature>
+						<lowtemperature>32</lowtemperature>
+						<realfeelhigh>39</realfeelhigh>
+						<realfeellow>29</realfeellow>
+						<windspeed>9</windspeed>
+						<winddirection>WNW</winddirection>
+						<windgust>23</windgust>
+						<maxuv>1</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Clear</txtshort>
+						<txtlong>Clear</txtlong>
+						<weathericon>33</weathericon>
+						<hightemperature>45</hightemperature>
+						<lowtemperature>32</lowtemperature>
+						<realfeelhigh>32</realfeelhigh>
+						<realfeellow>27</realfeellow>
+						<windspeed>7</windspeed>
+						<winddirection>WNW</winddirection>
+						<windgust>20</windgust>
+						<maxuv>1</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="9">
+						<url>http://www.accuweather.com/forecast-details.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=9</url>
+					<obsdate>1/2/2021</obsdate>
+					<daycode>Saturday</daycode>
+					
+						<sunrise>7:20 AM</sunrise>
+						<sunset>4:40 PM</sunset>
+					
+					<daytime>
+						<txtshort>Plenty of sunshine</txtshort>
+						<txtlong>Plenty of sunshine</txtlong>
+						<weathericon>01</weathericon>
+						<hightemperature>40</hightemperature>
+						<lowtemperature>31</lowtemperature>
+						<realfeelhigh>39</realfeelhigh>
+						<realfeellow>29</realfeellow>
+						<windspeed>6</windspeed>
+						<winddirection>W</winddirection>
+						<windgust>14</windgust>
+						<maxuv>2</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Clear</txtshort>
+						<txtlong>Clear</txtlong>
+						<weathericon>33</weathericon>
+						<hightemperature>40</hightemperature>
+						<lowtemperature>31</lowtemperature>
+						<realfeelhigh>32</realfeelhigh>
+						<realfeellow>30</realfeellow>
+						<windspeed>5</windspeed>
+						<winddirection>WSW</winddirection>
+						<windgust>14</windgust>
+						<maxuv>2</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="10">
+						<url>http://www.accuweather.com/forecast-details.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=10</url>
+					<obsdate>1/3/2021</obsdate>
+					<daycode>Sunday</daycode>
+					
+						<sunrise>7:20 AM</sunrise>
+						<sunset>4:41 PM</sunset>
+					
+					<daytime>
+						<txtshort>Mostly cloudy</txtshort>
+						<txtlong>Mostly cloudy</txtlong>
+						<weathericon>06</weathericon>
+						<hightemperature>39</hightemperature>
+						<lowtemperature>31</lowtemperature>
+						<realfeelhigh>36</realfeelhigh>
+						<realfeellow>30</realfeellow>
+						<windspeed>6</windspeed>
+						<winddirection>NW</winddirection>
+						<windgust>15</windgust>
+						<maxuv>2</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Partly cloudy</txtshort>
+						<txtlong>Partly cloudy</txtlong>
+						<weathericon>35</weathericon>
+						<hightemperature>39</hightemperature>
+						<lowtemperature>31</lowtemperature>
+						<realfeelhigh>29</realfeelhigh>
+						<realfeellow>25</realfeellow>
+						<windspeed>7</windspeed>
+						<winddirection>NNW</winddirection>
+						<windgust>16</windgust>
+						<maxuv>2</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="11">
+						<url>http://www.accuweather.com/forecast-details.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=11</url>
+					<obsdate>1/4/2021</obsdate>
+					<daycode>Monday</daycode>
+					
+						<sunrise>7:20 AM</sunrise>
+						<sunset>4:42 PM</sunset>
+					
+					<daytime>
+						<txtshort>Cloudy with rain possible</txtshort>
+						<txtlong>Cloudy with rain possible</txtlong>
+						<weathericon>07</weathericon>
+						<hightemperature>39</hightemperature>
+						<lowtemperature>30</lowtemperature>
+						<realfeelhigh>36</realfeelhigh>
+						<realfeellow>27</realfeellow>
+						<windspeed>7</windspeed>
+						<winddirection>NE</winddirection>
+						<windgust>15</windgust>
+						<maxuv>1</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Overcast</txtshort>
+						<txtlong>Overcast</txtlong>
+						<weathericon>07</weathericon>
+						<hightemperature>39</hightemperature>
+						<lowtemperature>30</lowtemperature>
+						<realfeelhigh>27</realfeelhigh>
+						<realfeellow>16</realfeellow>
+						<windspeed>11</windspeed>
+						<winddirection>NNE</winddirection>
+						<windgust>22</windgust>
+						<maxuv>1</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="12">
+						<url>http://www.accuweather.com/forecast-details.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=12</url>
+					<obsdate>1/5/2021</obsdate>
+					<daycode>Tuesday</daycode>
+					
+						<sunrise>7:20 AM</sunrise>
+						<sunset>4:43 PM</sunset>
+					
+					<daytime>
+						<txtshort>Mostly sunny</txtshort>
+						<txtlong>Mostly sunny</txtlong>
+						<weathericon>02</weathericon>
+						<hightemperature>40</hightemperature>
+						<lowtemperature>31</lowtemperature>
+						<realfeelhigh>33</realfeelhigh>
+						<realfeellow>18</realfeellow>
+						<windspeed>11</windspeed>
+						<winddirection>NNW</winddirection>
+						<windgust>23</windgust>
+						<maxuv>2</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Clear</txtshort>
+						<txtlong>Clear</txtlong>
+						<weathericon>33</weathericon>
+						<hightemperature>40</hightemperature>
+						<lowtemperature>31</lowtemperature>
+						<realfeelhigh>27</realfeelhigh>
+						<realfeellow>20</realfeellow>
+						<windspeed>10</windspeed>
+						<winddirection>WNW</winddirection>
+						<windgust>19</windgust>
+						<maxuv>2</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="13">
+						<url>http://www.accuweather.com/forecast-details.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=13</url>
+					<obsdate>1/6/2021</obsdate>
+					<daycode>Wednesday</daycode>
+					
+						<sunrise>7:20 AM</sunrise>
+						<sunset>4:44 PM</sunset>
+					
+					<daytime>
+						<txtshort>Plenty of sun</txtshort>
+						<txtlong>Plenty of sun</txtlong>
+						<weathericon>01</weathericon>
+						<hightemperature>41</hightemperature>
+						<lowtemperature>31</lowtemperature>
+						<realfeelhigh>34</realfeelhigh>
+						<realfeellow>21</realfeellow>
+						<windspeed>10</windspeed>
+						<winddirection>WNW</winddirection>
+						<windgust>23</windgust>
+						<maxuv>2</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Clear</txtshort>
+						<txtlong>Clear</txtlong>
+						<weathericon>33</weathericon>
+						<hightemperature>41</hightemperature>
+						<lowtemperature>31</lowtemperature>
+						<realfeelhigh>32</realfeelhigh>
+						<realfeellow>31</realfeellow>
+						<windspeed>5</windspeed>
+						<winddirection>WNW</winddirection>
+						<windgust>12</windgust>
+						<maxuv>2</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="14">
+						<url>http://www.accuweather.com/forecast-details.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=14</url>
+					<obsdate>1/7/2021</obsdate>
+					<daycode>Thursday</daycode>
+					
+						<sunrise>7:20 AM</sunrise>
+						<sunset>4:44 PM</sunset>
+					
+					<daytime>
+						<txtshort>Partly sunny</txtshort>
+						<txtlong>Partly sunny</txtlong>
+						<weathericon>03</weathericon>
+						<hightemperature>43</hightemperature>
+						<lowtemperature>34</lowtemperature>
+						<realfeelhigh>47</realfeelhigh>
+						<realfeellow>33</realfeellow>
+						<windspeed>3</windspeed>
+						<winddirection>SSW</winddirection>
+						<windgust>11</windgust>
+						<maxuv>2</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>Cloudy, a little rain late</txtshort>
+						<txtlong>Considerable cloudiness with a touch of rain late</txtlong>
+						<weathericon>12</weathericon>
+						<hightemperature>43</hightemperature>
+						<lowtemperature>34</lowtemperature>
+						<realfeelhigh>34</realfeelhigh>
+						<realfeellow>26</realfeellow>
+						<windspeed>7</windspeed>
+						<winddirection>SE</winddirection>
+						<windgust>12</windgust>
+						<maxuv>2</maxuv>
+						<rainamount>0.04</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.04</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+					
+					<day number="15">
+						<url>http://www.accuweather.com/forecast-details.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=15</url>
+					<obsdate>1/8/2021</obsdate>
+					<daycode>Friday</daycode>
+					
+						<sunrise>7:20 AM</sunrise>
+						<sunset>4:45 PM</sunset>
+					
+					<daytime>
+						<txtshort>Considerable cloudiness</txtshort>
+						<txtlong>Considerable cloudiness</txtlong>
+						<weathericon>07</weathericon>
+						<hightemperature>44</hightemperature>
+						<lowtemperature>37</lowtemperature>
+						<realfeelhigh>47</realfeelhigh>
+						<realfeellow>30</realfeellow>
+						<windspeed>3</windspeed>
+						<winddirection>S</winddirection>
+						<windgust>10</windgust>
+						<maxuv>1</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.0</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.00</precipamount>
+						<tstormprob>0</tstormprob>
+					</daytime>
+					<nighttime>
+						<txtshort>A little late-night snow</txtshort>
+						<txtlong>Considerable cloudiness; a couple of evening flurries followed by a bit of snow late</txtlong>
+						<weathericon>19</weathericon>
+						<hightemperature>44</hightemperature>
+						<lowtemperature>37</lowtemperature>
+						<realfeelhigh>37</realfeelhigh>
+						<realfeellow>29</realfeellow>
+						<windspeed>7</windspeed>
+						<winddirection>NNE</winddirection>
+						<windgust>10</windgust>
+						<maxuv>1</maxuv>
+						<rainamount>0.00</rainamount>
+						<snowamount>0.7</snowamount>
+						<iceamount>0.00</iceamount>
+						<precipamount>0.23</precipamount>
+						<tstormprob>0</tstormprob>
+					</nighttime>
+
+					</day>
+				
+                                <hourly>
+                                
+                                 <hour time="11 AM">
+                                 
+                                            <weathericon>18</weathericon>
+                                        
+                                            <temperature>53</temperature>
+                                        
+                                            <realfeel>46</realfeel>
+                                        
+                                            <dewpoint>48</dewpoint>
+                                        
+                                            <humidity>83</humidity>
+                                        
+                                            <precip>0.013</precip>
+                                        
+                                            <rain>0.013</rain>
+                                        
+                                            <snow>0</snow>
+                                        
+                                            <ice>0</ice>
+                                        
+                                            <windspeed>10</windspeed>
+                                        
+						<winddirection>SSE</winddirection>
+					    
+                                            <windgust>17</windgust>
+                                        
+						<txtshort>Rain</txtshort>
+					    
+                                            <traditionalLink>http://www.accuweather.com/forecast-hourly.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=1&amp;hbhhour=11</traditionalLink>
+                                        
+                                 
+                                 </hour>
+                                 
+                                 <hour time="12 PM">
+                                 
+                                            <weathericon>18</weathericon>
+                                        
+                                            <temperature>52</temperature>
+                                        
+                                            <realfeel>43</realfeel>
+                                        
+                                            <dewpoint>46</dewpoint>
+                                        
+                                            <humidity>79</humidity>
+                                        
+                                            <precip>0.063</precip>
+                                        
+                                            <rain>0.063</rain>
+                                        
+                                            <snow>0</snow>
+                                        
+                                            <ice>0</ice>
+                                        
+                                            <windspeed>11</windspeed>
+                                        
+						<winddirection>SSE</winddirection>
+					    
+                                            <windgust>23</windgust>
+                                        
+						<txtshort>Rain</txtshort>
+					    
+                                            <traditionalLink>http://www.accuweather.com/forecast-hourly.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=1&amp;hbhhour=12</traditionalLink>
+                                        
+                                 
+                                 </hour>
+                                 
+                                 <hour time="1 PM">
+                                 
+                                            <weathericon>07</weathericon>
+                                        
+                                            <temperature>51</temperature>
+                                        
+                                            <realfeel>49</realfeel>
+                                        
+                                            <dewpoint>43</dewpoint>
+                                        
+                                            <humidity>75</humidity>
+                                        
+                                            <precip>0</precip>
+                                        
+                                            <rain>0</rain>
+                                        
+                                            <snow>0</snow>
+                                        
+                                            <ice>0</ice>
+                                        
+                                            <windspeed>6</windspeed>
+                                        
+						<winddirection>SSE</winddirection>
+					    
+                                            <windgust>11</windgust>
+                                        
+						<txtshort>Cloudy</txtshort>
+					    
+                                            <traditionalLink>http://www.accuweather.com/forecast-hourly.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=1&amp;hbhhour=13</traditionalLink>
+                                        
+                                 
+                                 </hour>
+                                 
+                                 <hour time="2 PM">
+                                 
+                                            <weathericon>07</weathericon>
+                                        
+                                            <temperature>50</temperature>
+                                        
+                                            <realfeel>47</realfeel>
+                                        
+                                            <dewpoint>41</dewpoint>
+                                        
+                                            <humidity>73</humidity>
+                                        
+                                            <precip>0</precip>
+                                        
+                                            <rain>0</rain>
+                                        
+                                            <snow>0</snow>
+                                        
+                                            <ice>0</ice>
+                                        
+                                            <windspeed>7</windspeed>
+                                        
+						<winddirection>SSE</winddirection>
+					    
+                                            <windgust>11</windgust>
+                                        
+						<txtshort>Cloudy</txtshort>
+					    
+                                            <traditionalLink>http://www.accuweather.com/forecast-hourly.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=1&amp;hbhhour=14</traditionalLink>
+                                        
+                                 
+                                 </hour>
+                                 
+                                 <hour time="3 PM">
+                                 
+                                            <weathericon>07</weathericon>
+                                        
+                                            <temperature>48</temperature>
+                                        
+                                            <realfeel>43</realfeel>
+                                        
+                                            <dewpoint>38</dewpoint>
+                                        
+                                            <humidity>69</humidity>
+                                        
+                                            <precip>0</precip>
+                                        
+                                            <rain>0</rain>
+                                        
+                                            <snow>0</snow>
+                                        
+                                            <ice>0</ice>
+                                        
+                                            <windspeed>7</windspeed>
+                                        
+						<winddirection>S</winddirection>
+					    
+                                            <windgust>11</windgust>
+                                        
+						<txtshort>Cloudy</txtshort>
+					    
+                                            <traditionalLink>http://www.accuweather.com/forecast-hourly.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=1&amp;hbhhour=15</traditionalLink>
+                                        
+                                 
+                                 </hour>
+                                 
+                                 <hour time="4 PM">
+                                 
+                                            <weathericon>07</weathericon>
+                                        
+                                            <temperature>46</temperature>
+                                        
+                                            <realfeel>41</realfeel>
+                                        
+                                            <dewpoint>34</dewpoint>
+                                        
+                                            <humidity>65</humidity>
+                                        
+                                            <precip>0</precip>
+                                        
+                                            <rain>0</rain>
+                                        
+                                            <snow>0</snow>
+                                        
+                                            <ice>0</ice>
+                                        
+                                            <windspeed>7</windspeed>
+                                        
+						<winddirection>SSW</winddirection>
+					    
+                                            <windgust>11</windgust>
+                                        
+						<txtshort>Cloudy</txtshort>
+					    
+                                            <traditionalLink>http://www.accuweather.com/forecast-hourly.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=1&amp;hbhhour=16</traditionalLink>
+                                        
+                                 
+                                 </hour>
+                                 
+                                 <hour time="5 PM">
+                                 
+                                            <weathericon>38</weathericon>
+                                        
+                                            <temperature>43</temperature>
+                                        
+                                            <realfeel>37</realfeel>
+                                        
+                                            <dewpoint>31</dewpoint>
+                                        
+                                            <humidity>61</humidity>
+                                        
+                                            <precip>0</precip>
+                                        
+                                            <rain>0</rain>
+                                        
+                                            <snow>0</snow>
+                                        
+                                            <ice>0</ice>
+                                        
+                                            <windspeed>8</windspeed>
+                                        
+						<winddirection>WSW</winddirection>
+					    
+                                            <windgust>9</windgust>
+                                        
+						<txtshort>Mostly cloudy</txtshort>
+					    
+                                            <traditionalLink>http://www.accuweather.com/forecast-hourly.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=1&amp;hbhhour=17</traditionalLink>
+                                        
+                                 
+                                 </hour>
+                                 
+                                 <hour time="6 PM">
+                                 
+                                            <weathericon>36</weathericon>
+                                        
+                                            <temperature>41</temperature>
+                                        
+                                            <realfeel>35</realfeel>
+                                        
+                                            <dewpoint>27</dewpoint>
+                                        
+                                            <humidity>57</humidity>
+                                        
+                                            <precip>0</precip>
+                                        
+                                            <rain>0</rain>
+                                        
+                                            <snow>0</snow>
+                                        
+                                            <ice>0</ice>
+                                        
+                                            <windspeed>8</windspeed>
+                                        
+						<winddirection>WSW</winddirection>
+					    
+                                            <windgust>10</windgust>
+                                        
+						<txtshort>Intermittent clouds</txtshort>
+					    
+                                            <traditionalLink>http://www.accuweather.com/forecast-hourly.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=1&amp;hbhhour=18</traditionalLink>
+                                        
+                                 
+                                 </hour>
+                                 
+                                 <hour time="7 PM">
+                                 
+                                            <weathericon>35</weathericon>
+                                        
+                                            <temperature>40</temperature>
+                                        
+                                            <realfeel>33</realfeel>
+                                        
+                                            <dewpoint>25</dewpoint>
+                                        
+                                            <humidity>55</humidity>
+                                        
+                                            <precip>0</precip>
+                                        
+                                            <rain>0</rain>
+                                        
+                                            <snow>0</snow>
+                                        
+                                            <ice>0</ice>
+                                        
+                                            <windspeed>9</windspeed>
+                                        
+						<winddirection>SW</winddirection>
+					    
+                                            <windgust>11</windgust>
+                                        
+						<txtshort>Partly cloudy</txtshort>
+					    
+                                            <traditionalLink>http://www.accuweather.com/forecast-hourly.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=1&amp;hbhhour=19</traditionalLink>
+                                        
+                                 
+                                 </hour>
+                                 
+                                 <hour time="8 PM">
+                                 
+                                            <weathericon>35</weathericon>
+                                        
+                                            <temperature>38</temperature>
+                                        
+                                            <realfeel>29</realfeel>
+                                        
+                                            <dewpoint>24</dewpoint>
+                                        
+                                            <humidity>57</humidity>
+                                        
+                                            <precip>0</precip>
+                                        
+                                            <rain>0</rain>
+                                        
+                                            <snow>0</snow>
+                                        
+                                            <ice>0</ice>
+                                        
+                                            <windspeed>9</windspeed>
+                                        
+						<winddirection>WSW</winddirection>
+					    
+                                            <windgust>11</windgust>
+                                        
+						<txtshort>Partly cloudy</txtshort>
+					    
+                                            <traditionalLink>http://www.accuweather.com/forecast-hourly.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=1&amp;hbhhour=20</traditionalLink>
+                                        
+                                 
+                                 </hour>
+                                 
+                                 <hour time="9 PM">
+                                 
+                                            <weathericon>34</weathericon>
+                                        
+                                            <temperature>36</temperature>
+                                        
+                                            <realfeel>27</realfeel>
+                                        
+                                            <dewpoint>22</dewpoint>
+                                        
+                                            <humidity>58</humidity>
+                                        
+                                            <precip>0</precip>
+                                        
+                                            <rain>0</rain>
+                                        
+                                            <snow>0</snow>
+                                        
+                                            <ice>0</ice>
+                                        
+                                            <windspeed>10</windspeed>
+                                        
+						<winddirection>WSW</winddirection>
+					    
+                                            <windgust>11</windgust>
+                                        
+						<txtshort>Mostly clear</txtshort>
+					    
+                                            <traditionalLink>http://www.accuweather.com/forecast-hourly.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=1&amp;hbhhour=21</traditionalLink>
+                                        
+                                 
+                                 </hour>
+                                 
+                                 <hour time="10 PM">
+                                 
+                                            <weathericon>34</weathericon>
+                                        
+                                            <temperature>34</temperature>
+                                        
+                                            <realfeel>24</realfeel>
+                                        
+                                            <dewpoint>20</dewpoint>
+                                        
+                                            <humidity>56</humidity>
+                                        
+                                            <precip>0</precip>
+                                        
+                                            <rain>0</rain>
+                                        
+                                            <snow>0</snow>
+                                        
+                                            <ice>0</ice>
+                                        
+                                            <windspeed>10</windspeed>
+                                        
+						<winddirection>WSW</winddirection>
+					    
+                                            <windgust>12</windgust>
+                                        
+						<txtshort>Mostly clear</txtshort>
+					    
+                                            <traditionalLink>http://www.accuweather.com/forecast-hourly.asp?partner=blstreamhptablet&amp;zipcode=10007&amp;fday=1&amp;hbhhour=22</traditionalLink>
+                                        
+                                 
+                                 </hour>
+                                 
+                                 </hourly>
+                                
+			</forecast>
+			
+			<hurricane>
+				<wxh url="http://hurricane.accuweather.com/hurricane/index.asp?partner=blstreamhptablet" sat="http://sirocco.accuweather.com/adc_sat_108x81_public/ir/iscar.gif" cnt="0"/>
+				
+			</hurricane>
+			
+			    <indices>
+					<indice name="grassGrowing" value="0"></indice>
+<indice name="arthritis_daytime" value="10"></indice>
+<indice name="arthritis_nighttime" value="8"></indice>
+<indice name="asthma" value="4"></indice>
+<indice name="barbeque" value="2"></indice>
+<indice name="Beach Going" value="0"></indice>
+<indice name="Biking" value="3"></indice>
+<indice name="cold" value="6"></indice>
+<indice name="Outdoor Concert" value="0"></indice>
+<indice name="Fishing" value="0"></indice>
+<indice name="flu" value="5"></indice>
+<indice name="Golf" value="1"></indice>
+<indice name="Hiking" value="2"></indice>
+<indice name="Jogging" value="2"></indice>
+<indice name="Kite Flying" value="1"></indice>
+<indice name="migraine" value="2"></indice>
+<indice name="mosquito" value="0"></indice>
+<indice name="lawnMowing" value="0"></indice>
+<indice name="outdoor" value="2"></indice>
+<indice name="Running" value="2"></indice>
+<indice name="Sailing" value="5"></indice>
+<indice name="sinus" value="6"></indice>
+<indice name="Skating" value="2"></indice>
+<indice name="Skiing" value="0"></indice>
+<indice name="Star Gazing" value="3"></indice>
+<indice name="Tennis" value="2"></indice>
+<indice name="travel" value="6"></indice>
+<indice name="dogWalking" value="0"></indice>
+<indice name="indoorActivity" value="8"></indice>
+<indice name="frizz" value="3"></indice>
+
+		        </indices>
+		    
+                    <video>
+                        <clipCode>LGA</clipCode>
+                    </video>
+                    
+		<copyright>Copyright 2020 AccuWeather.com</copyright>
+		<use>This document is intended only for use by authorized licensees of AccuWeather.com. Unauthorized use is prohibited. All Rights Reserved.</use>
+		<product>blstream</product>
+		<redistribution>Redistribution Prohibited.</redistribution>
+	</adc_database>

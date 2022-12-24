@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+	<adc_database xmlns="http://www.accuweather.com">
+	
+	<citylist us="15" intl="3" extra_cities="0">
+	
+			<location cnt="1" city="New York" state="New York" location="cityId:349727"/>
+	
+			<location cnt="2" city="New York" state="Nebraska" location="cityId:334370"/>
+	
+			<location cnt="3" city="New York" state="United Kingdom (Lincolnshire)" location="cityId:710949"/>
+	
+			<location cnt="4" city="Florence" state="Indiana" location="cityId:2109930"/>
+	
+			<location cnt="5" city="Clinton" state="Wisconsin" location="cityId:2158434"/>
+	
+			<location cnt="6" city="New York" state="United Kingdom (North Tyneside)" location="cityId:2531279"/>
+	
+			<location cnt="7" city="New York Precinct" state="Nebraska" location="cityId:2642589"/>
+	
+			<location cnt="8" city="New York" state="Missouri" location="cityId:2126946"/>
+	
+			<location cnt="9" city="New York" state="Montana" location="cityId:2209814"/>
+	
+			<location cnt="10" city="Eagle Creek" state="Alabama" location="cityId:2232442"/>
+	
+			<location cnt="11" city="New York" state="Ohio" location="cityId:2086634"/>
+	
+			<location cnt="12" city="New York" state="Tennessee" location="cityId:2125351"/>
+	
+			<location cnt="13" city="New York" state="Texas" location="cityId:2185062"/>
+	
+			<location cnt="14" city="New York" state="New Mexico" location="cityId:2212053"/>
+	
+			<location cnt="15" city="New York" state="Iowa" location="cityId:2213492"/>
+	
+			<location cnt="16" city="New York" state="Kentucky" location="cityId:2179646"/>
+	
+			<location cnt="17" city="New York" state="Florida" location="cityId:2245721"/>
+	
+			<location cnt="18" city="New York" state="Honduras (Lempira)" location="cityId:1171811"/>
+	
+	</citylist>
+	<copyright>Copyright 2020 AccuWeather.com</copyright>
+	<use>This document is intended only for use by authorized licensees of AccuWeather.com. Unauthorized use is prohibited. All Rights Reserved.</use>
+	<product>accuweather - iphonev4 feed</product>
+	<redistribution>Redistribution Prohibited.</redistribution>
+</adc_database>

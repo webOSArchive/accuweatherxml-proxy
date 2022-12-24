@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<ATT_cache>
+   <valid_time>2020-12-25_15:55</valid_time>
+   <max_zoom_level>9</max_zoom_level>
+   <dataLocation  url="http://maptiles.accuweather.com/tiles/worldSat/bc5c560b9"/>
+   <frame_count>22</frame_count>
+   <frame number="0" hhmm="1855">  </frame>
+   <frame number="1" hhmm="1955">  </frame>
+   <frame number="2" hhmm="2055">  </frame>
+   <frame number="3" hhmm="2155">  </frame>
+   <frame number="4" hhmm="2255">  </frame>
+   <frame number="5" hhmm="2355">  </frame>
+   <frame number="6" hhmm="0055">  </frame>
+   <frame number="7" hhmm="0155">  </frame>
+   <frame number="8" hhmm="0255">  </frame>
+   <frame number="9" hhmm="0355">  </frame>
+   <frame number="10" hhmm="0455">  </frame>
+   <frame number="11" hhmm="0555">  </frame>
+   <frame number="12" hhmm="0655">  </frame>
+   <frame number="13" hhmm="0755">  </frame>
+   <frame number="14" hhmm="0855">  </frame>
+   <frame number="15" hhmm="0955">  </frame>
+   <frame number="16" hhmm="1055">  </frame>
+   <frame number="17" hhmm="1155">  </frame>
+   <frame number="18" hhmm="1255">  </frame>
+   <frame number="19" hhmm="1355">  </frame>
+   <frame number="20" hhmm="1455">  </frame>
+   <frame number="21" hhmm="1555">  </frame>
+</ATT_cache>

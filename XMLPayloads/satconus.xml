@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<ATT_cache>
+   <valid_time>2020-12-25_16:30</valid_time>
+   <max_zoom_level>9</max_zoom_level>
+   <dataLocation  url="http://maptiles.accuweather.com/tiles/satellite/d62baa763"/>
+   <frame_count>43</frame_count>
+   <frame number="0" hhmm="1800">  </frame>
+   <frame number="1" hhmm="1830">  </frame>
+   <frame number="2" hhmm="1900">  </frame>
+   <frame number="3" hhmm="1930">  </frame>
+   <frame number="4" hhmm="2000">  </frame>
+   <frame number="5" hhmm="2030">  </frame>
+   <frame number="6" hhmm="2100">  </frame>
+   <frame number="7" hhmm="2130">  </frame>
+   <frame number="8" hhmm="2200">  </frame>
+   <frame number="9" hhmm="2230">  </frame>
+   <frame number="10" hhmm="2300">  </frame>
+   <frame number="11" hhmm="2330">  </frame>
+   <frame number="12" hhmm="0000">  </frame>
+   <frame number="13" hhmm="0030">  </frame>
+   <frame number="14" hhmm="0100">  </frame>
+   <frame number="15" hhmm="0130">  </frame>
+   <frame number="16" hhmm="0200">  </frame>
+   <frame number="17" hhmm="0230">  </frame>
+   <frame number="18" hhmm="0300">  </frame>
+   <frame number="19" hhmm="0330">  </frame>
+   <frame number="20" hhmm="0400">  </frame>
+   <frame number="21" hhmm="0430">  </frame>
+   <frame number="22" hhmm="0530">  </frame>
+   <frame number="23" hhmm="0630">  </frame>
+   <frame number="24" hhmm="0700">  </frame>
+   <frame number="25" hhmm="0730">  </frame>
+   <frame number="26" hhmm="0800">  </frame>
+   <frame number="27" hhmm="0830">  </frame>
+   <frame number="28" hhmm="0900">  </frame>
+   <frame number="29" hhmm="0930">  </frame>
+   <frame number="30" hhmm="1030">  </frame>
+   <frame number="31" hhmm="1100">  </frame>
+   <frame number="32" hhmm="1130">  </frame>
+   <frame number="33" hhmm="1200">  </frame>
+   <frame number="34" hhmm="1230">  </frame>
+   <frame number="35" hhmm="1300">  </frame>
+   <frame number="36" hhmm="1330">  </frame>
+   <frame number="37" hhmm="1400">  </frame>
+   <frame number="38" hhmm="1430">  </frame>
+   <frame number="39" hhmm="1500">  </frame>
+   <frame number="40" hhmm="1530">  </frame>
+   <frame number="41" hhmm="1600">  </frame>
+   <frame number="42" hhmm="1630">  </frame>
+</ATT_cache>

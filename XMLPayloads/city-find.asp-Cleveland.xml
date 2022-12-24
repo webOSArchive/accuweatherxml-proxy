@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+	<adc_database xmlns="http://www.accuweather.com">
+	
+	<citylist us="46" intl="5" extra_cities="0">
+	
+			<location cnt="1" city="Cleveland" state="Ohio" location="cityId:350127"/>
+	
+			<location cnt="2" city="Cleveland" state="Tennessee" location="cityId:331082"/>
+	
+			<location cnt="3" city="Cleveland" state="Alabama" location="cityId:2254226"/>
+	
+			<location cnt="4" city="Cleveland" state="Mississippi" location="cityId:334007"/>
+	
+			<location cnt="5" city="Cleveland" state="Australia (Queensland)" location="cityId:18985"/>
+	
+			<location cnt="6" city="Cleveland" state="Texas" location="cityId:336021"/>
+	
+			<location cnt="7" city="Cleveland" state="North Dakota" location="cityId:344731"/>
+	
+			<location cnt="8" city="Cleveland" state="New York" location="cityId:2102021"/>
+	
+			<location cnt="9" city="Cleveland" state="Missouri" location="cityId:2108042"/>
+	
+			<location cnt="10" city="Cleveland" state="North Carolina" location="cityId:2096529"/>
+	
+			<location cnt="11" city="Cleveland" state="Oklahoma" location="cityId:335218"/>
+	
+			<location cnt="12" city="Cleveland" state="Wisconsin" location="cityId:2158432"/>
+	
+			<location cnt="13" city="Cleveland" state="Missouri" location="cityId:2108098"/>
+	
+			<location cnt="14" city="Cleveland" state="Utah" location="cityId:2195939"/>
+	
+			<location cnt="15" city="Cleveland" state="Virginia" location="cityId:2173012"/>
+	
+			<location cnt="16" city="Cleveland" state="Canada (Quebec)" location="cityId:3554779"/>
+	
+			<location cnt="17" city="Cleveland" state="Alabama" location="cityId:2090455"/>
+	
+			<location cnt="18" city="Cleveland" state="Canada (Nova Scotia)" location="cityId:2290589"/>
+	
+			<location cnt="19" city="Cleveland" state="Australia (Tasmania)" location="cityId:15474"/>
+	
+			<location cnt="20" city="Cleveland" state="Australia (New South Wales)" location="cityId:2264519"/>
+	
+			<location cnt="21" city="Cleveland" state="Minnesota" location="cityId:2247411"/>
+	
+			<location cnt="22" city="Cleveland" state="Minnesota" location="cityId:3591114"/>
+	
+			<location cnt="23" city="Cleveland" state="Illinois" location="cityId:2240737"/>
+	
+			<location cnt="24" city="Cleveland" state="Florida" location="cityId:2230943"/>
+	
+			<location cnt="25" city="Cleveland" state="Georgia" location="cityId:332430"/>
+	
+			<location cnt="26" city="Cleveland Township" state="Indiana" location="cityId:2634872"/>
+	
+			<location cnt="27" city="Cleveland Township" state="Arkansas" location="cityId:2629207"/>
+	
+			<location cnt="28" city="Cleveland Township" state="Arkansas" location="cityId:2630051"/>
+	
+			<location cnt="29" city="Cleveland Township" state="Arkansas" location="cityId:2630086"/>
+	
+			<location cnt="30" city="Cleveland Township" state="Arkansas" location="cityId:2629009"/>
+	
+			<location cnt="31" city="Cleveland Township" state="Indiana" location="cityId:2634873"/>
+	
+			<location cnt="32" city="Cleveland Township" state="Michigan" location="cityId:2637919"/>
+	
+			<location cnt="33" city="Cleveland Township" state="Kansas" location="cityId:2641341"/>
+	
+			<location cnt="34" city="Cleveland Township" state="Iowa" location="cityId:2636948"/>
+	
+			<location cnt="35" city="Cleveland Township" state="Kansas" location="cityId:2641258"/>
+	
+			<location cnt="36" city="Cleveland Township" state="Kansas" location="cityId:2640609"/>
+	
+			<location cnt="37" city="Cleveland Township" state="Iowa" location="cityId:2636947"/>
+	
+			<location cnt="38" city="Cleveland Township" state="Arkansas" location="cityId:2630120"/>
+	
+			<location cnt="39" city="Cleveland Township" state="Arkansas" location="cityId:2630148"/>
+	
+			<location cnt="40" city="Cleveland Township" state="Arkansas" location="cityId:2631073"/>
+	
+			<location cnt="41" city="Cleveland Township" state="South Dakota" location="cityId:2633571"/>
+	
+			<location cnt="42" city="Cleveland Township" state="Pennsylvania" location="cityId:2630586"/>
+	
+			<location cnt="43" city="Cleveland Township" state="South Dakota" location="cityId:2633596"/>
+	
+			<location cnt="44" city="Cleveland Precinct" state="Nebraska" location="cityId:2642337"/>
+	
+			<location cnt="45" city="Cleveland Township" state="South Dakota" location="cityId:2633681"/>
+	
+			<location cnt="46" city="Cleveland Precinct" state="Nebraska" location="cityId:2642339"/>
+	
+			<location cnt="47" city="Cleveland Precinct" state="Nebraska" location="cityId:2642338"/>
+	
+			<location cnt="48" city="Cleveland" state="Nebraska" location="cityId:2155809"/>
+	
+			<location cnt="49" city="Cleveland Township" state="Nebraska" location="cityId:2620476"/>
+	
+			<location cnt="50" city="Cleveland Township" state="Nebraska" location="cityId:2620475"/>
+	
+			<location cnt="51" city="Cleveland" state="Utah" location="cityId:2172917"/>
+	
+	</citylist>
+	<copyright>Copyright 2020 AccuWeather.com</copyright>
+	<use>This document is intended only for use by authorized licensees of AccuWeather.com. Unauthorized use is prohibited. All Rights Reserved.</use>
+	<product>accuweather - iphonev4 feed</product>
+	<redistribution>Redistribution Prohibited.</redistribution>
+</adc_database>
