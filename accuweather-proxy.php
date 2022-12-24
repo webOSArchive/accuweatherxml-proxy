@@ -1,15 +1,17 @@
 <?php
+$serviceRoot = "http://dataservice.accuweather.com";
 
 function get_postalcode_locationId($locationId, $apiKey) {
-    //TODO: This needs to be cached to avoid extra API calls
+    global $serviceRoot;
+    
     $locParts = explode("|", $locationId);
     $pcode = str_replace("postalCode:", "", $locParts[0]);
     $ccode = "US";
     if (count($locParts) > 1) {
         $ccode = $locParts[1];
     }
-    $serviceUrl = "http://dataservice.accuweather.com/locations/v1/postalcodes/" . $ccode . "/search?apikey=" . $apiKey . "&q=" . $pcode;
-    $serviceRaw = get_remote_data($serviceUrl);
+    $serviceUrl = $serviceRoot . "/locations/v1/postalcodes/" . $ccode . "/search?q=" . $pcode;
+    $serviceRaw = get_remote_data($serviceUrl, $apiKey, $cacheHours=8760);
     if (isset($serviceRaw)) {
         $serviceData = json_decode($serviceRaw);
         if (is_array($serviceData) && isset($serviceData[0]) && isset($serviceData[0]->Key)) {
@@ -28,9 +30,10 @@ function get_units_asXml($useMetric) {
     }
 }
 
-function get_local_data($locationId, $apiKey) {
-    $serviceUrl = "http://dataservice.accuweather.com/locations/v1/" . $locationId . "?apikey=" . $apiKey . "&details=true";
-    $serviceRaw = get_remote_data($serviceUrl);
+function get_locale_data($locationId, $apiKey) {
+    global $serviceRoot;
+    $serviceUrl = $serviceRoot . "/locations/v1/" . $locationId . "?details=true";
+    $serviceRaw = get_remote_data($serviceUrl, $apiKey, $cacheHours=8760);
     if (isset($serviceRaw)) {
         $serviceData = json_decode($serviceRaw);
         if (isset($serviceData)) {
@@ -70,8 +73,9 @@ function convert_local_data_toXml($localData) {
 }
 
 function get_current_conditions_asXml($locationId, $useMetric, $apiKey) {
-    $serviceUrl = "http://dataservice.accuweather.com/currentconditions/v1/" . $locationId . "?apikey=" . $apiKey . "&details=true";
-    $serviceRaw = get_remote_data($serviceUrl);
+    global $serviceRoot;
+    $serviceUrl = $serviceRoot . "/currentconditions/v1/" . $locationId . "?details=true";
+    $serviceRaw = get_remote_data($serviceUrl, $apiKey, $cacheHours=2);
     $returnData = "";
     $units = "Metric";
     if (!$useMetric)
@@ -121,8 +125,9 @@ function get_current_conditions_asXml($locationId, $useMetric, $apiKey) {
 }
 
 function get_daily_forecast_asXml($locationId, $forecastDays, $useMetric, $apiKey) {
-    $serviceUrl = "http://dataservice.accuweather.com/forecasts/v1/daily/" . $forecastDays . "day/" . $locationId . "?apikey=" . $apiKey . "&details=true&metric=" . var_export($useMetric, true);
-    $serviceRaw = get_remote_data($serviceUrl);
+    global $serviceRoot;
+    $serviceUrl = $serviceRoot . "/forecasts/v1/daily/" . $forecastDays . "day/" . $locationId . "?details=true&metric=" . var_export($useMetric, true);
+    $serviceRaw = get_remote_data($serviceUrl, $apiKey, $cacheHours=12);
     $returnData = "";
     if (isset($serviceRaw)) {
         $serviceData = json_decode($serviceRaw);
@@ -207,9 +212,10 @@ function get_daily_forecast_asXml($locationId, $forecastDays, $useMetric, $apiKe
 }
 
 function get_hourly_forecast_asXml($locationId, $tzOffset, $useMetric, $apiKey) {
+    global $serviceRoot;
     $tzOffset = sprintf("%+d",$tzOffset);
-    $serviceUrl = "http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/" . $locationId . "?apikey=" . $apiKey . "&details=true&metric=" . var_export($useMetric, true);
-    $serviceRaw = get_remote_data($serviceUrl);
+    $serviceUrl = $serviceRoot . "/forecasts/v1/hourly/12hour/" . $locationId . "?details=true&metric=" . var_export($useMetric, true);
+    $serviceRaw = get_remote_data($serviceUrl, $apiKey, $cacheHours=2);
     $returnData = "<hourly>";
     if (isset($serviceRaw)) {
         $serviceData = json_decode($serviceRaw);
@@ -258,9 +264,9 @@ function get_hourly_forecast_asXml($locationId, $tzOffset, $useMetric, $apiKey) 
 }
 
 function get_indices_asXml($locationId, $apiKey) {
-    global $indices;
-    $serviceUrl = "http://dataservice.accuweather.com/indices/v1/daily/1day/" . $locationId . "?apikey=" . $apiKey;
-    $serviceRaw = get_remote_data($serviceUrl);
+    global $indices, $serviceRoot;
+    $serviceUrl = $serviceRoot . "/indices/v1/daily/1day/" . $locationId;
+    $serviceRaw = get_remote_data($serviceUrl, $apiKey, $cacheHours=8);
     $returnData = "<indices>";
     if (isset($serviceRaw)) {
         $serviceData = json_decode($serviceRaw);
@@ -292,8 +298,24 @@ function get_indices_asXml($locationId, $apiKey) {
     return $returnData;
 }
 
-function get_remote_data($url) {
-    //make outbound request to service
+function get_remote_data($url, $apiKey, $cacheDuration) {
+    global $cacheRoot, $serviceRoot;
+    $cacheName = $cacheRoot . str_replace("=", "", base64_encode(str_replace($serviceRoot, "", $url))) . ".json";
+    //check if cache exists and is still usable
+    if (file_exists($cacheName)) {
+        $cacheHours = floor((time() - filemtime($cacheName))/3600);
+        if ($cacheHours < $cacheDuration) {
+            return file_get_contents($cacheName);
+        }
+    }
+    //otherwise, proceed with remote call
+    //  append API key
+    if (strpos($url, "?") === false)
+        $url = $url . "?apikey=" . $apiKey;
+    else
+        $url = $url . "&apikey=" . $apiKey;
+    
+    //  always use https
     $url = str_replace("http://", "https://", $url); 
     $curl = curl_init();
     curl_setopt_array($curl, array(
@@ -306,14 +328,32 @@ function get_remote_data($url) {
         CURLOPT_CUSTOMREQUEST => "GET",
     ));
 
+    //  call remote service
     $response = curl_exec($curl);
     $err = curl_error($curl);
     curl_close($curl);
 
+    // Return response, cache if appropriate
     if ($err) {
         return "{error:'" . $err . "'}";
     } else {
+        if (validateJSON($response)) {
+            //cache response
+            if (!file_exists($cacheRoot)) {
+                mkdir($cacheRoot, 0755, true);
+            }
+            file_put_contents($cacheName, $response);
+        }
         return $response;
+    }
+}
+
+function validateJSON(string $json): bool {
+    try {
+        $test = json_decode($json, null, flags: JSON_THROW_ON_ERROR);
+        return true;
+    } catch  (Exception $e) {
+        return false;
     }
 }
 

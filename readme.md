@@ -29,6 +29,12 @@ The original endpoint was provided via ASP -- a long-dead Microsoft technology. 
 
 As mentioned above, legacy clients were identified by the folder path. This project includes two empty folders (eg: `widget\blstreamhptablet`)that match the path expected by old webOS mobile devies. A symlink to `weather-data.asp` should be included in each folder.
 
+## Caching
+
+The service will attempt to create a cache folder in the root of the project (unless you change the path in `config.php`). Caching can reduce API calls, in exchange for potentially offering up stale data. If needed, create the cache folder manually, and ensure the web server user (eg: `www-data`) has write access to that folder.
+
+Each function in `accuweather-proxy.php` specifies its cache duration in hours when it calls the Accuweather service. You may tune this to reduce data staleness.
+
 ## Impersonating ASP
 
 Obviously this setup will vary depending on your server software of choice, but I've made it work with both nginx and Apache2. Generally, the steps are the same:

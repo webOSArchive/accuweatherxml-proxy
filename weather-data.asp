@@ -27,7 +27,7 @@ if (isset($_GET['metric']) && $_GET['metric'] != 0) {
 <?php
 echo get_units_asXml($useMetric);
 $tzOffset = 0;
-$localData = get_local_data($locationId, $apiKey);
+$localData = get_locale_data($locationId, $apiKey);
 if (isset($localData)) {
     $tzOffset = $localData->TimeZone->GmtOffset;
     echo convert_local_data_toXml($localData);
