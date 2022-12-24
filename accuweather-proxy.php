@@ -133,6 +133,12 @@ function get_daily_forecast_asXml($locationId, $forecastDays, $useMetric, $apiKe
             $dayCount = 0;
             foreach($serviceData->DailyForecasts as $day){
                 $dayCount++;
+                $uvIndex = null;
+                foreach ($day->AirAndPollen as $index) {
+                    if ($index->Name == "UVIndex") {
+                        $uvIndex = "    <maxuv>" . $index->Value . "</maxuv>\r\n";
+                    }
+                }
                 try {
                     $returnData .= "<day number=\"" . $dayCount . "\">\r\n";
                     $returnData .= "  <url>" . str_replace("&", "&amp;", $day->MobileLink) . "</url>\r\n";
@@ -152,7 +158,8 @@ function get_daily_forecast_asXml($locationId, $forecastDays, $useMetric, $apiKe
                     $returnData .= "    <windspeed>" . $day->Day->Wind->Speed->Value . "</windspeed>\r\n";
                     $returnData .= "    <winddirection>" . $day->Day->Wind->Direction->Degrees . "</winddirection>\r\n";
                     $returnData .= "    <windgust>" . $day->Day->WindGust->Speed->Value . "</windgust>\r\n";
-                    $returnData .= "    <maxuv>" . "TODO" . "</maxuv>\r\n";
+                    if (isset($uvIndex))
+                        $returnData .= $uvIndex;
                     $returnData .= "    <rainamount>" . $day->Day->Rain->Value . "</rainamount>\r\n";
                     $returnData .= "    <snowamount>" . $day->Day->Snow->Value . "</snowamount>\r\n";
                     $returnData .= "    <iceamount>" . $day->Day->Ice->Value . "</iceamount>\r\n";
@@ -170,7 +177,8 @@ function get_daily_forecast_asXml($locationId, $forecastDays, $useMetric, $apiKe
                     $returnData .= "    <windspeed>" . $day->Night->Wind->Speed->Value . "</windspeed>\r\n";
                     $returnData .= "    <winddirection>" . $day->Night->Wind->Direction->Degrees . "</winddirection>\r\n";
                     $returnData .= "    <windgust>" . $day->Night->WindGust->Speed->Value . "</windgust>\r\n";
-                    $returnData .= "    <maxuv>" . "TODO" . "</maxuv>\r\n";
+                    if (isset($uvIndex))
+                        $returnData .= $uvIndex;
                     $returnData .= "    <rainamount>" . $day->Night->Rain->Value . "</rainamount>\r\n";
                     $returnData .= "    <snowamount>" . $day->Night->Snow->Value . "</snowamount>\r\n";
                     $returnData .= "    <iceamount>" . $day->Night->Ice->Value . "</iceamount>\r\n";
