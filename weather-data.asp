@@ -1,12 +1,14 @@
 <?php
-include("../../accuweather-proxy.php");
+include("../../accuweather-proxy.php"); //this page is invoked from a client-specific sub-folder
 include("../../config.php");
 $apiKey = get_apiKey();
-$locationId = "";
 
+header('Content-Type: text/xml');
+echo ('<?xml version="1.0"  encoding="utf-8"?>');
+
+$locationId = "";
 if (isset($_GET['location'])) {
     $locationId = $_GET['location'];
-    //TODO: Also get and cache timezone offset
     if (strpos($locationId, "cityId") !== false)
         $locationId = str_replace("cityId:", "", $locationId);
     else        //If location is defined using postal code, we need to look it up
@@ -14,16 +16,14 @@ if (isset($_GET['location'])) {
 } else {
     die ("<adc_database><error>No location specified</error></adc_database>");
 }
+
 $useMetric = false;
 if (isset($_GET['metric']) && $_GET['metric'] != 0) {
     $useMetric = true;
 }
-
-header('Content-Type: text/xml');
-echo ('<?xml version="1.0"  encoding="utf-8"?>'); ?>
+?>
 
 <adc_database xmlns="http://www.accuweather.com">
-
 <?php
 echo get_units_asXml($useMetric);
 $tzOffset = 0;
