@@ -53,7 +53,9 @@ Fooling the client into connecting to your service, rather than Accuweather's se
 The old endpoint was called with a single URL like:
 `http://blstreamhptablet.accu-weather.com/widget/blstreamhptablet/weather-data.asp?location=cityId:XXXXXX&metric=0&lang=en`
 
-Accuweather's documentation is generally pretty good. Start with the flow chart that describes typical use:
+Example payloads can be found in the XMLPayloads folder of this project. They serve no other purpose.
+
+Accuweather's documentation for the new API is generally pretty good. Start with the flow chart that describes typical use:
 
 * Find the Accuweather location ID, through one of their search APIs
 * Fetch the various forecasts
