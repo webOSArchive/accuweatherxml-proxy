@@ -349,7 +349,7 @@ function get_remote_data($url, $apiKey, $cacheDuration) {
 }
 
 function cleanFilename($url) {
-    global $serveRoot;
+    global $serviceRoot;
     $url = str_replace("=", "", $url);
     $url = str_replace("/", "", $url);
     $url = str_replace("\\", "", $url);
