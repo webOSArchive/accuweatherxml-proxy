@@ -350,11 +350,13 @@ function get_remote_data($url, $apiKey, $cacheDuration) {
 
 function cleanFilename($url) {
     global $serviceRoot;
-    $url = str_replace("=", "", $url);
-    $url = str_replace("/", "", $url);
-    $url = str_replace("\\", "", $url);
-    $url = str_replace(".", "", $url);
-    return base64_encode(str_replace($serviceRoot, "", $url));
+    $url = str_replace($serviceRoot, "", $url);
+    $fileName = base64_encode($url);
+    $fileName = str_replace("=", "", $fileName);
+    $fileName = str_replace("/", "", $fileName);
+    $fileName = str_replace("\\", "", $fileName);
+    $fileName = str_replace(".", "", $fileName);
+    return $fileName;
 }
 
 function validateJSON(string $json): bool {
