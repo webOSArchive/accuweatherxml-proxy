@@ -300,7 +300,7 @@ function get_indices_asXml($locationId, $apiKey) {
 
 function get_remote_data($url, $apiKey, $cacheDuration) {
     global $cacheRoot, $serviceRoot;
-    $cacheName = $cacheRoot . str_replace("=", "", base64_encode(str_replace($serviceRoot, "", $url))) . ".json";
+    $cacheName = $cacheRoot . cleanFilename($url). ".json";
     //check if cache exists and is still usable
     if (file_exists($cacheName)) {
         $cacheHours = floor((time() - filemtime($cacheName))/3600);
@@ -346,6 +346,15 @@ function get_remote_data($url, $apiKey, $cacheDuration) {
         }
         return $response;
     }
+}
+
+function cleanFilename($url) {
+    global $serveRoot;
+    $url = str_replace("=", "", $url);
+    $url = str_replace("/", "", $url);
+    $url = str_replace("\\", "", $url);
+    $url = str_replace(".", "", $url);
+    return base64_encode(str_replace($serviceRoot, "", $url));
 }
 
 function validateJSON(string $json): bool {
