@@ -348,6 +348,26 @@ function get_remote_data($url, $apiKey, $cacheDuration) {
     }
 }
 
+function get_relay_data($url) {
+
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 0,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_CUSTOMREQUEST => "GET",
+    ));
+    
+    //  call remote service
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+    curl_close($curl);
+    // Return response blindly
+    return $response;
+}
+
 function cleanFilename($url) {
     global $serviceRoot;
     $url = str_replace($serviceRoot, "", $url);
