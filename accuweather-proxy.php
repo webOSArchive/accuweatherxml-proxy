@@ -371,9 +371,8 @@ function get_relay_data($url, $validateXml=null) {
         if (!isset($response) || $response == "")
             return false;
         libxml_use_internal_errors(true);
-        $xmlReader = new XMLReader();
-        $xmlReader->open($response);
-        if (!$xmlReader)
+        $xml = simplexml_load_string($response);
+        if (!$xml)
             return false;
         else {
             //TODO: Further validation
