@@ -2,8 +2,17 @@
 include("../../accuweather-proxy.php"); //this page is invoked from a client-specific sub-folder
 include("../../config.php");
 $apiKey = get_apiKey();
+$theQuery = $_SERVER['QUERY_STRING'];
+$theUrl = "http://" . $realServiceDomain . "/widget/accuwxiphonev4/weather-data.asp?" . $theQuery;
 
 header('Content-Type: text/xml');
+$realServiceResponse = get_relay_data($theUrl, $validateXml=true);
+if ($realServiceResponse !== false) {
+    //Check if the original real service is up and returning good XML
+    die($realServiceResponse);
+}
+
+//Otherwise, build a response using the new API
 echo ('<?xml version="1.0"  encoding="utf-8"?>');
 
 $locationId = "";

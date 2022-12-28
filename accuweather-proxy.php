@@ -348,7 +348,7 @@ function get_remote_data($url, $apiKey, $cacheDuration) {
     }
 }
 
-function get_relay_data($url) {
+function get_relay_data($url, $validateXml=null) {
 
     $curl = curl_init();
     curl_setopt_array($curl, array(
@@ -359,13 +359,28 @@ function get_relay_data($url) {
         CURLOPT_TIMEOUT => 30,
         CURLOPT_CUSTOMREQUEST => "GET",
     ));
-    
+
     //  call remote service
     $response = curl_exec($curl);
     $err = curl_error($curl);
     curl_close($curl);
-    // Return response blindly
-    return $response;
+    if (!isset($validateXml) || !$validateXml) {
+        // Return response blindly
+        return $response;
+    } else {
+        if (!isset($response) || $response == "")
+            return false;
+        libxml_use_internal_errors(true);
+        $xmlReader = new XMLReader();
+        $xmlReader->open($response);
+        if (!$xmlReader)
+            return false;
+        else {
+            //TODO: Further validation
+            return $response;
+        }
+    }
+
 }
 
 function cleanFilename($url) {

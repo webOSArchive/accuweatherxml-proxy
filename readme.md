@@ -58,16 +58,17 @@ Fooling the client into connecting to your service, rather than Accuweather's se
 # Mapping to the new API
 
 The old endpoint was called with a single URL like:
-`http://blstreamhptablet.accu-weather.com/widget/blstreamhptablet/weather-data.asp?location=cityId:XXXXXX&metric=0&lang=en`
+`http://blstreamhptablet.accu-weather.com/widget/blstreamhptablet/weather-data.asp?location=cityId:623&metric=1&lang=en`
 
-Example payloads can be found in the XMLPayloads folder of this project. They serve no other purpose.
+The response payload for such a call included all the elements needed for the app. Example payloads can be found in the XMLPayloads folder of this project. They serve no other purpose.
 
-Accuweather's documentation for the new API is generally pretty good. Start with the flow chart that describes typical use:
+Accuweather's documentation for the new API is generally pretty good, and takes a more piece-meal approach -- different calls, for different sets of forecast data. Start with the flow chart that describes typical use:
 
 * Find the Accuweather location ID, through one of their search APIs
+  * As of this writing, their XML API still works with queries like: http://accuwxiphonev4.accu-weather.com/widget/accuwxiphonev4/city-find.asp?location=London
 * Fetch the various forecasts
   * Note that for most queries, you want to add `&details=true` to get extra info, like RealFeel
-* Assemble an XML payload that mimics the old structure
+* Assemble a XML payload that mimics the old structure
 
 ## Location Examples
 * Paris: cityId:623
