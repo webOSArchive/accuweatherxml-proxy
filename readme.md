@@ -58,7 +58,7 @@ Fooling the client into connecting to your service, rather than Accuweather's se
 # Mapping to the new API
 
 The old endpoint was called with a single URL like:
-`http://blstreamhptablet.accu-weather.com/widget/blstreamhptablet/weather-data.asp?location=cityId:623&metric=1&lang=en`
+`http://blstreamhptablet.accu-weather.com/widget/blstreamhptablet/weather-data.asp?location=37935_PC&metric=1&lang=en`
 
 The response payload for such a call included all the elements needed for the app. Example payloads can be found in the XMLPayloads folder of this project. They serve no other purpose.
 
@@ -75,6 +75,7 @@ Accuweather's documentation for the new API is generally pretty good, and takes 
   * `?location=cityId:623&metric=1&lang=en`
 * LA: postalCode:90210|US
   * `?location=postalCode:90210|US&metric=0&lang=en`
+  * `?location=37935_PC&metric=0&lang=en`
 
 ## Legacy XML Structure
 * adc_database
