@@ -13,6 +13,7 @@ if ($realServiceResponse !== false) {
 }
 
 //Otherwise, build a response using the new API
+error_log("Accuweather upstream XML API failed for query " . $theQuery . ", proxying JSON API.", 0");
 echo ('<?xml version="1.0"  encoding="utf-8"?>');
 
 $locationId = "";
