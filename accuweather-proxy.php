@@ -349,7 +349,10 @@ function get_remote_data($url, $apiKey, $cacheDuration) {
 }
 
 function get_relay_data($url, $validateXml=null) {
-
+    return false;   //As of July 29, 2023 the original API endpoint domain was removed. 
+    //A HOSTS file entry to work around results in an XML payload claiming the subscription has expired
+    //As a result, this function has been deprecated. Returning false forces the rest of the service to 
+    //use the new Accuweather API
     $curl = curl_init();
     curl_setopt_array($curl, array(
         CURLOPT_URL => $url,
