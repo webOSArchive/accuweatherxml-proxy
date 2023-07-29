@@ -53,7 +53,7 @@ Fooling the client into connecting to your service, rather than Accuweather's se
 ### Squid Setup
 * Squid needs the domain set in no-proxy
 * Hosts file on proxy server needs to point domain to localhost
-* *Deprecated due to legacy API sunset: At least one function needs a hostname for the actual Accuweather service, add this to your HOSTS file, and update the `realServiceDomain` variable in `config.php`*
+* *Deprecated due to legacy API sunset:* At least one function needs a hostname for the actual Accuweather service, add this to your HOSTS file, and update the `realServiceDomain` variable in `config.php`
 
 # Mapping to the new API
 
