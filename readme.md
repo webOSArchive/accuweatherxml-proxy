@@ -53,19 +53,20 @@ Fooling the client into connecting to your service, rather than Accuweather's se
 ### Squid Setup
 * Squid needs the domain set in no-proxy
 * Hosts file on proxy server needs to point domain to localhost
-* At least one function needs a hostname for the actual Accuweather service, add this to your HOSTS file, and update the `realServiceDomain` variable in `config.php`
+* *Deprecated due to legacy API sunset: At least one function needs a hostname for the actual Accuweather service, add this to your HOSTS file, and update the `realServiceDomain` variable in `config.php`*
 
 # Mapping to the new API
 
-The old endpoint was called with a single URL like:
-`http://blstreamhptablet.accu-weather.com/widget/blstreamhptablet/weather-data.asp?location=37935_PC&metric=1&lang=en`
+The old endpoint was called with a single URL. The response payload for such a call was monolithic, and included all the elements needed for the app. Example payloads can be found in the XMLPayloads folder of this project. They serve no other purpose.
 
-The response payload for such a call included all the elements needed for the app. Example payloads can be found in the XMLPayloads folder of this project. They serve no other purpose.
+* As of July, 2023 the old API is gone. The DNS entry has been removed, and if you work-around with a hosts file entry, you get an error that the subscription has expired.
+* For historical reference, the old API endpoints resolved to `63.85.115.86` and supported URLs like:
+  * `http://accuwxiphonev4.accu-weather.com/widget/accuwxiphonev4/city-find.asp?location=London`
+  * `http://blstreamhptablet.accu-weather.com/widget/blstreamhptablet/weather-data.asp?location=37935_PC&metric=1&lang=en`
 
 Accuweather's documentation for the new API is generally pretty good, and takes a more piece-meal approach -- different calls, for different sets of forecast data. Start with the flow chart that describes typical use:
 
 * Find the Accuweather location ID, through one of their search APIs
-  * As of this writing, their XML API still works with queries like: http://accuwxiphonev4.accu-weather.com/widget/accuwxiphonev4/city-find.asp?location=London
 * Fetch the various forecasts
   * Note that for most queries, you want to add `&details=true` to get extra info, like RealFeel
 * Assemble a XML payload that mimics the old structure
