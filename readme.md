@@ -1,8 +1,8 @@
 # What Is This?
 
-Accuweather provided an XML-based API for more than a decade that is used by a bunch of legacy devices. Recently they deprecated the API in favor of a new (mostly non-free) JSON API, and have announced plans to shut down the old one. As of this writing, the endpoint is still up, but is not maintained and is returning mal-formed XML with increasing frequency.
+Accuweather provided an XML-based API for more than a decade that is used by a bunch of legacy devices. Recently they deprecated the API in favor of a new (mostly non-free) JSON API, and have announced plans to shut down the old one. As of July 2023, the endpoint appears to be down permanently, after years of disrepair where it returned mal-formed XML with increasing frequency.
 
-This project provides a proxy that calls the new JSON API and return XML results structured to look like the old API. In effect, this is a compatibility layer for Accuweather, allowing older devices to continue to get Accuweather forecasts. Some limitations of the new API are present (forecasts are limited to 5 days), but generally keep things working the way they did a decade ago.
+This project provides a proxy that calls the new JSON API and returns XML results structured to look like the old API. In effect, this is a compatibility layer for Accuweather, allowing older devices to continue to get Accuweather forecasts. Some limitations of the new API are present (forecasts are limited to 5 days), but generally keep things working the way they did a decade ago. I built it for [legacy webOS](https://www.webosarchive.org), but it should work for retro iOS and Android clients too.
 
 # Authentication and Authorization
 
@@ -17,7 +17,7 @@ If you were to sign-up for multiple free API keys, you could enter each one on i
 
 ## Limitations
 
-* Be aware that while the original API provided one end-point for a complete forecast payload, the new API requires multiple calls to different endpoints to construct the payload expected by older clients.
+* Be aware that while the original API provided one end-point for a complete forecast payload, the new API requires multiple calls to different endpoints to construct the payload expected by older clients, increasing the rate at which your call limit is consumed. More aggressive [caching](#caching) may help.
 * Free API access is limited to a 5-day forecast. To get more than this, you have to pay. If you pay for more than 5 days, update the `config.php` to increase the XML output.
 * Free API access excludes weather alerts, so they have not been included in this project.
 
