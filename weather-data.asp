@@ -1,6 +1,6 @@
 <?php
-include("../../accuweather-proxy.php"); //this page is invoked from a client-specific sub-folder
-include("../../config.php");
+include("accuweather-proxy.php"); //this page is invoked from a client-specific sub-folder
+include("config.php");
 $apiKey = get_apiKey();
 $theQuery = $_SERVER['QUERY_STRING'];
 $theUrl = "http://" . $realServiceDomain . "/widget/accuwxiphonev4/weather-data.asp?" . $theQuery;

@@ -112,7 +112,7 @@ function get_current_conditions_asXml($locationId, $useMetric, $apiKey) {
             if (null !== $serviceData && isset($serviceData->Message)) {
                 return "<error>" . $serviceData->Message . "</error>";
             } else {
-                $errormessage = "<error>response from remote service could not be parsed: ";
+                $errormessage = "<error>response from remote service could not be parsed or had errors: ";
                 $errormessage .= "<![CDATA[" . $serviceRaw . "]]>";
                 $errormessage .= "</error>";
                 return $errormessage;
@@ -199,7 +199,7 @@ function get_daily_forecast_asXml($locationId, $forecastDays, $useMetric, $apiKe
             if (null !== $serviceData && isset($serviceData->Message)) {
                 return "<error>" . $serviceData->Message . "</error>";
             } else {
-                $errormessage = "<error>response from remote service could not be parsed: ";
+                $errormessage = "<error>response from remote service could not be parsed or had errors: ";
                 $errormessage .= "<![CDATA[" . $serviceRaw . "]]>";
                 $errormessage .= "</error>";
                 return $errormessage;
@@ -250,7 +250,7 @@ function get_hourly_forecast_asXml($locationId, $tzOffset, $useMetric, $apiKey) 
             if (null !== $serviceData && isset($serviceData->Message)) {
                 return "<error>" . $serviceData->Message . "</error>";
             } else {
-                $errormessage = "<error>response from remote service could not be parsed: ";
+                $errormessage = "<error>response from remote service could not be parsed or had errors: ";
                 $errormessage .= "<![CDATA[" . $serviceRaw . "]]>";
                 $errormessage .= "</error>";
                 return $errormessage;
@@ -285,7 +285,7 @@ function get_indices_asXml($locationId, $apiKey) {
             if (null !== $serviceData && isset($serviceData->Message)) {
                 return "<error>" . $serviceData->Message . "</error>";
             } else {
-                $errormessage = "<error>response from remote service could not be parsed: ";
+                $errormessage = "<error>response from remote service could not be parsed or had errors: ";
                 $errormessage .= "<![CDATA[" . $serviceRaw . "]]>";
                 $errormessage .= "</error>";
                 return $errormessage;
@@ -343,8 +343,11 @@ function get_remote_data($url, $apiKey, $cacheDuration) {
                 mkdir($cacheRoot, 0755, true);
             }
             file_put_contents($cacheName, $response);
+            return $response;
+        } else {
+            return "{'error':'" . $response . "'}";
         }
-        return $response;
+        
     }
 }
 
@@ -399,8 +402,16 @@ function cleanFilename($url) {
 function validateJSON(string $json): bool {
     try {
         $test = json_decode($json, null, flags: JSON_THROW_ON_ERROR);
+        if (isset($test->Code)) {
+            $exc = "Accuweather service response " . $test->Code;
+            if (isset($test->Message)) {
+                $exc .= ": " . $test->Message;
+            }
+            throw new ErrorException($exc);
+        }
         return true;
     } catch  (Exception $e) {
+        error_log($e->getMessage() . PHP_EOL);
         return false;
     }
 }
