@@ -1,3 +1,4 @@
+<?xml version="1.0"  encoding="utf-8"?>
 <?php
 include("accuweather-proxy.php"); //this page is invoked from a client-specific sub-folder
 include("config.php");
@@ -14,7 +15,6 @@ if ($realServiceResponse !== false) {
 
 //Otherwise, build a response using the new API
 error_log("Accuweather upstream XML API failed for query " . $theQuery . ", proxying JSON API.", 0);
-echo ('<?xml version="1.0"  encoding="utf-8"?>');
 
 $locationId = "";
 if (isset($_GET['location'])) {

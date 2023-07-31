@@ -1,13 +1,44 @@
+<?xml version="1.0"  encoding="utf-8"?>
 <?php
-include("../../accuweather-proxy.php"); //this page is invoked from a client-specific sub-folder
-include("../../config.php");
-
+include("accuweather-proxy.php"); //this page is invoked from a client-specific sub-folder
+include("config.php");
+$apiKey = get_apiKey();
+if (isset($_GET['location'])) {
+    $serviceData = get_city_search($_GET['location'], $apiKey);
+}
 header('Content-Type: text/xml');
 
-//As of this writing, the city-find XML API is still working, so rather than proxy it to the new API
-//we'll just pass the call along directly.
-$theQuery = $_SERVER['QUERY_STRING'];
-$theUrl = "http://" . $realServiceDomain . "/widget/accuwxiphonev4/city-find.asp?" . $theQuery;
+//In order to match original XML, we need some counts
+$usCount = 0;
+$intlCount = 0;
+foreach($serviceData as $location){ 
+    if ($location->Country->ID == "US"){
+        $usCount++;
+    }
+    else {
+        $intlCount++;
+    }
+}
 
-echo get_relay_data($theUrl);
 ?>
+<adc_database xmlns="http://www.accuweather.com">	
+	<citylist us="<?php echo $usCount;?>" intl="<?php echo $intlCount;?>" extra_cities="0">
+    <?php
+        $count = 1;
+        foreach($serviceData as $location) {
+            echo "\r\n";
+            $stateStr = $location->AdministrativeArea->LocalizedName;
+            if ($location->Country->ID != "US") {
+                $stateStr = $stateStr . " (" . $location->Country->LocalizedName . ")";
+            }
+            echo "            <location cnt=\"" . $count . "\" city=\"" . $location->LocalizedName . "\" state=\"" . $stateStr . "\" location=\"cityId:" . $location->Key . "\"/>\r\n";
+            $count++;
+        }
+    ?>
+
+	</citylist>
+	<copyright>Copyright <?php echo date("Y"); ?> AccuWeather.com</copyright>
+	<use>This document is intended only for use by authorized licensees of AccuWeather.com. Unauthorized use is prohibited. All Rights Reserved.</use>
+	<product>blstream</product>
+	<redistribution>Redistribution Prohibited.</redistribution>
+</adc_database>

@@ -22,6 +22,16 @@ function get_postalcode_locationId($locationId, $apiKey) {
     }
 }
 
+function get_city_search($searchString, $apiKey) {
+    global $serviceRoot;
+    $serviceUrl = $serviceRoot . "/locations/v1/cities/search?q=" . urlencode($searchString);
+    $serviceRaw = get_remote_data($serviceUrl, $apiKey, $cacheHours=8760);
+    if (isset($serviceRaw)) {
+        $serviceData = json_decode($serviceRaw);
+        return $serviceData;
+    }
+}
+
 function get_units_asXml($useMetric) {
     if (!$useMetric) {
         return "<units>\r\n<temp>F</temp>\r\n<dist>MI</dist>\r\n<speed>MPH</speed>\r\n<pres>IN</pres>\r\n<prec>IN</prec>\r\n</units>";
@@ -337,6 +347,9 @@ function get_remote_data($url, $apiKey, $cacheDuration) {
     if ($err) {
         return "{error:'" . $err . "'}";
     } else {
+        if (!isset($response) || $response == "" || $response == null || $response == "null") {
+            return "{error:'null response'}";
+        }
         if (validateJSON($response)) {
             //cache response
             if (!file_exists($cacheRoot)) {
