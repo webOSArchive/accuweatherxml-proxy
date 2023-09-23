@@ -386,43 +386,6 @@ function get_remote_data($url, $apiKey, $cacheDuration) {
     }
 }
 
-function get_relay_data($url, $validateXml=null) {
-    return false;   //As of July 29, 2023 the original API endpoint domain was removed. 
-    //A HOSTS file entry to work around results in an XML payload claiming the subscription has expired
-    //As a result, this function has been deprecated. Returning false forces the rest of the service to 
-    //use the new Accuweather API
-    $curl = curl_init();
-    curl_setopt_array($curl, array(
-        CURLOPT_URL => $url,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 0,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_CUSTOMREQUEST => "GET",
-    ));
-
-    //  call remote service
-    $response = curl_exec($curl);
-    $err = curl_error($curl);
-    curl_close($curl);
-    if (!isset($validateXml) || !$validateXml) {
-        // Return response blindly
-        return $response;
-    } else {
-        if (!isset($response) || $response == "")
-            return false;
-        libxml_use_internal_errors(true);
-        $xml = simplexml_load_string($response);
-        if (!$xml)
-            return false;
-        else {
-            //TODO: Further validation
-            return $response;
-        }
-    }
-
-}
-
 function cleanFilename($url) {
     global $accuweatherRoot;
     global $openweatherRoot;
@@ -453,17 +416,48 @@ function validateJSON(string $json): bool {
     }
 }
 
-function map_weather_icon($weatherDescription, $dayOrNight) {
-    //TODO: map to accuweather descriptions
-    //  See: https://openweathermap.org/weather-conditions
-    return $weatherDescription;
+function map_weather_icon($iconCode) {
+    $i = array();       //Known icons from https://openweathermap.org/weather-conditions to app's icons
+    $i['01d'] = '01';
+    $i['02d'] = '04';
+    $i['03d'] = '03';
+    $i['04d'] = '06';
+    $i['09d'] = '07';
+    $i['10d'] = '12';
+    $i['11d'] = '15';
+    $i['13d'] = '19';
+    $i['50d'] = '05';
+    $i['01n'] = '33';
+    $i['02n'] = '34';
+    $i['03n'] = '36';
+    $i['04n'] = '35';
+    $i['09n'] = '39';
+    $i['10n'] = '40';
+    $i['11n'] = '42';
+    $i['13n'] = '44';
+    $i['50n'] = '37';
+    if (isset($i[$iconCode]))
+        return $i[$iconCode];
+    else {
+        //Maybe they added more icons. The app has more, so let's try to convert
+        $startPos = 0;
+        if (strpos($iconCode, "n") != -1)
+            $startPos = 33; //App's night time icons start at 33
+        $iconCode = str_replace($iconCode, "d", "");
+        $iconCode = str_replace($iconCode, "n", "");
+        $code = intval($iconCode);
+        $code = $code + $startPos;
+        $useCode = strval($code);
+        if ($code < 0)
+            $useCode = "0" . $useCode;
+        return $useCode;
+    }
 }
 
 //Map old index names to new ones
 $indices = array(
     "Grass Growing Forecast" => "grassGrowing",
     "Arthritis Pain Forecast" => "arthritis_daytime",
-    "Arthritis Pain Forecast" => "arthritis_nighttime",
     "Asthma Forecast" => "asthma",
     "Outdoor Barbecue" => "barbeque",
     "Beach & Pool Forecast" => "Beach Going",
