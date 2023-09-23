@@ -1,8 +1,9 @@
 <?php
-$serviceRoot = "http://dataservice.accuweather.com";
+$accuweatherRoot = "http://dataservice.accuweather.com";
+$openweatherRoot = "https://api.openweathermap.org/data/3.0/";
 
 function get_postalcode_locationId($locationId, $apiKey) {
-    global $serviceRoot;
+    global $accuweatherRoot;
     
     $locParts = explode("|", $locationId);
     $pcode = str_replace("postalCode:", "", $locParts[0]);
@@ -10,7 +11,7 @@ function get_postalcode_locationId($locationId, $apiKey) {
     if (count($locParts) > 1) {
         $ccode = $locParts[1];
     }
-    $serviceUrl = $serviceRoot . "/locations/v1/postalcodes/" . $ccode . "/search?q=" . $pcode;
+    $serviceUrl = $accuweatherRoot . "/locations/v1/postalcodes/" . $ccode . "/search?q=" . $pcode;
     $serviceRaw = get_remote_data($serviceUrl, $apiKey, $cacheHours=8760);
     if (isset($serviceRaw)) {
         $serviceData = json_decode($serviceRaw);
@@ -23,8 +24,8 @@ function get_postalcode_locationId($locationId, $apiKey) {
 }
 
 function get_city_search($searchString, $apiKey) {
-    global $serviceRoot;
-    $serviceUrl = $serviceRoot . "/locations/v1/cities/search?q=" . urlencode($searchString);
+    global $accuweatherRoot;
+    $serviceUrl = $accuweatherRoot . "/locations/v1/cities/search?q=" . urlencode($searchString);
     $serviceRaw = get_remote_data($serviceUrl, $apiKey, $cacheHours=8760);
     if (isset($serviceRaw)) {
         $serviceData = json_decode($serviceRaw);
@@ -34,15 +35,29 @@ function get_city_search($searchString, $apiKey) {
 
 function get_units_asXml($useMetric) {
     if (!$useMetric) {
-        return "<units>\r\n<temp>F</temp>\r\n<dist>MI</dist>\r\n<speed>MPH</speed>\r\n<pres>IN</pres>\r\n<prec>IN</prec>\r\n</units>";
+        return "<units>\r\n<temp>F</temp>\r\n<dist>MI</dist>\r\n<speed>MPH</speed>\r\n<pres>IN</pres>\r\n<prec>IN</prec>\r\n</units>\r\n";
     } else {
-        return "<units>\r\n<temp>C</temp>\r\n<dist>KM</dist>\r\n<speed>KPH</speed>\r\n<pres>CM</pres>\r\n<prec>CM</prec>\r\n</units>";
+        return "<units>\r\n<temp>C</temp>\r\n<dist>KM</dist>\r\n<speed>KPH</speed>\r\n<pres>CM</pres>\r\n<prec>CM</prec>\r\n</units>\r\n";
     }
 }
 
+function openWeatherOneCall($serviceUrl, $location, $useMetric, $apiKey) {
+    //TODO: Actually use unit preference!
+    $serviceUrl = $serviceUrl . $location . "&units=metric&appid=" . $apiKey;
+    //die("<url>" . $serviceUrl . "</url>");
+    $serviceRaw = get_remote_data($serviceUrl, $apiKey, $cacheHours=1);
+    if (isset($serviceRaw)) {
+        $serviceData = json_decode($serviceRaw);
+        if (isset($serviceData)) {
+            return $serviceData;
+        }
+    }
+    return null;
+}
+
 function get_locale_data($locationId, $apiKey) {
-    global $serviceRoot;
-    $serviceUrl = $serviceRoot . "/locations/v1/" . $locationId . "?details=true";
+    global $accuweatherRoot;
+    $serviceUrl = $accuweatherRoot . "/locations/v1/" . $locationId . "?details=true";
     $serviceRaw = get_remote_data($serviceUrl, $apiKey, $cacheHours=8760);
     if (isset($serviceRaw)) {
         $serviceData = json_decode($serviceRaw);
@@ -53,24 +68,25 @@ function get_locale_data($locationId, $apiKey) {
     return null;
 }
 
-function convert_local_data_toXml($localData) {
-    $serviceData = $localData;
+function get_header_asXml($openweatherData, $accuweatherData) {
     $returnData = "";
-    if (isset($serviceData)) {
+    if (isset($openweatherData) && isset($accuweatherData)) {
         try {
             $returnData .= "<local>\r\n";
-            $returnData .= "  <city>" . $serviceData->LocalizedName  . "</city>\r\n";
-            $returnData .= "  <adminArea code=\"" . $serviceData->AdministrativeArea->ID . "\">" .  $serviceData->AdministrativeArea->LocalizedName  . "</adminArea>\r\n";
-            $returnData .= "  <country code=\"" . $serviceData->Country->ID . "\">" .  $serviceData->Country->LocalizedName . "</country>\r\n";
-            $returnData .= "  <cityId>" . $serviceData->Key . "</cityId>\r\n";
-            $returnData .= "  <primaryPostalCode>" . $serviceData->PrimaryPostalCode . "</primaryPostalCode>\r\n";
-            $returnData .= "  <locationKey>" . $serviceData->Key . "</locationKey>\r\n";
-            $returnData .= "  <lat>" . $serviceData->GeoPosition->Latitude . "</lat>\r\n";
-            $returnData .= "  <lon>" . $serviceData->GeoPosition->Longitude . "</lon>\r\n";
-            $returnData .= "  <time>" . date("h:i") . "</time>\r\n";
-            $returnData .= "  <timeZone>" . $serviceData->TimeZone->GmtOffset . "</timeZone>\r\n";
-            $returnData .= "  <obsDaylight>" . $serviceData->TimeZone->IsDaylightSaving . "</obsDaylight>\r\n";
-            $returnData .= "  <timeZoneAbbreviation>" . $serviceData->TimeZone->Code . "</timeZoneAbbreviation>\r\n";
+            $returnData .= "  <city>" . $accuweatherData->LocalizedName  . "</city>\r\n";
+            $returnData .= "  <adminArea code=\"" . $accuweatherData->AdministrativeArea->ID . "\">" .  $accuweatherData->AdministrativeArea->LocalizedName  . "</adminArea>\r\n";
+            $returnData .= "  <country code=\"" . $accuweatherData->Country->ID . "\">" .  $accuweatherData->Country->LocalizedName . "</country>\r\n";
+            $returnData .= "  <cityId>" . $accuweatherData->Key . "</cityId>\r\n";
+            $returnData .= "  <primaryPostalCode>" . $accuweatherData->PrimaryPostalCode . "</primaryPostalCode>\r\n";
+            $returnData .= "  <locationKey>" . $accuweatherData->Key . "</locationKey>\r\n";
+            $returnData .= "  <lat>" . $openweatherData->lat . "</lat>\r\n";
+            $returnData .= "  <lon>" . $openweatherData->lon . "</lon>\r\n";
+            $timestamp = $openweatherData->current->dt + $openweatherData->timezone_offset;
+            $useTime = gmdate("h:i", $timestamp);
+            $returnData .= "  <time>" . $useTime . "</time>\r\n";
+            $returnData .= "  <timeZone>" . $openweatherData->timezone . "</timeZone>\r\n";
+            $returnData .= "  <obsDaylight>" . $accuweatherData->TimeZone->IsDaylightSaving . "</obsDaylight>\r\n";
+            $returnData .= "  <timeZoneAbbreviation>" . $accuweatherData->TimeZone->Code . "</timeZoneAbbreviation>\r\n";
             $returnData .= "</local>\r\n";
         } catch (Exception $e) {
             return "<error>an error occurred while parsing remote service data. last attempted node was: location</error>";
@@ -82,200 +98,199 @@ function convert_local_data_toXml($localData) {
     return $returnData;
 }
 
-function get_current_conditions_asXml($locationId, $useMetric, $apiKey) {
-    global $serviceRoot;
-    $serviceUrl = $serviceRoot . "/currentconditions/v1/" . $locationId . "?details=true";
-    $serviceRaw = get_remote_data($serviceUrl, $apiKey, $cacheHours=2);
-    $returnData = "";
+function get_current_conditions_asXml($serviceData, $useMetric) {
     $units = "Metric";
+    $returnData = "";
     if (!$useMetric)
         $units = "Imperial";
-    if (isset($serviceRaw)) {
-        $serviceData = json_decode($serviceRaw);
-        if (is_array($serviceData) && isset($serviceData[0])) {
-            try {
-                $returnData .= "<currentconditions daylight=\"" . ucfirst(var_export($serviceData[0]->IsDayTime, true)) . "\">\r\n";
-                $returnData .= "<url>" . str_replace("&", "&amp;", $serviceData[0]->MobileLink) . "</url>\r\n";
-                //Note: original dataset used AM/PM or h:i A
-                $returnData .= "<observationtime>" . date("H:m", strtotime($serviceData[0]->LocalObservationDateTime)) . "</observationtime>\r\n";
-                $returnData .= "<pressure state=\"" . $serviceData[0]->PressureTendency->LocalizedText . "\">" .  $serviceData[0]->Pressure->Imperial->Value . "</pressure>\r\n";
-                $returnData .= "<temperature>" . $serviceData[0]->Temperature->$units->Value . "</temperature>\r\n";
-                $returnData .= "<realfeel>" . $serviceData[0]->RealFeelTemperature->$units->Value . "</realfeel>\r\n";
-                $returnData .= "<humidity>" . $serviceData[0]->RelativeHumidity . "</humidity>\r\n";
-                $returnData .= "<weathertext>" . $serviceData[0]->WeatherText . "</weathertext>\r\n";
-                $returnData .= "<weathericon>" . sprintf("%02d", $serviceData[0]->WeatherIcon) . "</weathericon>\r\n";
-                $returnData .= "<windgusts>" . $serviceData[0]->WindGust->Speed->$units->Value . "</windgusts>\r\n";
-                $returnData .= "<windspeed>" . $serviceData[0]->Wind->Speed->$units->Value . "</windspeed>\r\n";
-                $returnData .= "<winddirection>" . $serviceData[0]->Wind->Direction->Degrees . "°</winddirection>\r\n";
-                $returnData .= "<visibility>" . $serviceData[0]->Visibility->$units->Value . "</visibility>\r\n";
-                $returnData .= "<precip>" . $serviceData[0]->PrecipitationSummary->Precipitation->$units->Value . "</precip>\r\n";
-                $returnData .= "<uvindex index=\"" . $serviceData[0]->UVIndexText . "\">" .  $serviceData[0]->UVIndex . "</uvindex>\r\n";
-                $returnData .= "<dewpoint>" . $serviceData[0]->DewPoint->$units->Value . "</dewpoint>\r\n";
-                $returnData .= "<cloudcover>" . $serviceData[0]->CloudCover . "</cloudcover>\r\n";
-                $returnData .= "<apparenttemp>" . $serviceData[0]->ApparentTemperature->$units->Value . "</apparenttemp>\r\n";
-                $returnData .= "<windchill>" . $serviceData[0]->WindChillTemperature->$units->Value . "</windchill>\r\n";
-                $returnData .= "</currentconditions>\r\n";
-            } catch (Exception $e) {
-                return "<error>an error occurred while parsing remote service data. last attempted node was: currentconditions</error>";
-            }
-        } else {
-            if (null !== $serviceData && isset($serviceData->Message)) {
-                return "<error>" . $serviceData->Message . "</error>";
-            } else {
-                $errormessage = "<error>response from remote service could not be parsed or had errors: ";
-                $errormessage .= "<![CDATA[" . $serviceRaw . "]]>";
-                $errormessage .= "</error>";
-                return $errormessage;
-            }
-        }
-    } else {
-        return "<error>data could not be retreived from remote service";
+    try {
+        $isDaylight = false;
+        if ($serviceData->current->dt > $serviceData->current->sunrise && $serviceData->current->dt < $serviceData->current->sunset)
+            $isDaylight = true;
+        $returnData .= "<currentconditions daylight=\"" . $isDaylight . "\">\r\n";
+        
+        //$returnData .= "<url>" . str_replace("&", "&amp;", $serviceData[0]->MobileLink) . "</url>\r\n";
+        //Note: original dataset used AM/PM or h:i A
+        $timestamp = $serviceData->current->dt + $serviceData->timezone_offset;
+        $returnData .= "    <observationtime>" . gmdate("h:i", $timestamp) . "</observationtime>\r\n";
+        //TODO: this pressure conversion should be double-checked!
+        $returnData .= "    <pressure state=\"Unknown\">" .  ($serviceData->current->pressure * 0.0294) . "</pressure>\r\n";
+        $returnData .= "    <temperature>" . $serviceData->current->temp . "</temperature>\r\n";
+        $returnData .= "    <realfeel>" . $serviceData->current->feels_like . "</realfeel>\r\n";
+        $returnData .= "    <humidity>" . $serviceData->current->humidity . "</humidity>\r\n";
+        $returnData .= "    <weathertext>" . $serviceData->current->weather[0]->description . "</weathertext>\r\n";
+        $returnData .= "    <weathericon>" . map_weather_text($serviceData->current->weather[0]->description) . "</weathericon>\r\n";
+        $returnData .= "    <windgusts>" . $serviceData->hourly[0]->wind_gust . "</windgusts>\r\n";
+        $returnData .= "    <windspeed>" . $serviceData->current->wind_speed . "</windspeed>\r\n";
+        $returnData .= "    <winddirection>" . $serviceData->current->wind_deg . "°</winddirection>\r\n";
+        //TODO: openweather returns in meters, is this a good conversion?
+        $returnData .= "    <visibility>" . ($serviceData->current->visibility / 1000). "</visibility>\r\n";
+        $precipAmt = 0;
+        if (isset($serviceData->current->rain))
+            $precipAmt = $precipAmt + $serviceData->current->rain;
+        if (isset($serviceData->current->snow))
+            $precipAmt = $precipAmt + $serviceData->current->snow;
+        $returnData .= "    <precip>" . $precipAmt . "</precip>\r\n";
+        $returnData .= "    <uvindex index=\"" . $serviceData->current->uvi . "\">" .  map_uvi_text($serviceData->current->uvi) . "</uvindex>\r\n";
+        $returnData .= "    <dewpoint>" . $serviceData->current->dew_point . "</dewpoint>\r\n";
+        $returnData .= "    <cloudcover>" . $serviceData->current->clouds . "%</cloudcover>\r\n";
+        $returnData .= "    <apparenttemp>" . $serviceData->current->feels_like . "</apparenttemp>\r\n";
+        //TODO: missing: $returnData .= "<windchill>" . $serviceData[0]->WindChillTemperature->$units->Value . "</windchill>\r\n";
+        $returnData .= "</currentconditions>\r\n";
+    } catch (Exception $e) {
+        return "<error>an error occurred while parsing remote service data. last attempted node was: currentconditions</error>";
     }
     return $returnData;
 }
 
-function get_daily_forecast_asXml($locationId, $forecastDays, $useMetric, $apiKey) {
-    global $serviceRoot;
-    $serviceUrl = $serviceRoot . "/forecasts/v1/daily/" . $forecastDays . "day/" . $locationId . "?details=true&metric=" . var_export($useMetric, true);
-    $serviceRaw = get_remote_data($serviceUrl, $apiKey, $cacheHours=12);
+function map_uvi_text($uvi) {
+    if ($uvi <= 3)
+        return "Low";
+    if ($uvi > 3 && $uvi <= 5)
+        return "Moderate";
+    if ($uvi > 5 && $uvi <= 7)
+        return "High";
+    if ($uvi > 7 && $uvi < 8)
+        return "Very High";
+    if ($uvi > 8)
+        return "Extreme";
+}
+
+function map_weather_text($weatherDescription) {
+    //TODO: map to accuweather descriptions
+    //  See: https://openweathermap.org/weather-conditions
+    return $weatherDescription;
+}
+
+function get_daily_forecast_asXml($serviceData, $useMetric) {
     $returnData = "";
-    if (isset($serviceRaw)) {
-        $serviceData = json_decode($serviceRaw);
-        if (isset($serviceData->Headline) && isset($serviceData->Headline->MobileLink)) {
-            $returnData .= "<url>" . str_replace("&", "&amp;", $serviceData->Headline->MobileLink) . "</url>\r\n";
-        }
-        if (isset($serviceData->DailyForecasts) && is_array($serviceData->DailyForecasts)) {
-            $dayCount = 0;
-            foreach($serviceData->DailyForecasts as $day){
-                $dayCount++;
-                $uvIndex = null;
-                foreach ($day->AirAndPollen as $index) {
-                    if ($index->Name == "UVIndex") {
-                        $uvIndex = "    <maxuv>" . $index->Value . "</maxuv>\r\n";
-                    }
-                }
-                try {
-                    $returnData .= "<day number=\"" . $dayCount . "\">\r\n";
-                    $returnData .= "  <url>" . str_replace("&", "&amp;", $day->MobileLink) . "</url>\r\n";
-                    //Note: original dataset used AM/PM or h:i A
-                    $returnData .= "  <obsdate>" . date("m/d/Y", strtotime($day->Date)) . "</obsdate>\r\n";
-                    $returnData .= "  <daycode>" . date('l', strtotime($day->Date)) . "</daycode>\r\n";
-                    $returnData .= "  <sunrise>" . date("H:m", strtotime($day->Sun->Rise)) . "</sunrise>\r\n";
-                    $returnData .= "  <sunset>" . date("H:m", strtotime($day->Sun->Set)) . "</sunset>\r\n";
-                    $returnData .= "  <daytime>\r\n";
-                    $returnData .= "    <txtshort>" . $day->Day->ShortPhrase . "</txtshort>\r\n";
-                    $returnData .= "    <txtlong>" . $day->Day->LongPhrase . "</txtlong>\r\n";
-                    $returnData .= "    <weathericon>" . sprintf("%02d", $day->Day->Icon) . "</weathericon>\r\n";
-                    $returnData .= "    <hightemperature>" . $day->Temperature->Maximum->Value . "</hightemperature>\r\n";
-                    $returnData .= "    <lowtemperature>" . $day->Temperature->Minimum->Value . "</lowtemperature>\r\n";
-                    $returnData .= "    <realfeelhigh>" . $day->RealFeelTemperature->Maximum->Value . "</realfeelhigh>\r\n";
-                    $returnData .= "    <realfeellow>" . $day->RealFeelTemperature->Minimum->Value . "</realfeellow>\r\n";
-                    $returnData .= "    <windspeed>" . $day->Day->Wind->Speed->Value . "</windspeed>\r\n";
-                    $returnData .= "    <winddirection>" . $day->Day->Wind->Direction->Degrees . "</winddirection>\r\n";
-                    $returnData .= "    <windgust>" . $day->Day->WindGust->Speed->Value . "</windgust>\r\n";
-                    if (isset($uvIndex))
-                        $returnData .= $uvIndex;
-                    $returnData .= "    <rainamount>" . $day->Day->Rain->Value . "</rainamount>\r\n";
-                    $returnData .= "    <snowamount>" . $day->Day->Snow->Value . "</snowamount>\r\n";
-                    $returnData .= "    <iceamount>" . $day->Day->Ice->Value . "</iceamount>\r\n";
-                    $returnData .= "    <precipamount>" . $day->Day->PrecipitationProbability . "</precipamount>\r\n";
-                    $returnData .= "    <tstormprob>" . $day->Day->ThunderstormProbability . "</tstormprob>\r\n";
-                    $returnData .= "  </daytime>\r\n";
-                    $returnData .= "  <nighttime>\r\n";
-                    $returnData .= "    <txtshort>" . $day->Night->ShortPhrase . "</txtshort>\r\n";
-                    $returnData .= "    <txtlong>" . $day->Night->LongPhrase . "</txtlong>\r\n";
-                    $returnData .= "    <weathericon>" . sprintf("%02d", $day->Night->Icon) . "</weathericon>\r\n";
-                    $returnData .= "    <hightemperature>" . $day->Temperature->Maximum->Value . "</hightemperature>\r\n";
-                    $returnData .= "    <lowtemperature>" . $day->Temperature->Minimum->Value . "</lowtemperature>\r\n";
-                    $returnData .= "    <realfeelhigh>" . $day->RealFeelTemperature->Maximum->Value . "</realfeelhigh>\r\n";
-                    $returnData .= "    <realfeellow>" . $day->RealFeelTemperature->Minimum->Value . "</realfeellow>\r\n";
-                    $returnData .= "    <windspeed>" . $day->Night->Wind->Speed->Value . "</windspeed>\r\n";
-                    $returnData .= "    <winddirection>" . $day->Night->Wind->Direction->Degrees . "</winddirection>\r\n";
-                    $returnData .= "    <windgust>" . $day->Night->WindGust->Speed->Value . "</windgust>\r\n";
-                    if (isset($uvIndex))
-                        $returnData .= $uvIndex;
-                    $returnData .= "    <rainamount>" . $day->Night->Rain->Value . "</rainamount>\r\n";
-                    $returnData .= "    <snowamount>" . $day->Night->Snow->Value . "</snowamount>\r\n";
-                    $returnData .= "    <iceamount>" . $day->Night->Ice->Value . "</iceamount>\r\n";
-                    $returnData .= "    <precipamount>" . $day->Night->PrecipitationProbability . "</precipamount>\r\n";
-                    $returnData .= "    <tstormprob>" . $day->Night->ThunderstormProbability . "</tstormprob>\r\n";
-                    $returnData .= "  </nighttime>";
-                    $returnData .= "</day>\r\n";
-                } catch (Exception $e) {
-                    return "<error>an error occurred while parsing remote service data. last attempted node was: dailyforecast</error>";
-                }
+    $dayCount = 0;
+    foreach($serviceData->daily as $day){
+        //if ($dayCount == 0 && $day->summary)
+        //    $returnData .= "<url>" . str_replace("&", "&amp;", $serviceData->Headline->MobileLink) . "</url>\r\n";
+        $dayCount++;
+        $uvIndex = null;
+        /*TODO:
+        foreach ($day->AirAndPollen as $index) {
+            if ($index->Name == "UVIndex") {
+                $uvIndex = "    <maxuv>" . $index->Value . "</maxuv>\r\n";
             }
-        } else {
-            if (null !== $serviceData && isset($serviceData->Message)) {
-                return "<error>" . $serviceData->Message . "</error>";
+        }
+        */
+        try {
+            $returnData .= "<day number=\"" . $dayCount . "\">\r\n";
+            //$returnData .= "  <url>" . str_replace("&", "&amp;", $day->MobileLink) . "</url>\r\n";
+            //Note: original dataset used AM/PM or h:i A
+            $timestamp = $day->dt + $serviceData->timezone_offset;
+            $returnData .= "  <obsdate>" . gmdate("m/d/Y", $timestamp) . "</obsdate>\r\n";
+            $returnData .= "  <daycode>" . gmdate('l', $timestamp) . "</daycode>\r\n";
+            $timestamp = $day->sunrise + $serviceData->timezone_offset;
+            $returnData .= "  <sunrise>" . gmdate("h:i", $timestamp) . "</sunrise>\r\n";
+            $timestamp = $day->sunset + $serviceData->timezone_offset;
+            $returnData .= "  <sunset>" . gmdate("h:i", $timestamp) . "</sunset>\r\n";
+            $returnData .= "  <daytime>\r\n";
+            $returnData .= "    <txtshort>" . $day->weather[0]->description . "</txtshort>\r\n";
+            $returnData .= "    <txtlong>" . $day->summary . "</txtlong>\r\n";
+            //TODO: map icons
+            $returnData .= "    <weathericon>" . $day->weather[0]->icon . "</weathericon>\r\n";
+            $returnData .= "    <hightemperature>" . $day->temp->max . "</hightemperature>\r\n";
+            $returnData .= "    <lowtemperature>" . $day->temp->min . "</lowtemperature>\r\n";
+            $returnData .= "    <realfeelhigh>" . $day->feels_like->day . "</realfeelhigh>\r\n";
+            $returnData .= "    <realfeellow>" . $day->feels_like->night . "</realfeellow>\r\n";
+            $returnData .= "    <windspeed>" . $day->wind_speed . "</windspeed>\r\n";
+            $returnData .= "    <winddirection>" . $day->wind_deg . "</winddirection>\r\n";
+            $returnData .= "    <windgust>" . $day->wind_gust . "</windgust>\r\n";
+            $returnData .= "    <maxuv>" . $day->uvi . "</maxuv>\r\n";
+            $precipAmount = 0;
+            if (isset($day->rain)) {
+                $returnData .= "    <rainamount>" . $day->rain . "</rainamount>\r\n";
+                $precipAmount = $precipAmount + $day->rain;
             } else {
-                $errormessage = "<error>response from remote service could not be parsed or had errors: ";
-                $errormessage .= "<![CDATA[" . $serviceRaw . "]]>";
-                $errormessage .= "</error>";
-                return $errormessage;
+                $returnData .= "    <rainamount>0</rainamount>\r\n";
             }
+            if (isset($day->snow)) {
+                $returnData .= "    <snowamount>" . $day->snow . "</snowamount>\r\n";
+                $precipAmount = $precipAmount + $day->snow;
+            } else {
+                $returnData .= "    <snowamount>0</snowamount>\r\n";
+            }
+            $returnData .= "    <iceamount>0</iceamount>\r\n";
+            $returnData .= "    <precipamount>" . $precipAmount . "</precipamount>\r\n";
+            //TODO: this is actually precipitation probability, not storm probability
+            $returnData .= "    <tstormprob>" . $day->pop . "</tstormprob>\r\n";
+            $returnData .= "  </daytime>\r\n";
+            $returnData .= "  <nighttime>\r\n";
+            $returnData .= "    <txtshort>" . $day->weather[0]->description . "</txtshort>\r\n";
+            $returnData .= "    <txtlong>" . $day->summary . "</txtlong>\r\n";
+            //TODO: map icons including moon
+            $returnData .= "    <weathericon>" . $day->weather[0]->icon . "</weathericon>\r\n";
+            $returnData .= "    <hightemperature>" . $day->temp->night . "</hightemperature>\r\n";
+            $returnData .= "    <lowtemperature>" . $day->temp->min . "</lowtemperature>\r\n";
+            $returnData .= "    <realfeelhigh>" . $day->feels_like->eve . "</realfeelhigh>\r\n";
+            $returnData .= "    <realfeellow>" . $day->feels_like->night . "</realfeellow>\r\n";
+            $returnData .= "    <windspeed>" . $day->wind_speed . "</windspeed>\r\n";
+            $returnData .= "    <winddirection>" . $day->wind_deg . "</winddirection>\r\n";
+            $returnData .= "    <windgust>" . $day->wind_gust . "</windgust>\r\n";
+            $returnData .= "    <maxuv>" . $day->uvi . "</maxuv>\r\n";
+            if (isset($day->rain)) {
+                $returnData .= "    <rainamount>" . $day->rain . "</rainamount>\r\n";
+            } else {
+                $returnData .= "    <rainamount>0</rainamount>\r\n";
+            }
+            if (isset($day->snow)) {
+                $returnData .= "    <snowamount>" . $day->snow . "</snowamount>\r\n";
+            } else {
+                $returnData .= "    <snowamount>0</snowamount>\r\n";
+            }
+            $returnData .= "    <iceamount>0</iceamount>\r\n";
+            $returnData .= "    <precipamount>" . $precipAmount . "</precipamount>\r\n";
+            //TODO: this is actually precipitation probability, not storm probability
+            $returnData .= "    <tstormprob>" . $day->pop . "</tstormprob>\r\n";
+            $returnData .= "  </nighttime>";
+            $returnData .= "</day>\r\n";
+        } catch (Exception $e) {
+            return "<error>an error occurred while parsing remote service data. last attempted node was: dailyforecast</error>";
         }
-    } else {
-        return "<error>data could not be retreived from remote service";
     }
     return $returnData;
 }
 
-function get_hourly_forecast_asXml($locationId, $tzOffset, $useMetric, $apiKey) {
-    global $serviceRoot;
-    $tzOffset = sprintf("%+d",$tzOffset);
-    $serviceUrl = $serviceRoot . "/forecasts/v1/hourly/12hour/" . $locationId . "?details=true&metric=" . var_export($useMetric, true);
-    $serviceRaw = get_remote_data($serviceUrl, $apiKey, $cacheHours=2);
-    $returnData = "<hourly>";
-    if (isset($serviceRaw)) {
-        $serviceData = json_decode($serviceRaw);
-        if (isset($serviceData) && is_array($serviceData)) {
-            foreach($serviceData as $hour){
-                try {
-                    //Note: original dataset used AM/PM or h A
-                    $localDateTime = new DateTime($hour->DateTime, new DateTimeZone('UTC'));
-                    $localDateTime->setTimezone(new DateTimeZone($tzOffset));
-                    $returnData .= "<hour time=\"" . $localDateTime->format('H'). "\">\r\n";
-                    $returnData .= "  <weathericon>" . sprintf("%02d", $hour->WeatherIcon) . "</weathericon>\r\n";
-                    $returnData .= "  <temperature>" . $hour->Temperature->Value . "</temperature>\r\n";
-                    $returnData .= "  <realfeel>" . $hour->RealFeelTemperature->Value . "</realfeel>\r\n";
-                    $returnData .= "  <dewpoint>" . $hour->DewPoint->Value . "</dewpoint>\r\n";
-                    $returnData .= "  <humidity>" . $hour->RelativeHumidity . "</humidity>\r\n";
-                    $returnData .= "  <precip>" . $hour->PrecipitationProbability . "</precip>\r\n";
-                    $returnData .= "  <rain>" . $hour->Rain->Value . "</rain>\r\n";
-                    $returnData .= "  <snow>" . $hour->Snow->Value . "</snow>\r\n";
-                    $returnData .= "  <ice>" . $hour->Ice->Value . "</ice>\r\n";
-                    $returnData .= "  <windspeed>" . $hour->Wind->Speed->Value . "</windspeed>\r\n";
-                    $returnData .= "  <winddirection>" . $hour->Wind->Direction->Degrees . "</winddirection>\r\n";
-                    $returnData .= "  <windgust>" . $hour->WindGust->Speed->Value . "</windgust>\r\n";
-                    $returnData .= "  <txtshort>" . $hour->IconPhrase . "</txtshort>\r\n";
-                    $returnData .= "  <traditionalLink>" . str_replace("&", "&amp;", $hour->MobileLink) . "</traditionalLink>\r\n";
-                    $returnData .= "</hour>\r\n";
-                    
-                } catch (Exception $e) {
-                    return "<error>an error occurred while parsing remote service data. last attempted node was: hourlyforecast: " . $e . "</error>";
-                }
-            }
-        } else {
-            if (null !== $serviceData && isset($serviceData->Message)) {
-                return "<error>" . $serviceData->Message . "</error>";
-            } else {
-                $errormessage = "<error>response from remote service could not be parsed or had errors: ";
-                $errormessage .= "<![CDATA[" . $serviceRaw . "]]>";
-                $errormessage .= "</error>";
-                return $errormessage;
-            }
+function get_hourly_forecast_asXml($serviceData, $useMetric) {
+    $returnData = "<hourly>\r\n";
+    foreach($serviceData->hourly as $hour){
+        try {
+            
+            $timestamp = $hour->dt + $serviceData->timezone_offset;
+            //Note: original dataset used AM/PM or h A
+            $returnData .= "<hour time=\"" . gmdate("H", $timestamp) . "\">\r\n";
+            //TODO: map icons
+            //$returnData .= "  <weathericon>" . sprintf("%02d", $hour->WeatherIcon) . "</weathericon>\r\n";
+            $returnData .= "  <temperature>" . $hour->temp . "</temperature>\r\n";
+            $returnData .= "  <realfeel>" . $hour->feels_like . "</realfeel>\r\n";
+            $returnData .= "  <dewpoint>" . $hour->dew_point . "</dewpoint>\r\n";
+            $returnData .= "  <humidity>" . $hour->humidity . "</humidity>\r\n";
+            $returnData .= "  <precip>" . $hour->pop . "</precip>\r\n";
+            //$returnData .= "  <rain>" . $hour->Rain->Value . "</rain>\r\n";
+            //$returnData .= "  <snow>" . $hour->Snow->Value . "</snow>\r\n";
+            //$returnData .= "  <ice>" . $hour->Ice->Value . "</ice>\r\n";
+            $returnData .= "  <windspeed>" . $hour->wind_speed . "</windspeed>\r\n";
+            $returnData .= "  <winddirection>" . $hour->wind_deg . "</winddirection>\r\n";
+            $returnData .= "  <windgust>" . $hour->wind_gust . "</windgust>\r\n";
+            $returnData .= "  <txtshort>" . $hour->weather[0]->main . "</txtshort>\r\n";
+            //$returnData .= "  <traditionalLink>" . str_replace("&", "&amp;", $hour->MobileLink) . "</traditionalLink>\r\n";
+            $returnData .= "</hour>\r\n";
+            
+        } catch (Exception $e) {
+            return "<error>an error occurred while parsing remote service data. last attempted node was: hourlyforecast: " . $e . "</error>";
         }
-    } else {
-        return "<error>data could not be retreived from remote service";
     }
-    $returnData .= "</hourly>";
+    $returnData .= "</hourly>\r\n";
     return $returnData;
 }
 
 function get_indices_asXml($locationId, $apiKey) {
-    global $indices, $serviceRoot;
-    $serviceUrl = $serviceRoot . "/indices/v1/daily/1day/" . $locationId;
+    global $indices, $accuweatherRoot;
+    $serviceUrl = $accuweatherRoot . "/indices/v1/daily/1day/" . $locationId;
     $serviceRaw = get_remote_data($serviceUrl, $apiKey, $cacheHours=8);
     $returnData = "<indices>";
     if (isset($serviceRaw)) {
@@ -309,7 +324,7 @@ function get_indices_asXml($locationId, $apiKey) {
 }
 
 function get_remote_data($url, $apiKey, $cacheDuration) {
-    global $cacheRoot, $serviceRoot;
+    global $cacheRoot, $accuweatherRoot;
     $cacheName = $cacheRoot . cleanFilename($url). ".json";
     //check if cache exists and is still usable
     if (file_exists($cacheName)) {
@@ -319,6 +334,7 @@ function get_remote_data($url, $apiKey, $cacheDuration) {
         }
     }
     //otherwise, proceed with remote call
+    error_log("No suitable cache, calling remote API: " . $url);
     //  append API key
     if (strpos($url, "?") === false)
         $url = $url . "?apikey=" . $apiKey;
@@ -351,16 +367,17 @@ function get_remote_data($url, $apiKey, $cacheDuration) {
             return "{error:'null response'}";
         }
         if (validateJSON($response)) {
-            //cache response
-            if (!file_exists($cacheRoot)) {
-                mkdir($cacheRoot, 0755, true);
+            if ($cacheDuration > 0) {
+                //cache response
+                if (!file_exists($cacheRoot)) {
+                    mkdir($cacheRoot, 0755, true);
+                }
+                file_put_contents($cacheName, $response);
             }
-            file_put_contents($cacheName, $response);
             return $response;
         } else {
             return "{'error':'" . $response . "'}";
         }
-        
     }
 }
 
@@ -402,8 +419,10 @@ function get_relay_data($url, $validateXml=null) {
 }
 
 function cleanFilename($url) {
-    global $serviceRoot;
-    $url = str_replace($serviceRoot, "", $url);
+    global $accuweatherRoot;
+    global $openweatherRoot;
+    $url = str_replace($accuweatherRoot, "", $url);
+    $url = str_replace($openweatherRoot, "", $url);
     $fileName = base64_encode($url);
     $fileName = str_replace("=", "", $fileName);
     $fileName = str_replace("/", "", $fileName);

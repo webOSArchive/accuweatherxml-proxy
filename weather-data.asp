@@ -1,62 +1,67 @@
-<?xml version="1.0"  encoding="utf-8"?>
 <?php
 include("accuweather-proxy.php"); //this page is invoked from a client-specific sub-folder
 include("config.php");
-$apiKey = get_apiKey();
+$accuweatherKey = get_accuweatherApiKey();
+$openweatherKey = get_openweatherApiKey();
 $theQuery = $_SERVER['QUERY_STRING'];
-$theUrl = "http://" . $realServiceDomain . "/widget/accuwxiphonev4/weather-data.asp?" . $theQuery;
+//$theUrl = "http://" . $realServiceDomain . "/widget/accuwxiphonev4/weather-data.asp?" . $theQuery;
+$theUrl = $realServiceDomain;
 
 header('Content-Type: text/xml');
-$realServiceResponse = get_relay_data($theUrl, $validateXml=true);
-if ($realServiceResponse !== false) {
-    //Check if the original real service is up and returning good XML
-    die($realServiceResponse);
-}
+//header('Content-Type: application/json');
 
-//Otherwise, build a response using the new API
-error_log("Accuweather upstream XML API failed for query " . $theQuery . ", proxying JSON API.", 0);
+//TODO: accept location in query, obviously!
+//$locationId = "lat=33.44&lon=-94.04";
 
-$locationId = "";
 if (isset($_GET['location'])) {
     $locationId = $_GET['location'];
     if (strpos($locationId, "cityId") !== false)
         $locationId = str_replace("cityId:", "", $locationId);
     else        //If location is defined using postal code, we need to look it up
-        $locationId = get_postalcode_locationId($locationId, $apiKey);
+        $locationId = get_postalcode_locationId($locationId, $accuweatherKey);
 } else {
     die ("<adc_database><error>No location specified</error></adc_database>");
 }
+
+//echo "locationId = " . $locationId . "<br>";
+$localeData = get_locale_data($locationId, $accuweatherKey);
+$realLocation = "&lat=" . $localeData->GeoPosition->Latitude . "&lon=" . $localeData->GeoPosition->Longitude;
+//echo $realLocation . "<br>";
+//print_r($localeData);
+//die();
 
 $useMetric = false;
 if (isset($_GET['metric']) && $_GET['metric'] != 0) {
     $useMetric = true;
 }
-?>
 
+$openWeatherData = openWeatherOneCall($theUrl, $realLocation, $useMetric, $openweatherKey);
+//echo json_encode($openWeatherData);
+?>
+<?xml version="1.0" encoding="utf-8"?>
 <adc_database xmlns="http://www.accuweather.com">
 <?php
 echo get_units_asXml($useMetric);
 $tzOffset = 0;
-$localData = get_locale_data($locationId, $apiKey);
-if (isset($localData)) {
-    $tzOffset = $localData->TimeZone->GmtOffset;
-    echo convert_local_data_toXml($localData);
-    echo "<watchwarnareas isactive=\"0\">";
-    echo "  <url>https://www.accuweather.com/en/" . strtolower($localData->Country->ID) . "/" . str_replace(" ", "-", strtolower($localData->EnglishName)) . "/" . $localData->PrimaryPostalCode . "/weather-warnings/" . $localData->Key . "</url>";
-    echo "</watchwarnareas>";
+if (isset($openWeatherData)) {
+    $tzOffset = $openWeatherData->timezone_offset;
+    echo get_header_asXml($openWeatherData, $localeData);
+    echo "<watchwarnareas isactive=\"0\">\r\n";
+    echo "  <url>https://www.accuweather.com/en/" . strtolower($localeData->Country->ID) . "/" . str_replace(" ", "-", strtolower($localeData->EnglishName)) . "/" . $localeData->PrimaryPostalCode . "/weather-warnings/" . $localeData->Key . "</url>\r\n";
+    echo "</watchwarnareas>\r\n";
 }
+echo get_current_conditions_asXml($openWeatherData, $useMetric);
 
-echo get_current_conditions_asXml($locationId, $useMetric, $apiKey);
-echo "<forecast>";
-    echo get_daily_forecast_asXml($locationId, $forecastDays, $useMetric, $apiKey);
-    echo get_hourly_forecast_asXml($locationId, $tzOffset, $useMetric, $apiKey);
-echo "</forecast>";
+echo "<forecast>\r\n";
+    echo get_daily_forecast_asXml($openWeatherData, $useMetric);
+    echo get_hourly_forecast_asXml($openWeatherData, $useMetric);
+echo "</forecast>\r\n";
 ?>
     <hurricane>
         <wxh url="http://hurricane.accuweather.com/hurricane/index.asp?partner=blstreamhptablet" sat="http://sirocco.accuweather.com/adc_sat_108x81_public/ir/iscar.gif" cnt="0" />
     </hurricane>
 <?php
-echo get_indices_asXml($locationId, $apiKey);
+echo get_indices_asXml($locationId, $accuweatherKey);
 ?>
     <video>
         <!-- TODO: This has been dead so long, I don't know what to do about it... -->
