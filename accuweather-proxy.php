@@ -218,11 +218,20 @@ function get_daily_forecast_asXml($serviceData, $useMetric) {
             $returnData .= "    <winddirection>" . $day->wind_deg . "</winddirection>\r\n";
             $returnData .= "    <windgust>" . $day->wind_gust . "</windgust>\r\n";
             $returnData .= "    <maxuv>" . $day->uvi . "</maxuv>\r\n";
-            $returnData .= "    <rainamount>0</rainamount>\r\n";
-            $returnData .= "    <snowamount>0</snowamount>\r\n";
+            if (isset($day->rain)) {
+                $returnData .= "    <rainamount>" . $day->rain . "</rainamount>\r\n";
+            } else {
+                $returnData .= "    <rainamount>0</rainamount>\r\n";
+            }
+            if (isset($day->snow)) {
+                $returnData .= "    <snowamount>" . $day->snow . "</snowamount>\r\n";
+            } else {
+                $returnData .= "    <snowamount>0</snowamount>\r\n";
+            }
             $returnData .= "    <iceamount>0</iceamount>\r\n";
-            $returnData .= "    <precipamount>0</precipamount>\r\n";
-            $returnData .= "    <tstormprob>0</tstormprob>\r\n";
+            $returnData .= "    <precipamount>" . $precipAmount . "</precipamount>\r\n";
+            //TODO: this is actually precipitation probability, not storm probability
+            $returnData .= "    <tstormprob>" . $day->pop . "</tstormprob>\r\n";
             $returnData .= "  </nighttime>";
             $returnData .= "</day>\r\n";
         } catch (Exception $e) {
