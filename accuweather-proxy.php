@@ -258,8 +258,8 @@ function get_hourly_forecast_asXml($serviceData, $useMetric) {
 
             $precipAmount = 0;
             if (isset($hour->rain)) {
-                if (isset($hour->rain[0]))
-                    $rain = $hour->rain[0];
+                if (isset($hour->rain->{'1h'}))
+                    $rain = $hour->rain->{'1h'};
                 else
                     $rain = $hour->rain;
                 $returnData .= "  <rain>" . $rain . "</rain>\r\n";
@@ -268,8 +268,8 @@ function get_hourly_forecast_asXml($serviceData, $useMetric) {
                 $returnData .= "  <rain>0</rain>\r\n";
             }
             if (isset($hour->snow)) {
-                if (isset($hour->snow[0]))
-                    $snow = $hour->snow[0];
+                if (isset($hour->snow->{'1h'}))
+                    $snow = $hour->snow->{'1h'};
                 else
                     $snow = $hour->snow;
                 $returnData .= "  <snow>" . $snow . "</snow>\r\n";
