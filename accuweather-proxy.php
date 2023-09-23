@@ -216,7 +216,7 @@ function get_daily_forecast_asXml($serviceData, $useMetric) {
             $returnData .= "    <txtshort>" . $day->weather[0]->description . "</txtshort>\r\n";
             $returnData .= "    <txtlong>" . $day->summary . "</txtlong>\r\n";
             //TODO: map icons including moon
-            $returnData .= "    <weathericon>" . map_weather_icon($day->weather[0]->icon, "night"); . "</weathericon>\r\n";
+            $returnData .= "    <weathericon>" . map_weather_icon($day->weather[0]->icon, "night") . "</weathericon>\r\n";
             $returnData .= "    <hightemperature>" . $day->temp->night . "</hightemperature>\r\n";
             $returnData .= "    <lowtemperature>" . $day->temp->min . "</lowtemperature>\r\n";
             $returnData .= "    <realfeelhigh>" . $day->feels_like->eve . "</realfeelhigh>\r\n";
