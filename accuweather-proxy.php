@@ -42,9 +42,10 @@ function get_units_asXml($useMetric) {
 }
 
 function openWeatherOneCall($serviceUrl, $location, $useMetric, $apiKey) {
-    //TODO: Actually use unit preference!
-    $serviceUrl = $serviceUrl . $location . "&units=metric&appid=" . $apiKey;
-    //die("<url>" . $serviceUrl . "</url>");
+    $units = "imperial";
+    if ($useMetric > 0)
+        $units = "metric";
+    $serviceUrl = $serviceUrl . $location . "&units=" . $units . "&appid=" . $apiKey;
     $serviceRaw = get_remote_data($serviceUrl, $apiKey, $cacheHours=1);
     if (isset($serviceRaw)) {
         $serviceData = json_decode($serviceRaw);
@@ -163,14 +164,6 @@ function get_daily_forecast_asXml($serviceData, $useMetric) {
         //if ($dayCount == 0 && $day->summary)
         //    $returnData .= "<url>" . str_replace("&", "&amp;", $serviceData->Headline->MobileLink) . "</url>\r\n";
         $dayCount++;
-        $uvIndex = null;
-        /*TODO:
-        foreach ($day->AirAndPollen as $index) {
-            if ($index->Name == "UVIndex") {
-                $uvIndex = "    <maxuv>" . $index->Value . "</maxuv>\r\n";
-            }
-        }
-        */
         try {
             $returnData .= "<day number=\"" . $dayCount . "\">\r\n";
             //$returnData .= "  <url>" . str_replace("&", "&amp;", $day->MobileLink) . "</url>\r\n";
