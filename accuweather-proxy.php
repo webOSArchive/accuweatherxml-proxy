@@ -82,7 +82,7 @@ function get_header_asXml($openweatherData, $accuweatherData) {
             $returnData .= "  <lat>" . $openweatherData->lat . "</lat>\r\n";
             $returnData .= "  <lon>" . $openweatherData->lon . "</lon>\r\n";
             $timestamp = $openweatherData->current->dt + $openweatherData->timezone_offset;
-            $useTime = gmdate("h:i", $timestamp);
+            $useTime = gmdate("H:i", $timestamp);
             $returnData .= "  <time>" . $useTime . "</time>\r\n";
             $returnData .= "  <timeZone>" . $openweatherData->timezone . "</timeZone>\r\n";
             $returnData .= "  <obsDaylight>" . $accuweatherData->TimeZone->IsDaylightSaving . "</obsDaylight>\r\n";
@@ -112,7 +112,7 @@ function get_current_conditions_asXml($serviceData, $useMetric) {
         //$returnData .= "<url>" . str_replace("&", "&amp;", $serviceData[0]->MobileLink) . "</url>\r\n";
         //Note: original dataset used AM/PM or h:i A
         $timestamp = $serviceData->current->dt + $serviceData->timezone_offset;
-        $returnData .= "    <observationtime>" . gmdate("h:i", $timestamp) . "</observationtime>\r\n";
+        $returnData .= "    <observationtime>" . gmdate("H:i", $timestamp) . "</observationtime>\r\n";
         //TODO: this pressure conversion should be double-checked!
         $returnData .= "    <pressure state=\"Unknown\">" .  ($serviceData->current->pressure * 0.0294) . "</pressure>\r\n";
         $returnData .= "    <temperature>" . $serviceData->current->temp . "</temperature>\r\n";
@@ -179,9 +179,9 @@ function get_daily_forecast_asXml($serviceData, $useMetric) {
             $returnData .= "  <obsdate>" . gmdate("m/d/Y", $timestamp) . "</obsdate>\r\n";
             $returnData .= "  <daycode>" . gmdate('l', $timestamp) . "</daycode>\r\n";
             $timestamp = $day->sunrise + $serviceData->timezone_offset;
-            $returnData .= "  <sunrise>" . gmdate("h:i", $timestamp) . "</sunrise>\r\n";
+            $returnData .= "  <sunrise>" . gmdate("H:i", $timestamp) . "</sunrise>\r\n";
             $timestamp = $day->sunset + $serviceData->timezone_offset;
-            $returnData .= "  <sunset>" . gmdate("h:i", $timestamp) . "</sunset>\r\n";
+            $returnData .= "  <sunset>" . gmdate("H:i", $timestamp) . "</sunset>\r\n";
             $returnData .= "  <daytime>\r\n";
             $returnData .= "    <txtshort>" . $day->weather[0]->description . "</txtshort>\r\n";
             $returnData .= "    <txtlong>" . $day->summary . "</txtlong>\r\n";
