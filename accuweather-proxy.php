@@ -119,7 +119,7 @@ function get_current_conditions_asXml($serviceData, $useMetric) {
         $returnData .= "    <realfeel>" . $serviceData->current->feels_like . "</realfeel>\r\n";
         $returnData .= "    <humidity>" . $serviceData->current->humidity . "</humidity>\r\n";
         $returnData .= "    <weathertext>" . $serviceData->current->weather[0]->description . "</weathertext>\r\n";
-        $returnData .= "    <weathericon>" . map_weather_text($serviceData->current->weather[0]->description) . "</weathericon>\r\n";
+        $returnData .= "    <weathericon>" . map_weather_icon($serviceData->current->weather[0]->icon, "day") . "</weathericon>\r\n";
         $returnData .= "    <windgusts>" . $serviceData->hourly[0]->wind_gust . "</windgusts>\r\n";
         $returnData .= "    <windspeed>" . $serviceData->current->wind_speed . "</windspeed>\r\n";
         $returnData .= "    <winddirection>" . $serviceData->current->wind_deg . "°</winddirection>\r\n";
@@ -156,12 +156,6 @@ function map_uvi_text($uvi) {
         return "Extreme";
 }
 
-function map_weather_text($weatherDescription) {
-    //TODO: map to accuweather descriptions
-    //  See: https://openweathermap.org/weather-conditions
-    return $weatherDescription;
-}
-
 function get_daily_forecast_asXml($serviceData, $useMetric) {
     $returnData = "";
     $dayCount = 0;
@@ -191,8 +185,7 @@ function get_daily_forecast_asXml($serviceData, $useMetric) {
             $returnData .= "  <daytime>\r\n";
             $returnData .= "    <txtshort>" . $day->weather[0]->description . "</txtshort>\r\n";
             $returnData .= "    <txtlong>" . $day->summary . "</txtlong>\r\n";
-            //TODO: map icons
-            $returnData .= "    <weathericon>" . $day->weather[0]->icon . "</weathericon>\r\n";
+            $returnData .= "    <weathericon>" . map_weather_icon($day->weather[0]->icon, "day") . "</weathericon>\r\n";
             $returnData .= "    <hightemperature>" . $day->temp->max . "</hightemperature>\r\n";
             $returnData .= "    <lowtemperature>" . $day->temp->min . "</lowtemperature>\r\n";
             $returnData .= "    <realfeelhigh>" . $day->feels_like->day . "</realfeelhigh>\r\n";
@@ -223,7 +216,7 @@ function get_daily_forecast_asXml($serviceData, $useMetric) {
             $returnData .= "    <txtshort>" . $day->weather[0]->description . "</txtshort>\r\n";
             $returnData .= "    <txtlong>" . $day->summary . "</txtlong>\r\n";
             //TODO: map icons including moon
-            $returnData .= "    <weathericon>" . $day->weather[0]->icon . "</weathericon>\r\n";
+            $returnData .= "    <weathericon>" . map_weather_icon($day->weather[0]->icon, "night"); . "</weathericon>\r\n";
             $returnData .= "    <hightemperature>" . $day->temp->night . "</hightemperature>\r\n";
             $returnData .= "    <lowtemperature>" . $day->temp->min . "</lowtemperature>\r\n";
             $returnData .= "    <realfeelhigh>" . $day->feels_like->eve . "</realfeelhigh>\r\n";
@@ -264,15 +257,27 @@ function get_hourly_forecast_asXml($serviceData, $useMetric) {
             //Note: original dataset used AM/PM or h A
             $returnData .= "<hour time=\"" . gmdate("H", $timestamp) . "\">\r\n";
             //TODO: map icons
-            //$returnData .= "  <weathericon>" . sprintf("%02d", $hour->WeatherIcon) . "</weathericon>\r\n";
+            $returnData .= "  <weathericon>" . map_weather_icon($hour->weather[0]->icon, "day") . "</weathericon>\r\n";
             $returnData .= "  <temperature>" . $hour->temp . "</temperature>\r\n";
             $returnData .= "  <realfeel>" . $hour->feels_like . "</realfeel>\r\n";
             $returnData .= "  <dewpoint>" . $hour->dew_point . "</dewpoint>\r\n";
             $returnData .= "  <humidity>" . $hour->humidity . "</humidity>\r\n";
-            $returnData .= "  <precip>" . $hour->pop . "</precip>\r\n";
-            //$returnData .= "  <rain>" . $hour->Rain->Value . "</rain>\r\n";
-            //$returnData .= "  <snow>" . $hour->Snow->Value . "</snow>\r\n";
-            //$returnData .= "  <ice>" . $hour->Ice->Value . "</ice>\r\n";
+
+            $precipAmount = 0;
+            if (isset($hour->rain)) {
+                $returnData .= "  <rain>" . $hour->rain . "</rain>\r\n";
+                $precipAmount = $precipAmount + $hour->rain;
+            } else {
+                $returnData .= "  <rain>0</rain>\r\n";
+            }
+            if (isset($hour->snow)) {
+                $returnData .= "  <snow>" . $hour->snow . "</snow>\r\n";
+                $precipAmount = $precipAmount + $hour->snow;
+            } else {
+                $returnData .= "  <snow>0</snow>\r\n";
+            }
+            $returnData .= "  <ice>0</ice>\r\n";
+            $returnData .= "  <precip>" . $precipAmount . "</precip>\r\n";
             $returnData .= "  <windspeed>" . $hour->wind_speed . "</windspeed>\r\n";
             $returnData .= "  <winddirection>" . $hour->wind_deg . "</winddirection>\r\n";
             $returnData .= "  <windgust>" . $hour->wind_gust . "</windgust>\r\n";
@@ -446,6 +451,12 @@ function validateJSON(string $json): bool {
         error_log($e->getMessage() . PHP_EOL);
         return false;
     }
+}
+
+function map_weather_icon($weatherDescription, $dayOrNight) {
+    //TODO: map to accuweather descriptions
+    //  See: https://openweathermap.org/weather-conditions
+    return $weatherDescription;
 }
 
 //Map old index names to new ones
