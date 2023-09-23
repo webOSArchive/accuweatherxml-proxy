@@ -120,7 +120,7 @@ function get_current_conditions_asXml($serviceData, $useMetric) {
         $returnData .= "    <realfeel>" . $serviceData->current->feels_like . "</realfeel>\r\n";
         $returnData .= "    <humidity>" . $serviceData->current->humidity . "</humidity>\r\n";
         $returnData .= "    <weathertext>" . $serviceData->current->weather[0]->description . "</weathertext>\r\n";
-        $returnData .= "    <weathericon>" . map_weather_icon($serviceData->current->weather[0]->icon, "day") . "</weathericon>\r\n";
+        $returnData .= "    <weathericon>" . map_weather_icon($serviceData->current->weather[0]->icon) . "</weathericon>\r\n";
         $returnData .= "    <windgusts>" . $serviceData->hourly[0]->wind_gust . "</windgusts>\r\n";
         $returnData .= "    <windspeed>" . $serviceData->current->wind_speed . "</windspeed>\r\n";
         $returnData .= "    <winddirection>" . $serviceData->current->wind_deg . "°</winddirection>\r\n";
@@ -178,7 +178,7 @@ function get_daily_forecast_asXml($serviceData, $useMetric) {
             $returnData .= "  <daytime>\r\n";
             $returnData .= "    <txtshort>" . $day->weather[0]->description . "</txtshort>\r\n";
             $returnData .= "    <txtlong>" . $day->summary . "</txtlong>\r\n";
-            $returnData .= "    <weathericon>" . map_weather_icon($day->weather[0]->icon, "day") . "</weathericon>\r\n";
+            $returnData .= "    <weathericon>" . map_weather_icon($day->weather[0]->icon) . "</weathericon>\r\n";
             $returnData .= "    <hightemperature>" . $day->temp->max . "</hightemperature>\r\n";
             $returnData .= "    <lowtemperature>" . $day->temp->min . "</lowtemperature>\r\n";
             $returnData .= "    <realfeelhigh>" . $day->feels_like->day . "</realfeelhigh>\r\n";
@@ -209,7 +209,7 @@ function get_daily_forecast_asXml($serviceData, $useMetric) {
             $returnData .= "    <txtshort>" . $day->weather[0]->description . "</txtshort>\r\n";
             $returnData .= "    <txtlong>" . $day->summary . "</txtlong>\r\n";
             //TODO: map icons including moon
-            $returnData .= "    <weathericon>" . map_weather_icon($day->weather[0]->icon, "night") . "</weathericon>\r\n";
+            $returnData .= "    <weathericon>" . map_weather_icon($day->weather[0]->icon) . "</weathericon>\r\n";
             $returnData .= "    <hightemperature>" . $day->temp->night . "</hightemperature>\r\n";
             $returnData .= "    <lowtemperature>" . $day->temp->min . "</lowtemperature>\r\n";
             $returnData .= "    <realfeelhigh>" . $day->feels_like->eve . "</realfeelhigh>\r\n";
@@ -250,7 +250,7 @@ function get_hourly_forecast_asXml($serviceData, $useMetric) {
             //Note: original dataset used AM/PM or h A
             $returnData .= "<hour time=\"" . gmdate("H", $timestamp) . "\">\r\n";
             //TODO: map icons
-            $returnData .= "  <weathericon>" . map_weather_icon($hour->weather[0]->icon, "day") . "</weathericon>\r\n";
+            $returnData .= "  <weathericon>" . map_weather_icon($hour->weather[0]->icon) . "</weathericon>\r\n";
             $returnData .= "  <temperature>" . $hour->temp . "</temperature>\r\n";
             $returnData .= "  <realfeel>" . $hour->feels_like . "</realfeel>\r\n";
             $returnData .= "  <dewpoint>" . $hour->dew_point . "</dewpoint>\r\n";
@@ -258,14 +258,22 @@ function get_hourly_forecast_asXml($serviceData, $useMetric) {
 
             $precipAmount = 0;
             if (isset($hour->rain)) {
-                $returnData .= "  <rain>" . $hour->rain . "</rain>\r\n";
-                $precipAmount = $precipAmount + $hour->rain;
+                if (isset($hour->rain[0]))
+                    $rain = $hour->rain[0];
+                else
+                    $rain = $hour->rain;
+                $returnData .= "  <rain>" . $rain . "</rain>\r\n";
+                $precipAmount = $precipAmount + $rain;
             } else {
                 $returnData .= "  <rain>0</rain>\r\n";
             }
             if (isset($hour->snow)) {
-                $returnData .= "  <snow>" . $hour->snow . "</snow>\r\n";
-                $precipAmount = $precipAmount + $hour->snow;
+                if (isset($hour->snow[0]))
+                    $snow = $hour->snow[0];
+                else
+                    $snow = $hour->snow;
+                $returnData .= "  <snow>" . $snow . "</snow>\r\n";
+                $precipAmount = $precipAmount + $snow;
             } else {
                 $returnData .= "  <snow>0</snow>\r\n";
             }
