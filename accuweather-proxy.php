@@ -234,9 +234,13 @@ function get_daily_forecast_asXml($serviceData, $useMetric) {
 
 function get_hourly_forecast_asXml($serviceData, $useMetric) {
     $returnData = "<hourly>\r\n";
+    $hourCount = 0;
     foreach($serviceData->hourly as $hour){
+        if ($hourCount >= 12)
+            break;
+        else
+            $hourCount++;
         try {
-            
             $timestamp = $hour->dt + $serviceData->timezone_offset;
             //Note: original dataset used AM/PM or h A
             $returnData .= "<hour time=\"" . gmdate("H", $timestamp) . "\">\r\n";
