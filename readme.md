@@ -2,23 +2,27 @@
 
 Accuweather provided an XML-based API for more than a decade that is used by a bunch of legacy devices. Recently they deprecated the API in favor of a new (mostly non-free) JSON API, and have announced plans to shut down the old one. As of July 2023, the endpoint appears to be down permanently, after years of disrepair where it returned mal-formed XML with increasing frequency.
 
-This project provides a proxy that calls the new JSON API and returns XML results structured to look like the old API. In effect, this is a compatibility layer for Accuweather, allowing older devices to continue to get Accuweather forecasts. Some limitations of the new API are present (forecasts are limited to 5 days), but generally keep things working the way they did a decade ago. I built it for [legacy webOS](https://www.webosarchive.org), but it should work for retro iOS and Android clients too.
+Unfortunately, the new API splits the required data into multiple calls -- each counting toward usage. Free usage is limited to 50 calls a day, and the next tier up isn't cheap. This project provides a proxy that calls the new JSON API for Accuweather-specific data, and the Openweather API for the rest, then returns XML results structured to look like the old API.
+
+In effect, this is a compatibility layer for Accuweather, allowing older devices to continue to get weather forecasts. Some limitations of the new API are present (forecasts are limited to 5 days), but generally keep things working the way they did a decade ago. I built it for [legacy webOS](https://www.webosarchive.org), but it should work for retro iOS and Android clients too.
 
 # Authentication and Authorization
 
 The old API identified clients with a custom URL -- if you knew the URL, you could use the endpoint. Not terribly secure.
 
-The new API uses an API key, which you have to get from Accuweather:
+The Accuweather API uses an API key, which you have to get from them:
 * https://developer.accuweather.com
 
-Once you have an API key, copy `config-example.php` to `config.php` and enter the key. Paid keys allow for more API calls in a 24 hour period, while free keys are limited to 50 calls/24 hours. 
+Openweather's API also requires an API key. This service takes advantage of their One Call API:
+* https://openweathermap.org/api/one-call-3
+
+Once you have your API keys, copy `config-example.php` to `config.php` and enter the keys in the appropriate section. Paid keys allow for more API calls in a 24 hour period, while free keys are limited by the respective service.
 
 If you were to sign-up for multiple free API keys, you could enter each one on its own line in `config.php` and a random key would be selected for each API call. This likely violates the terms of Accuweather's developer agreement, so try this at your own risk.
 
-## Limitations
+## Accuweather Limitations
 
 * Be aware that while the original API provided one end-point for a complete forecast payload, the new API requires multiple calls to different endpoints to construct the payload expected by older clients, increasing the rate at which your call limit is consumed. More aggressive [caching](#caching) may help.
-* Free API access is limited to a 5-day forecast. To get more than this, you have to pay. If you pay for more than 5 days, update the `config.php` to increase the XML output.
 * Free API access excludes weather alerts, so they have not been included in this project.
 
 # Hosting
