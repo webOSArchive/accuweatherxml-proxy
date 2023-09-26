@@ -2,7 +2,7 @@
 <?php
 include("accuweather-proxy.php"); //this page is invoked from a client-specific sub-folder
 include("config.php");
-$apiKey = get_apiKey();
+$apiKey = get_accuweatherApiKey();
 if (isset($_GET['location'])) {
     $serviceData = get_city_search($_GET['location'], $apiKey);
 }
