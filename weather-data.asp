@@ -4,8 +4,7 @@ include("config.php");
 $accuweatherKey = get_accuweatherApiKey();
 $openweatherKey = get_openweatherApiKey();
 $theQuery = $_SERVER['QUERY_STRING'];
-//$theUrl = "http://" . $realServiceDomain . "/widget/accuwxiphonev4/weather-data.asp?" . $theQuery;
-$theUrl = $realServiceDomain;
+$theUrl = $openweatherRoot . "onecall?exclude=minutely";
 
 header('Content-Type: text/xml');
 //header('Content-Type: application/json');
@@ -50,11 +49,11 @@ if (isset($openWeatherData)) {
     echo "  <url>https://www.accuweather.com/en/" . strtolower($localeData->Country->ID) . "/" . str_replace(" ", "-", strtolower($localeData->EnglishName)) . "/" . $localeData->PrimaryPostalCode . "/weather-warnings/" . $localeData->Key . "</url>\r\n";
     echo "</watchwarnareas>\r\n";
 }
-echo get_current_conditions_asXml($openWeatherData, $useMetric);
+echo get_current_conditions_asXml($openWeatherData, $useMetric, $locationId);
 
 echo "<forecast>\r\n";
-    echo get_daily_forecast_asXml($openWeatherData, $useMetric);
-    echo get_hourly_forecast_asXml($openWeatherData, $useMetric);
+    echo get_daily_forecast_asXml($openWeatherData, $useMetric, $locationId);
+    echo get_hourly_forecast_asXml($openWeatherData, $useMetric, $locationId);
 echo "</forecast>\r\n";
 ?>
     <hurricane>

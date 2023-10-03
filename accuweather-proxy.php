@@ -1,7 +1,4 @@
 <?php
-$accuweatherRoot = "http://dataservice.accuweather.com";
-$openweatherRoot = "https://api.openweathermap.org/data/3.0/";
-
 function get_postalcode_locationId($locationId, $apiKey) {
     global $accuweatherRoot;
     
@@ -35,9 +32,9 @@ function get_city_search($searchString, $apiKey) {
 
 function get_units_asXml($useMetric) {
     if (!$useMetric) {
-        return "<units>\r\n<temp>F</temp>\r\n<dist>MI</dist>\r\n<speed>MPH</speed>\r\n<pres>IN</pres>\r\n<prec>IN</prec>\r\n</units>\r\n";
+        return "<units>\r\n<temp>F</temp>\r\n<dist>MI</dist>\r\n<speed>MPH</speed>\r\n<pres>IN</pres>\r\n<prec>IN</prec>\r\n</units>" . PHP_EOL;
     } else {
-        return "<units>\r\n<temp>C</temp>\r\n<dist>KM</dist>\r\n<speed>KPH</speed>\r\n<pres>CM</pres>\r\n<prec>CM</prec>\r\n</units>\r\n";
+        return "<units>\r\n<temp>C</temp>\r\n<dist>KM</dist>\r\n<speed>KPH</speed>\r\n<pres>CM</pres>\r\n<prec>CM</prec>\r\n</units>" . PHP_EOL;
     }
 }
 
@@ -53,6 +50,7 @@ function openWeatherOneCall($serviceUrl, $location, $useMetric, $apiKey) {
             return $serviceData;
         }
     }
+    error_log("An error occurred getting data from OpenWeather. " . $serviceRaw);
     return null;
 }
 
@@ -73,22 +71,22 @@ function get_header_asXml($openweatherData, $accuweatherData) {
     $returnData = "";
     if (isset($openweatherData) && isset($accuweatherData)) {
         try {
-            $returnData .= "<local>\r\n";
-            $returnData .= "  <city>" . $accuweatherData->LocalizedName  . "</city>\r\n";
-            $returnData .= "  <adminArea code=\"" . $accuweatherData->AdministrativeArea->ID . "\">" .  $accuweatherData->AdministrativeArea->LocalizedName  . "</adminArea>\r\n";
-            $returnData .= "  <country code=\"" . $accuweatherData->Country->ID . "\">" .  $accuweatherData->Country->LocalizedName . "</country>\r\n";
-            $returnData .= "  <cityId>" . $accuweatherData->Key . "</cityId>\r\n";
-            $returnData .= "  <primaryPostalCode>" . $accuweatherData->PrimaryPostalCode . "</primaryPostalCode>\r\n";
-            $returnData .= "  <locationKey>" . $accuweatherData->Key . "</locationKey>\r\n";
-            $returnData .= "  <lat>" . $openweatherData->lat . "</lat>\r\n";
-            $returnData .= "  <lon>" . $openweatherData->lon . "</lon>\r\n";
+            $returnData .= "<local>" . PHP_EOL;
+            $returnData .= "  <city>" . $accuweatherData->LocalizedName  . "</city>" . PHP_EOL;
+            $returnData .= "  <adminArea code=\"" . $accuweatherData->AdministrativeArea->ID . "\">" .  $accuweatherData->AdministrativeArea->LocalizedName  . "</adminArea>" . PHP_EOL;
+            $returnData .= "  <country code=\"" . $accuweatherData->Country->ID . "\">" .  $accuweatherData->Country->LocalizedName . "</country>" . PHP_EOL;
+            $returnData .= "  <cityId>" . $accuweatherData->Key . "</cityId>" . PHP_EOL;
+            $returnData .= "  <primaryPostalCode>" . $accuweatherData->PrimaryPostalCode . "</primaryPostalCode>" . PHP_EOL;
+            $returnData .= "  <locationKey>" . $accuweatherData->Key . "</locationKey>" . PHP_EOL;
+            $returnData .= "  <lat>" . $openweatherData->lat . "</lat>" . PHP_EOL;
+            $returnData .= "  <lon>" . $openweatherData->lon . "</lon>" . PHP_EOL;
             $timestamp = $openweatherData->current->dt + $openweatherData->timezone_offset;
             $useTime = gmdate("H:i", $timestamp);
-            $returnData .= "  <time>" . $useTime . "</time>\r\n";
-            $returnData .= "  <timeZone>" . $openweatherData->timezone . "</timeZone>\r\n";
-            $returnData .= "  <obsDaylight>" . $accuweatherData->TimeZone->IsDaylightSaving . "</obsDaylight>\r\n";
-            $returnData .= "  <timeZoneAbbreviation>" . $accuweatherData->TimeZone->Code . "</timeZoneAbbreviation>\r\n";
-            $returnData .= "</local>\r\n";
+            $returnData .= "  <time>" . $useTime . "</time>" . PHP_EOL;
+            $returnData .= "  <timeZone>" . $openweatherData->timezone . "</timeZone>" . PHP_EOL;
+            $returnData .= "  <obsDaylight>" . $accuweatherData->TimeZone->IsDaylightSaving . "</obsDaylight>" . PHP_EOL;
+            $returnData .= "  <timeZoneAbbreviation>" . $accuweatherData->TimeZone->Code . "</timeZoneAbbreviation>" . PHP_EOL;
+            $returnData .= "</local>" . PHP_EOL;
         } catch (Exception $e) {
             return "<error>an error occurred while parsing remote service data. last attempted node was: location</error>";
         }
@@ -99,7 +97,7 @@ function get_header_asXml($openweatherData, $accuweatherData) {
     return $returnData;
 }
 
-function get_current_conditions_asXml($serviceData, $useMetric) {
+function get_current_conditions_asXml($serviceData, $useMetric, $locationId) {
     $units = "Metric";
     $returnData = "";
     if (!$useMetric)
@@ -108,36 +106,37 @@ function get_current_conditions_asXml($serviceData, $useMetric) {
         $isDaylight = false;
         if ($serviceData->current->dt > $serviceData->current->sunrise && $serviceData->current->dt < $serviceData->current->sunset)
             $isDaylight = true;
-        $returnData .= "<currentconditions daylight=\"" . $isDaylight . "\">\r\n";
+        $returnData .= "<currentconditions daylight=\"" . $isDaylight . "\">" . PHP_EOL;
         
-        //$returnData .= "<url>" . str_replace("&", "&amp;", $serviceData[0]->MobileLink) . "</url>\r\n";
+        //$returnData .= "<url>" . str_replace("&", "&amp;", $serviceData[0]->MobileLink) . "</url>" . PHP_EOL;
+        $returnData .= "    <url>http://www.accuweather.com/index-forecast.asp?partner=blstreamhptablet&amp;" . $locationId . "</url>" . PHP_EOL;
         //Note: original dataset used AM/PM or h:i A
         $timestamp = $serviceData->current->dt + $serviceData->timezone_offset;
-        $returnData .= "    <observationtime>" . gmdate("H:i", $timestamp) . "</observationtime>\r\n";
+        $returnData .= "    <observationtime>" . gmdate("H:i", $timestamp) . "</observationtime>" . PHP_EOL;
         //TODO: this pressure conversion should be double-checked!
-        $returnData .= "    <pressure state=\"Unknown\">" .  ($serviceData->current->pressure * 0.0294) . "</pressure>\r\n";
-        $returnData .= "    <temperature>" . $serviceData->current->temp . "</temperature>\r\n";
-        $returnData .= "    <realfeel>" . $serviceData->current->feels_like . "</realfeel>\r\n";
-        $returnData .= "    <humidity>" . $serviceData->current->humidity . "</humidity>\r\n";
-        $returnData .= "    <weathertext>" . $serviceData->current->weather[0]->description . "</weathertext>\r\n";
-        $returnData .= "    <weathericon>" . map_weather_icon($serviceData->current->weather[0]->icon) . "</weathericon>\r\n";
-        $returnData .= "    <windgusts>" . $serviceData->hourly[0]->wind_gust . "</windgusts>\r\n";
-        $returnData .= "    <windspeed>" . $serviceData->current->wind_speed . "</windspeed>\r\n";
-        $returnData .= "    <winddirection>" . $serviceData->current->wind_deg . "°</winddirection>\r\n";
+        $returnData .= "    <pressure state=\"Unknown\">" .  ($serviceData->current->pressure * 0.0294) . "</pressure>" . PHP_EOL;
+        $returnData .= "    <temperature>" . $serviceData->current->temp . "</temperature>" . PHP_EOL;
+        $returnData .= "    <realfeel>" . $serviceData->current->feels_like . "</realfeel>" . PHP_EOL;
+        $returnData .= "    <humidity>" . $serviceData->current->humidity . "</humidity>" . PHP_EOL;
+        $returnData .= "    <weathertext>" . $serviceData->current->weather[0]->description . "</weathertext>" . PHP_EOL;
+        $returnData .= "    <weathericon>" . map_weather_icon($serviceData->current->weather[0]->icon) . "</weathericon>" . PHP_EOL;
+        $returnData .= "    <windgusts>" . $serviceData->hourly[0]->wind_gust . "</windgusts>" . PHP_EOL;
+        $returnData .= "    <windspeed>" . $serviceData->current->wind_speed . "</windspeed>" . PHP_EOL;
+        $returnData .= "    <winddirection>" . $serviceData->current->wind_deg . "°</winddirection>" . PHP_EOL;
         //TODO: openweather returns in meters, is this a good conversion?
-        $returnData .= "    <visibility>" . ($serviceData->current->visibility / 1000). "</visibility>\r\n";
+        $returnData .= "    <visibility>" . ($serviceData->current->visibility / 1000). "</visibility>" . PHP_EOL;
         $precipAmt = 0;
         if (isset($serviceData->current->rain))
             $precipAmt = $precipAmt + $serviceData->current->rain;
         if (isset($serviceData->current->snow))
             $precipAmt = $precipAmt + $serviceData->current->snow;
-        $returnData .= "    <precip>" . $precipAmt . "</precip>\r\n";
-        $returnData .= "    <uvindex index=\"" . $serviceData->current->uvi . "\">" .  map_uvi_text($serviceData->current->uvi) . "</uvindex>\r\n";
-        $returnData .= "    <dewpoint>" . $serviceData->current->dew_point . "</dewpoint>\r\n";
-        $returnData .= "    <cloudcover>" . $serviceData->current->clouds . "%</cloudcover>\r\n";
-        $returnData .= "    <apparenttemp>" . $serviceData->current->feels_like . "</apparenttemp>\r\n";
-        //TODO: missing: $returnData .= "<windchill>" . $serviceData[0]->WindChillTemperature->$units->Value . "</windchill>\r\n";
-        $returnData .= "</currentconditions>\r\n";
+        $returnData .= "    <precip>" . $precipAmt . "</precip>" . PHP_EOL;
+        $returnData .= "    <uvindex index=\"" . $serviceData->current->uvi . "\">" .  map_uvi_text($serviceData->current->uvi) . "</uvindex>" . PHP_EOL;
+        $returnData .= "    <dewpoint>" . $serviceData->current->dew_point . "</dewpoint>" . PHP_EOL;
+        $returnData .= "    <cloudcover>" . $serviceData->current->clouds . "%</cloudcover>" . PHP_EOL;
+        $returnData .= "    <apparenttemp>" . $serviceData->current->feels_like . "</apparenttemp>" . PHP_EOL;
+        //TODO: missing: $returnData .= "<windchill>" . $serviceData[0]->WindChillTemperature->$units->Value . "</windchill>" . PHP_EOL;
+        $returnData .= "</currentconditions>" . PHP_EOL;
     } catch (Exception $e) {
         return "<error>an error occurred while parsing remote service data. last attempted node was: currentconditions</error>";
     }
@@ -157,74 +156,73 @@ function map_uvi_text($uvi) {
         return "Extreme";
 }
 
-function get_daily_forecast_asXml($serviceData, $useMetric) {
+function get_daily_forecast_asXml($serviceData, $useMetric, $locationId) {
     $returnData = "";
     $dayCount = 0;
     foreach($serviceData->daily as $day){
-        //if ($dayCount == 0 && $day->summary)
-        //    $returnData .= "<url>" . str_replace("&", "&amp;", $serviceData->Headline->MobileLink) . "</url>\r\n";
+        if ($dayCount == 0 && $day->summary)
+            $returnData .= "<url>http://www.accuweather.com/forecast.asp?partner=blstreamhptablet&amp;" . $locationId . "</url>" . PHP_EOL;
         $dayCount++;
         try {
-            $returnData .= "<day number=\"" . $dayCount . "\">\r\n";
-            //$returnData .= "  <url>" . str_replace("&", "&amp;", $day->MobileLink) . "</url>\r\n";
+            $returnData .= "<day number=\"" . $dayCount . "\">" . PHP_EOL;
+            $returnData .= "  <url>http://www.accuweather.com/forecast-details.asp?partner=blstreamhptablet&amp;" . $locationId . "&amp;fday=" . $dayCount . "</url>" . PHP_EOL;
             //Note: original dataset used AM/PM or h:i A
             $timestamp = $day->dt + $serviceData->timezone_offset;
-            $returnData .= "  <obsdate>" . gmdate("m/d/Y", $timestamp) . "</obsdate>\r\n";
-            $returnData .= "  <daycode>" . gmdate('l', $timestamp) . "</daycode>\r\n";
+            $returnData .= "  <obsdate>" . gmdate("m/d/Y", $timestamp) . "</obsdate>" . PHP_EOL;
+            $returnData .= "  <daycode>" . gmdate('l', $timestamp) . "</daycode>" . PHP_EOL;
             $timestamp = $day->sunrise + $serviceData->timezone_offset;
-            $returnData .= "  <sunrise>" . gmdate("H:i", $timestamp) . "</sunrise>\r\n";
+            $returnData .= "  <sunrise>" . gmdate("H:i", $timestamp) . "</sunrise>" . PHP_EOL;
             $timestamp = $day->sunset + $serviceData->timezone_offset;
-            $returnData .= "  <sunset>" . gmdate("H:i", $timestamp) . "</sunset>\r\n";
-            $returnData .= "  <daytime>\r\n";
-            $returnData .= "    <txtshort>" . $day->weather[0]->description . "</txtshort>\r\n";
-            $returnData .= "    <txtlong>" . $day->summary . "</txtlong>\r\n";
-            $returnData .= "    <weathericon>" . map_weather_icon($day->weather[0]->icon) . "</weathericon>\r\n";
-            $returnData .= "    <hightemperature>" . $day->temp->max . "</hightemperature>\r\n";
-            $returnData .= "    <lowtemperature>" . $day->temp->min . "</lowtemperature>\r\n";
-            $returnData .= "    <realfeelhigh>" . $day->feels_like->day . "</realfeelhigh>\r\n";
-            $returnData .= "    <realfeellow>" . $day->feels_like->night . "</realfeellow>\r\n";
-            $returnData .= "    <windspeed>" . $day->wind_speed . "</windspeed>\r\n";
-            $returnData .= "    <winddirection>" . $day->wind_deg . "</winddirection>\r\n";
-            $returnData .= "    <windgust>" . $day->wind_gust . "</windgust>\r\n";
-            $returnData .= "    <maxuv>" . $day->uvi . "</maxuv>\r\n";
+            $returnData .= "  <sunset>" . gmdate("H:i", $timestamp) . "</sunset>" . PHP_EOL;
+            $returnData .= "  <daytime>" . PHP_EOL;
+            $returnData .= "    <txtshort>" . $day->weather[0]->description . "</txtshort>" . PHP_EOL;
+            $returnData .= "    <txtlong>" . $day->summary . "</txtlong>" . PHP_EOL;
+            $returnData .= "    <weathericon>" . map_weather_icon($day->weather[0]->icon) . "</weathericon>" . PHP_EOL;
+            $returnData .= "    <hightemperature>" . $day->temp->max . "</hightemperature>" . PHP_EOL;
+            $returnData .= "    <lowtemperature>" . $day->temp->min . "</lowtemperature>" . PHP_EOL;
+            $returnData .= "    <realfeelhigh>" . $day->feels_like->day . "</realfeelhigh>" . PHP_EOL;
+            $returnData .= "    <realfeellow>" . $day->feels_like->night . "</realfeellow>" . PHP_EOL;
+            $returnData .= "    <windspeed>" . $day->wind_speed . "</windspeed>" . PHP_EOL;
+            $returnData .= "    <winddirection>" . $day->wind_deg . "</winddirection>" . PHP_EOL;
+            $returnData .= "    <windgust>" . $day->wind_gust . "</windgust>" . PHP_EOL;
+            $returnData .= "    <maxuv>" . $day->uvi . "</maxuv>" . PHP_EOL;
             $precipAmount = 0;
             if (isset($day->rain)) {
-                $returnData .= "    <rainamount>" . $day->rain . "</rainamount>\r\n";
+                $returnData .= "    <rainamount>" . $day->rain . "</rainamount>" . PHP_EOL;
                 $precipAmount = $precipAmount + $day->rain;
             } else {
-                $returnData .= "    <rainamount>0</rainamount>\r\n";
+                $returnData .= "    <rainamount>0</rainamount>" . PHP_EOL;
             }
             if (isset($day->snow)) {
-                $returnData .= "    <snowamount>" . $day->snow . "</snowamount>\r\n";
+                $returnData .= "    <snowamount>" . $day->snow . "</snowamount>" . PHP_EOL;
                 $precipAmount = $precipAmount + $day->snow;
             } else {
-                $returnData .= "    <snowamount>0</snowamount>\r\n";
+                $returnData .= "    <snowamount>0</snowamount>" . PHP_EOL;
             }
-            $returnData .= "    <iceamount>0</iceamount>\r\n";
-            $returnData .= "    <precipamount>" . $precipAmount . "</precipamount>\r\n";
+            $returnData .= "    <iceamount>0</iceamount>" . PHP_EOL;
+            $returnData .= "    <precipamount>" . $precipAmount . "</precipamount>" . PHP_EOL;
             //TODO: this is actually precipitation probability, not storm probability
-            $returnData .= "    <tstormprob>" . $day->pop . "</tstormprob>\r\n";
-            $returnData .= "  </daytime>\r\n";
-            $returnData .= "  <nighttime>\r\n";
-            $returnData .= "    <txtshort>" . $day->weather[0]->description . "</txtshort>\r\n";
-            $returnData .= "    <txtlong>" . $day->summary . "</txtlong>\r\n";
-            //TODO: map icons including moon
-            $returnData .= "    <weathericon>" . map_weather_icon($day->weather[0]->icon) . "</weathericon>\r\n";
-            $returnData .= "    <hightemperature>" . $day->temp->night . "</hightemperature>\r\n";
-            $returnData .= "    <lowtemperature>" . $day->temp->min . "</lowtemperature>\r\n";
-            $returnData .= "    <realfeelhigh>" . $day->feels_like->eve . "</realfeelhigh>\r\n";
-            $returnData .= "    <realfeellow>" . $day->feels_like->night . "</realfeellow>\r\n";
-            $returnData .= "    <windspeed>" . $day->wind_speed . "</windspeed>\r\n";
-            $returnData .= "    <winddirection>" . $day->wind_deg . "</winddirection>\r\n";
-            $returnData .= "    <windgust>" . $day->wind_gust . "</windgust>\r\n";
-            $returnData .= "    <maxuv>" . $day->uvi . "</maxuv>\r\n";
-            $returnData .= "    <rainamount>0</rainamount>\r\n";
-            $returnData .= "    <snowamount>0</snowamount>\r\n";
-            $returnData .= "    <iceamount>0</iceamount>\r\n";
-            $returnData .= "    <precipamount>0</precipamount>\r\n";
-            $returnData .= "    <tstormprob>0</tstormprob>\r\n";
+            $returnData .= "    <tstormprob>" . $day->pop . "</tstormprob>" . PHP_EOL;
+            $returnData .= "  </daytime>" . PHP_EOL;
+            $returnData .= "  <nighttime>" . PHP_EOL;
+            $returnData .= "    <txtshort>" . $day->weather[0]->description . "</txtshort>" . PHP_EOL;
+            $returnData .= "    <txtlong>" . $day->summary . "</txtlong>" . PHP_EOL;
+            $returnData .= "    <weathericon>" . map_weather_icon($day->weather[0]->icon) . "</weathericon>" . PHP_EOL;
+            $returnData .= "    <hightemperature>" . $day->temp->night . "</hightemperature>" . PHP_EOL;
+            $returnData .= "    <lowtemperature>" . $day->temp->min . "</lowtemperature>" . PHP_EOL;
+            $returnData .= "    <realfeelhigh>" . $day->feels_like->eve . "</realfeelhigh>" . PHP_EOL;
+            $returnData .= "    <realfeellow>" . $day->feels_like->night . "</realfeellow>" . PHP_EOL;
+            $returnData .= "    <windspeed>" . $day->wind_speed . "</windspeed>" . PHP_EOL;
+            $returnData .= "    <winddirection>" . $day->wind_deg . "</winddirection>" . PHP_EOL;
+            $returnData .= "    <windgust>" . $day->wind_gust . "</windgust>" . PHP_EOL;
+            $returnData .= "    <maxuv>" . $day->uvi . "</maxuv>" . PHP_EOL;
+            $returnData .= "    <rainamount>0</rainamount>" . PHP_EOL;
+            $returnData .= "    <snowamount>0</snowamount>" . PHP_EOL;
+            $returnData .= "    <iceamount>0</iceamount>" . PHP_EOL;
+            $returnData .= "    <precipamount>0</precipamount>" . PHP_EOL;
+            $returnData .= "    <tstormprob>0</tstormprob>" . PHP_EOL;
             $returnData .= "  </nighttime>";
-            $returnData .= "</day>\r\n";
+            $returnData .= "</day>" . PHP_EOL;
         } catch (Exception $e) {
             return "<error>an error occurred while parsing remote service data. last attempted node was: dailyforecast</error>";
         }
@@ -232,8 +230,8 @@ function get_daily_forecast_asXml($serviceData, $useMetric) {
     return $returnData;
 }
 
-function get_hourly_forecast_asXml($serviceData, $useMetric) {
-    $returnData = "<hourly>\r\n";
+function get_hourly_forecast_asXml($serviceData, $useMetric, $locationId) {
+    $returnData = "<hourly>" . PHP_EOL;
     $hourCount = 0;
     foreach($serviceData->hourly as $hour){
         if ($hourCount >= 12)
@@ -243,13 +241,12 @@ function get_hourly_forecast_asXml($serviceData, $useMetric) {
         try {
             $timestamp = $hour->dt + $serviceData->timezone_offset;
             //Note: original dataset used AM/PM or h A
-            $returnData .= "<hour time=\"" . gmdate("H", $timestamp) . "\">\r\n";
-            //TODO: map icons
-            $returnData .= "  <weathericon>" . map_weather_icon($hour->weather[0]->icon) . "</weathericon>\r\n";
-            $returnData .= "  <temperature>" . $hour->temp . "</temperature>\r\n";
-            $returnData .= "  <realfeel>" . $hour->feels_like . "</realfeel>\r\n";
-            $returnData .= "  <dewpoint>" . $hour->dew_point . "</dewpoint>\r\n";
-            $returnData .= "  <humidity>" . $hour->humidity . "</humidity>\r\n";
+            $returnData .= "<hour time=\"" . gmdate("H", $timestamp) . "\">" . PHP_EOL;
+            $returnData .= "  <weathericon>" . map_weather_icon($hour->weather[0]->icon) . "</weathericon>" . PHP_EOL;
+            $returnData .= "  <temperature>" . $hour->temp . "</temperature>" . PHP_EOL;
+            $returnData .= "  <realfeel>" . $hour->feels_like . "</realfeel>" . PHP_EOL;
+            $returnData .= "  <dewpoint>" . $hour->dew_point . "</dewpoint>" . PHP_EOL;
+            $returnData .= "  <humidity>" . $hour->humidity . "</humidity>" . PHP_EOL;
 
             $precipAmount = 0;
             if (isset($hour->rain)) {
@@ -257,35 +254,35 @@ function get_hourly_forecast_asXml($serviceData, $useMetric) {
                     $rain = $hour->rain->{'1h'};
                 else
                     $rain = $hour->rain;
-                $returnData .= "  <rain>" . $rain . "</rain>\r\n";
+                $returnData .= "  <rain>" . $rain . "</rain>" . PHP_EOL;
                 $precipAmount = $precipAmount + $rain;
             } else {
-                $returnData .= "  <rain>0</rain>\r\n";
+                $returnData .= "  <rain>0</rain>" . PHP_EOL;
             }
             if (isset($hour->snow)) {
                 if (isset($hour->snow->{'1h'}))
                     $snow = $hour->snow->{'1h'};
                 else
                     $snow = $hour->snow;
-                $returnData .= "  <snow>" . $snow . "</snow>\r\n";
+                $returnData .= "  <snow>" . $snow . "</snow>" . PHP_EOL;
                 $precipAmount = $precipAmount + $snow;
             } else {
-                $returnData .= "  <snow>0</snow>\r\n";
+                $returnData .= "  <snow>0</snow>" . PHP_EOL;
             }
-            $returnData .= "  <ice>0</ice>\r\n";
-            $returnData .= "  <precip>" . $precipAmount . "</precip>\r\n";
-            $returnData .= "  <windspeed>" . $hour->wind_speed . "</windspeed>\r\n";
-            $returnData .= "  <winddirection>" . $hour->wind_deg . "</winddirection>\r\n";
-            $returnData .= "  <windgust>" . $hour->wind_gust . "</windgust>\r\n";
-            $returnData .= "  <txtshort>" . $hour->weather[0]->main . "</txtshort>\r\n";
-            //$returnData .= "  <traditionalLink>" . str_replace("&", "&amp;", $hour->MobileLink) . "</traditionalLink>\r\n";
-            $returnData .= "</hour>\r\n";
+            $returnData .= "  <ice>0</ice>" . PHP_EOL;
+            $returnData .= "  <precip>" . $precipAmount . "</precip>" . PHP_EOL;
+            $returnData .= "  <windspeed>" . $hour->wind_speed . "</windspeed>" . PHP_EOL;
+            $returnData .= "  <winddirection>" . $hour->wind_deg . "</winddirection>" . PHP_EOL;
+            $returnData .= "  <windgust>" . $hour->wind_gust . "</windgust>" . PHP_EOL;
+            $returnData .= "  <txtshort>" . $hour->weather[0]->main . "</txtshort>" . PHP_EOL;
+            $returnData .= "  <traditionalLink>http://www.accuweather.com/forecast-hourly.asp?partner=blstreamhptablet&amp;" . $locationId . "&amp;fday=1&amp;hbhhour=" . $hourCount ."</traditionalLink>";
+            $returnData .= "</hour>" . PHP_EOL;
             
         } catch (Exception $e) {
             return "<error>an error occurred while parsing remote service data. last attempted node was: hourlyforecast: " . $e . "</error>";
         }
     }
-    $returnData .= "</hourly>\r\n";
+    $returnData .= "</hourly>" . PHP_EOL;
     return $returnData;
 }
 

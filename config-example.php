@@ -1,7 +1,8 @@
 <?php
 $forecastDays = 8;  //We can have 8 days with OpenWeather, not sure this is even needed now
 $cacheRoot = "../../cache/";
-$realServiceDomain = "https://api.openweathermap.org/data/3.0/onecall";  //A hostname (from your hosts file) or IP address for the actual Accuweather service
+$accuweatherRoot = "http://dataservice.accuweather.com";
+$openweatherRoot = "https://api.openweathermap.org/data/3.0/";
 function get_accuweatherApiKey() {
     $apiKeys = array(
         "GET YOUR API KEY FROM https://home.openweathermap.org/api_keys"
