@@ -125,14 +125,7 @@ function get_current_conditions_asXml($serviceData, $useMetric, $locationId) {
         $returnData .= "    <winddirection>" . $serviceData->current->wind_deg . "°</winddirection>" . PHP_EOL;
         //TODO: openweather returns in meters, is this a good conversion?
         $returnData .= "    <visibility>" . ($serviceData->current->visibility / 1000). "</visibility>" . PHP_EOL;
-        $precipAmt = 0;
-        if (isset($serviceData->current->rain))
-            $precipAmt = $precipAmt + (int)$serviceData->current->rain;
-        if (isset($serviceData->current->snow))
-            $precipAmt = $precipAmt + (int)$serviceData->current->snow;
-        if (!$useMetric)
-            $precipAmt = ($precipAmt * 0.0393701);
-        $returnData .= "    <precip>" . $precipAmt . "</precip>" . PHP_EOL;
+        $returnData .= make_precip_amounts($serviceData->current, $useMetric, false);
         $returnData .= "    <uvindex index=\"" . $serviceData->current->uvi . "\">" .  map_uvi_text($serviceData->current->uvi) . "</uvindex>" . PHP_EOL;
         $returnData .= "    <dewpoint>" . $serviceData->current->dew_point . "</dewpoint>" . PHP_EOL;
         $returnData .= "    <cloudcover>" . $serviceData->current->clouds . "%</cloudcover>" . PHP_EOL;
@@ -142,6 +135,41 @@ function get_current_conditions_asXml($serviceData, $useMetric, $locationId) {
     } catch (Exception $e) {
         return "<error>an error occurred while parsing remote service data. last attempted node was: currentconditions</error>";
     }
+    return $returnData;
+}
+
+function make_precip_amounts($data, $useMetric, $longLabel) {
+    $precipAmount = 0;
+    $label = "";
+    $returnData = "";
+    if ($longLabel)
+        $label = "amount";
+    if (isset($data->rain)) {
+        if (isset($data->rain->{'1h'}))
+            $rain = $data->rain->{'1h'};
+        else
+            $rain = $data->rain;
+        if (!$useMetric)
+            $rain = round(($rain * 0.0393701), 2);
+        $returnData .= "    <rain" . $label . ">" . $rain . "</rain" . $label .">" . PHP_EOL;
+        $precipAmount = $precipAmount + $rain;
+    } else {
+        $returnData .= "    <rain" . $label . ">0</rain" . $label . ">" . PHP_EOL;
+    }
+    if (isset($serviceData->current->snow)) {
+        if (isset($serviceData->current->snow->{'1h'}))
+            $snow = $data->snow->{'1h'};
+        else
+            $snow = $data->snow;
+        if (!$useMetric)
+            $snow = round(($snow * 0.0393701), 2);
+        $returnData .= "    <snow" . $label .">" . $snow . "</snow" . $label .">" . PHP_EOL;
+        $precipAmount = $precipAmount + $snow;
+    } else {
+        $returnData .= "    <snow" . $label .">0</snow" . $label . ">" . PHP_EOL;
+    }
+    $returnData .= "    <ice" . $label . ">0</ice" . $label . ">" . PHP_EOL;
+    $returnData .= "    <precip" . $label . ">" . $precipAmount . "</precip" . $label . ">" . PHP_EOL;
     return $returnData;
 }
 
@@ -188,6 +216,8 @@ function get_daily_forecast_asXml($serviceData, $useMetric, $locationId) {
             $returnData .= "    <winddirection>" . $day->wind_deg . "</winddirection>" . PHP_EOL;
             $returnData .= "    <windgust>" . $day->wind_gust . "</windgust>" . PHP_EOL;
             $returnData .= "    <maxuv>" . $day->uvi . "</maxuv>" . PHP_EOL;
+            $returnData .= make_precip_amounts($day, $useMetric, true);
+            /*
             $precipAmount = 0;
             if (isset($day->rain)) {
                 $returnData .= "    <rainamount>" . $day->rain . "</rainamount>" . PHP_EOL;
@@ -203,6 +233,7 @@ function get_daily_forecast_asXml($serviceData, $useMetric, $locationId) {
             }
             $returnData .= "    <iceamount>0</iceamount>" . PHP_EOL;
             $returnData .= "    <precipamount>" . $precipAmount . "</precipamount>" . PHP_EOL;
+            */
             //TODO: this is actually precipitation probability, not storm probability
             $returnData .= "    <tstormprob>" . $day->pop . "</tstormprob>" . PHP_EOL;
             $returnData .= "  </daytime>" . PHP_EOL;
@@ -249,7 +280,8 @@ function get_hourly_forecast_asXml($serviceData, $useMetric, $locationId) {
             $returnData .= "  <realfeel>" . $hour->feels_like . "</realfeel>" . PHP_EOL;
             $returnData .= "  <dewpoint>" . $hour->dew_point . "</dewpoint>" . PHP_EOL;
             $returnData .= "  <humidity>" . $hour->humidity . "</humidity>" . PHP_EOL;
-
+            $returnData .= make_precip_amounts($hour, $useMetric, false);
+            /*
             $precipAmount = 0;
             if (isset($hour->rain)) {
                 if (isset($hour->rain->{'1h'}))
@@ -273,6 +305,7 @@ function get_hourly_forecast_asXml($serviceData, $useMetric, $locationId) {
             }
             $returnData .= "  <ice>0</ice>" . PHP_EOL;
             $returnData .= "  <precip>" . $precipAmount . "</precip>" . PHP_EOL;
+            */
             $returnData .= "  <windspeed>" . $hour->wind_speed . "</windspeed>" . PHP_EOL;
             $returnData .= "  <winddirection>" . $hour->wind_deg . "</winddirection>" . PHP_EOL;
             $returnData .= "  <windgust>" . $hour->wind_gust . "</windgust>" . PHP_EOL;
