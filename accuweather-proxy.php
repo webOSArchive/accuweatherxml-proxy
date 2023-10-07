@@ -127,9 +127,11 @@ function get_current_conditions_asXml($serviceData, $useMetric, $locationId) {
         $returnData .= "    <visibility>" . ($serviceData->current->visibility / 1000). "</visibility>" . PHP_EOL;
         $precipAmt = 0;
         if (isset($serviceData->current->rain))
-            $precipAmt = $precipAmt + $serviceData->current->rain;
+            $precipAmt = $precipAmt + (int)$serviceData->current->rain;
         if (isset($serviceData->current->snow))
-            $precipAmt = $precipAmt + $serviceData->current->snow;
+            $precipAmt = $precipAmt + (int)$serviceData->current->snow;
+        if (!$useMetric)
+            $precipAmt = ($precipAmt * 0.0393701);
         $returnData .= "    <precip>" . $precipAmt . "</precip>" . PHP_EOL;
         $returnData .= "    <uvindex index=\"" . $serviceData->current->uvi . "\">" .  map_uvi_text($serviceData->current->uvi) . "</uvindex>" . PHP_EOL;
         $returnData .= "    <dewpoint>" . $serviceData->current->dew_point . "</dewpoint>" . PHP_EOL;
