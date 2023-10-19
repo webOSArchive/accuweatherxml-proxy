@@ -115,8 +115,8 @@ function get_current_conditions_asXml($serviceData, $useMetric, $locationId) {
         $returnData .= "    <observationtime>" . gmdate("H:i", $timestamp) . "</observationtime>" . PHP_EOL;
         //TODO: this pressure conversion should be double-checked!
         $returnData .= "    <pressure state=\"Unknown\">" .  ($serviceData->current->pressure * 0.0294) . "</pressure>" . PHP_EOL;
-        $returnData .= "    <temperature>" . $serviceData->current->temp . "</temperature>" . PHP_EOL;
-        $returnData .= "    <realfeel>" . $serviceData->current->feels_like . "</realfeel>" . PHP_EOL;
+        $returnData .= "    <temperature>" . round($serviceData->current->temp) . "</temperature>" . PHP_EOL;
+        $returnData .= "    <realfeel>" . round($serviceData->current->feels_like) . "</realfeel>" . PHP_EOL;
         $returnData .= "    <humidity>" . $serviceData->current->humidity . "</humidity>" . PHP_EOL;
         $returnData .= "    <weathertext>" . $serviceData->current->weather[0]->description . "</weathertext>" . PHP_EOL;
         $returnData .= "    <weathericon>" . map_weather_icon($serviceData->current->weather[0]->icon) . "</weathericon>" . PHP_EOL;
@@ -208,32 +208,15 @@ function get_daily_forecast_asXml($serviceData, $useMetric, $locationId) {
             $returnData .= "    <txtshort>" . $day->weather[0]->description . "</txtshort>" . PHP_EOL;
             $returnData .= "    <txtlong>" . $day->summary . "</txtlong>" . PHP_EOL;
             $returnData .= "    <weathericon>" . map_weather_icon($day->weather[0]->icon) . "</weathericon>" . PHP_EOL;
-            $returnData .= "    <hightemperature>" . $day->temp->max . "</hightemperature>" . PHP_EOL;
-            $returnData .= "    <lowtemperature>" . $day->temp->min . "</lowtemperature>" . PHP_EOL;
-            $returnData .= "    <realfeelhigh>" . $day->feels_like->day . "</realfeelhigh>" . PHP_EOL;
-            $returnData .= "    <realfeellow>" . $day->feels_like->night . "</realfeellow>" . PHP_EOL;
+            $returnData .= "    <hightemperature>" . round($day->temp->max) . "</hightemperature>" . PHP_EOL;
+            $returnData .= "    <lowtemperature>" . round($day->temp->min) . "</lowtemperature>" . PHP_EOL;
+            $returnData .= "    <realfeelhigh>" . round($day->feels_like->day) . "</realfeelhigh>" . PHP_EOL;
+            $returnData .= "    <realfeellow>" . round($day->feels_like->night) . "</realfeellow>" . PHP_EOL;
             $returnData .= "    <windspeed>" . $day->wind_speed . "</windspeed>" . PHP_EOL;
             $returnData .= "    <winddirection>" . $day->wind_deg . "</winddirection>" . PHP_EOL;
             $returnData .= "    <windgust>" . $day->wind_gust . "</windgust>" . PHP_EOL;
             $returnData .= "    <maxuv>" . $day->uvi . "</maxuv>" . PHP_EOL;
             $returnData .= make_precip_amounts($day, $useMetric, true);
-            /*
-            $precipAmount = 0;
-            if (isset($day->rain)) {
-                $returnData .= "    <rainamount>" . $day->rain . "</rainamount>" . PHP_EOL;
-                $precipAmount = $precipAmount + $day->rain;
-            } else {
-                $returnData .= "    <rainamount>0</rainamount>" . PHP_EOL;
-            }
-            if (isset($day->snow)) {
-                $returnData .= "    <snowamount>" . $day->snow . "</snowamount>" . PHP_EOL;
-                $precipAmount = $precipAmount + $day->snow;
-            } else {
-                $returnData .= "    <snowamount>0</snowamount>" . PHP_EOL;
-            }
-            $returnData .= "    <iceamount>0</iceamount>" . PHP_EOL;
-            $returnData .= "    <precipamount>" . $precipAmount . "</precipamount>" . PHP_EOL;
-            */
             //TODO: this is actually precipitation probability, not storm probability
             $returnData .= "    <tstormprob>" . $day->pop . "</tstormprob>" . PHP_EOL;
             $returnData .= "  </daytime>" . PHP_EOL;
@@ -241,10 +224,10 @@ function get_daily_forecast_asXml($serviceData, $useMetric, $locationId) {
             $returnData .= "    <txtshort>" . $day->weather[0]->description . "</txtshort>" . PHP_EOL;
             $returnData .= "    <txtlong>" . $day->summary . "</txtlong>" . PHP_EOL;
             $returnData .= "    <weathericon>" . map_weather_icon($day->weather[0]->icon) . "</weathericon>" . PHP_EOL;
-            $returnData .= "    <hightemperature>" . $day->temp->night . "</hightemperature>" . PHP_EOL;
-            $returnData .= "    <lowtemperature>" . $day->temp->min . "</lowtemperature>" . PHP_EOL;
-            $returnData .= "    <realfeelhigh>" . $day->feels_like->eve . "</realfeelhigh>" . PHP_EOL;
-            $returnData .= "    <realfeellow>" . $day->feels_like->night . "</realfeellow>" . PHP_EOL;
+            $returnData .= "    <hightemperature>" . round($day->temp->night) . "</hightemperature>" . PHP_EOL;
+            $returnData .= "    <lowtemperature>" . round($day->temp->min) . "</lowtemperature>" . PHP_EOL;
+            $returnData .= "    <realfeelhigh>" . round($day->feels_like->eve) . "</realfeelhigh>" . PHP_EOL;
+            $returnData .= "    <realfeellow>" . round($day->feels_like->night) . "</realfeellow>" . PHP_EOL;
             $returnData .= "    <windspeed>" . $day->wind_speed . "</windspeed>" . PHP_EOL;
             $returnData .= "    <winddirection>" . $day->wind_deg . "</winddirection>" . PHP_EOL;
             $returnData .= "    <windgust>" . $day->wind_gust . "</windgust>" . PHP_EOL;
@@ -276,36 +259,11 @@ function get_hourly_forecast_asXml($serviceData, $useMetric, $locationId) {
             //Note: original dataset used AM/PM or h A
             $returnData .= "<hour time=\"" . gmdate("H", $timestamp) . "\">" . PHP_EOL;
             $returnData .= "  <weathericon>" . map_weather_icon($hour->weather[0]->icon) . "</weathericon>" . PHP_EOL;
-            $returnData .= "  <temperature>" . $hour->temp . "</temperature>" . PHP_EOL;
-            $returnData .= "  <realfeel>" . $hour->feels_like . "</realfeel>" . PHP_EOL;
+            $returnData .= "  <temperature>" . round($hour->temp) . "</temperature>" . PHP_EOL;
+            $returnData .= "  <realfeel>" . round($hour->feels_like) . "</realfeel>" . PHP_EOL;
             $returnData .= "  <dewpoint>" . $hour->dew_point . "</dewpoint>" . PHP_EOL;
             $returnData .= "  <humidity>" . $hour->humidity . "</humidity>" . PHP_EOL;
             $returnData .= make_precip_amounts($hour, $useMetric, false);
-            /*
-            $precipAmount = 0;
-            if (isset($hour->rain)) {
-                if (isset($hour->rain->{'1h'}))
-                    $rain = $hour->rain->{'1h'};
-                else
-                    $rain = $hour->rain;
-                $returnData .= "  <rain>" . $rain . "</rain>" . PHP_EOL;
-                $precipAmount = $precipAmount + $rain;
-            } else {
-                $returnData .= "  <rain>0</rain>" . PHP_EOL;
-            }
-            if (isset($hour->snow)) {
-                if (isset($hour->snow->{'1h'}))
-                    $snow = $hour->snow->{'1h'};
-                else
-                    $snow = $hour->snow;
-                $returnData .= "  <snow>" . $snow . "</snow>" . PHP_EOL;
-                $precipAmount = $precipAmount + $snow;
-            } else {
-                $returnData .= "  <snow>0</snow>" . PHP_EOL;
-            }
-            $returnData .= "  <ice>0</ice>" . PHP_EOL;
-            $returnData .= "  <precip>" . $precipAmount . "</precip>" . PHP_EOL;
-            */
             $returnData .= "  <windspeed>" . $hour->wind_speed . "</windspeed>" . PHP_EOL;
             $returnData .= "  <winddirection>" . $hour->wind_deg . "</winddirection>" . PHP_EOL;
             $returnData .= "  <windgust>" . $hour->wind_gust . "</windgust>" . PHP_EOL;
