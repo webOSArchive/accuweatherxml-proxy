@@ -232,10 +232,7 @@ function get_daily_forecast_asXml($serviceData, $useMetric, $locationId) {
             $returnData .= "    <winddirection>" . $day->wind_deg . "</winddirection>" . PHP_EOL;
             $returnData .= "    <windgust>" . $day->wind_gust . "</windgust>" . PHP_EOL;
             $returnData .= "    <maxuv>" . $day->uvi . "</maxuv>" . PHP_EOL;
-            $returnData .= "    <rainamount>0</rainamount>" . PHP_EOL;
-            $returnData .= "    <snowamount>0</snowamount>" . PHP_EOL;
-            $returnData .= "    <iceamount>0</iceamount>" . PHP_EOL;
-            $returnData .= "    <precipamount>0</precipamount>" . PHP_EOL;
+            $returnData .= make_precip_amounts($day, $useMetric, true);
             $returnData .= "    <tstormprob>0</tstormprob>" . PHP_EOL;
             $returnData .= "  </nighttime>";
             $returnData .= "</day>" . PHP_EOL;
