@@ -156,8 +156,8 @@ function make_precip_amounts($data, $useMetric, $longLabel) {
     } else {
         $returnData .= "    <rain" . $label . ">0</rain" . $label . ">" . PHP_EOL;
     }
-    if (isset($serviceData->current->snow)) {
-        if (isset($serviceData->current->snow->{'1h'}))
+    if (isset($data->snow)) {
+        if (isset($data->snow->{'1h'}))
             $snow = $data->snow->{'1h'};
         else
             $snow = $data->snow;
