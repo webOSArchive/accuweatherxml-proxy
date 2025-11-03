@@ -1,6 +1,10 @@
 <?php
 include("accuweather-proxy.php"); //this page is invoked from a client-specific sub-folder
 include("config.php");
+
+// IP Whitelist Authentication - blocks unauthorized access
+check_ip_whitelist();
+
 $accuweatherKey = get_accuweatherApiKey();
 $openweatherKey = get_openweatherApiKey();
 $theQuery = $_SERVER['QUERY_STRING'];
@@ -46,7 +50,7 @@ if (isset($openWeatherData)) {
     $tzOffset = $openWeatherData->timezone_offset;
     echo get_header_asXml($openWeatherData, $localeData);
     echo "<watchwarnareas isactive=\"0\">\r\n";
-    echo "  <url>https://www.accuweather.com/en/" . strtolower($localeData->Country->ID) . "/" . str_replace(" ", "-", strtolower($localeData->EnglishName)) . "/" . $localeData->PrimaryPostalCode . "/weather-warnings/" . $localeData->Key . "</url>\r\n";
+    echo "  <url>https://www.accuweather.com/en/" . xml_escape(strtolower($localeData->Country->ID)) . "/" . xml_escape(str_replace(" ", "-", strtolower($localeData->EnglishName))) . "/" . xml_escape($localeData->PrimaryPostalCode) . "/weather-warnings/" . xml_escape($localeData->Key) . "</url>\r\n";
     echo "</watchwarnareas>\r\n";
 }
 echo get_current_conditions_asXml($openWeatherData, $useMetric, $locationId);

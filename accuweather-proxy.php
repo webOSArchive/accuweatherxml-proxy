@@ -1,4 +1,12 @@
 <?php
+// Sanitize data for XML output to prevent XSS
+function xml_escape($data) {
+    if ($data === null || $data === '') {
+        return '';
+    }
+    return htmlspecialchars($data, ENT_XML1 | ENT_QUOTES, 'UTF-8');
+}
+
 function get_postalcode_locationId($locationId, $apiKey) {
     global $accuweatherRoot;
     
@@ -50,7 +58,7 @@ function openWeatherOneCall($serviceUrl, $location, $useMetric, $apiKey) {
             return $serviceData;
         }
     }
-    error_log("An error occurred getting data from OpenWeather. " . $serviceRaw);
+    error_log("Weather Proxy - An error occurred getting data from OpenWeather: " . $serviceRaw);
     return null;
 }
 
@@ -72,20 +80,20 @@ function get_header_asXml($openweatherData, $accuweatherData) {
     if (isset($openweatherData) && isset($accuweatherData)) {
         try {
             $returnData .= "<local>" . PHP_EOL;
-            $returnData .= "  <city>" . $accuweatherData->LocalizedName  . "</city>" . PHP_EOL;
-            $returnData .= "  <adminArea code=\"" . $accuweatherData->AdministrativeArea->ID . "\">" .  $accuweatherData->AdministrativeArea->LocalizedName  . "</adminArea>" . PHP_EOL;
-            $returnData .= "  <country code=\"" . $accuweatherData->Country->ID . "\">" .  $accuweatherData->Country->LocalizedName . "</country>" . PHP_EOL;
-            $returnData .= "  <cityId>" . $accuweatherData->Key . "</cityId>" . PHP_EOL;
-            $returnData .= "  <primaryPostalCode>" . $accuweatherData->PrimaryPostalCode . "</primaryPostalCode>" . PHP_EOL;
-            $returnData .= "  <locationKey>" . $accuweatherData->Key . "</locationKey>" . PHP_EOL;
-            $returnData .= "  <lat>" . $openweatherData->lat . "</lat>" . PHP_EOL;
-            $returnData .= "  <lon>" . $openweatherData->lon . "</lon>" . PHP_EOL;
+            $returnData .= "  <city>" . xml_escape($accuweatherData->LocalizedName) . "</city>" . PHP_EOL;
+            $returnData .= "  <adminArea code=\"" . xml_escape($accuweatherData->AdministrativeArea->ID) . "\">" . xml_escape($accuweatherData->AdministrativeArea->LocalizedName) . "</adminArea>" . PHP_EOL;
+            $returnData .= "  <country code=\"" . xml_escape($accuweatherData->Country->ID) . "\">" . xml_escape($accuweatherData->Country->LocalizedName) . "</country>" . PHP_EOL;
+            $returnData .= "  <cityId>" . xml_escape($accuweatherData->Key) . "</cityId>" . PHP_EOL;
+            $returnData .= "  <primaryPostalCode>" . xml_escape($accuweatherData->PrimaryPostalCode) . "</primaryPostalCode>" . PHP_EOL;
+            $returnData .= "  <locationKey>" . xml_escape($accuweatherData->Key) . "</locationKey>" . PHP_EOL;
+            $returnData .= "  <lat>" . xml_escape($openweatherData->lat) . "</lat>" . PHP_EOL;
+            $returnData .= "  <lon>" . xml_escape($openweatherData->lon) . "</lon>" . PHP_EOL;
             $timestamp = $openweatherData->current->dt + $openweatherData->timezone_offset;
             $useTime = gmdate("H:i", $timestamp);
             $returnData .= "  <time>" . $useTime . "</time>" . PHP_EOL;
-            $returnData .= "  <timeZone>" . $openweatherData->timezone . "</timeZone>" . PHP_EOL;
-            $returnData .= "  <obsDaylight>" . $accuweatherData->TimeZone->IsDaylightSaving . "</obsDaylight>" . PHP_EOL;
-            $returnData .= "  <timeZoneAbbreviation>" . $accuweatherData->TimeZone->Code . "</timeZoneAbbreviation>" . PHP_EOL;
+            $returnData .= "  <timeZone>" . xml_escape($openweatherData->timezone) . "</timeZone>" . PHP_EOL;
+            $returnData .= "  <obsDaylight>" . xml_escape($accuweatherData->TimeZone->IsDaylightSaving) . "</obsDaylight>" . PHP_EOL;
+            $returnData .= "  <timeZoneAbbreviation>" . xml_escape($accuweatherData->TimeZone->Code) . "</timeZoneAbbreviation>" . PHP_EOL;
             $returnData .= "</local>" . PHP_EOL;
         } catch (Exception $e) {
             return "<error>an error occurred while parsing remote service data. last attempted node was: location</error>";
@@ -109,7 +117,7 @@ function get_current_conditions_asXml($serviceData, $useMetric, $locationId) {
         $returnData .= "<currentconditions daylight=\"" . $isDaylight . "\">" . PHP_EOL;
         
         //$returnData .= "<url>" . str_replace("&", "&amp;", $serviceData[0]->MobileLink) . "</url>" . PHP_EOL;
-        $returnData .= "    <url>http://www.accuweather.com/index-forecast.asp?partner=blstreamhptablet&amp;" . $locationId . "</url>" . PHP_EOL;
+        $returnData .= "    <url>http://www.accuweather.com/index-forecast.asp?partner=blstreamhptablet&amp;" . xml_escape($locationId) . "</url>" . PHP_EOL;
         //Note: original dataset used AM/PM or h:i A
         $timestamp = $serviceData->current->dt + $serviceData->timezone_offset;
         $returnData .= "    <observationtime>" . gmdate("H:i", $timestamp) . "</observationtime>" . PHP_EOL;
@@ -118,7 +126,7 @@ function get_current_conditions_asXml($serviceData, $useMetric, $locationId) {
         $returnData .= "    <temperature>" . round($serviceData->current->temp) . "</temperature>" . PHP_EOL;
         $returnData .= "    <realfeel>" . round($serviceData->current->feels_like) . "</realfeel>" . PHP_EOL;
         $returnData .= "    <humidity>" . $serviceData->current->humidity . "</humidity>" . PHP_EOL;
-        $returnData .= "    <weathertext>" . $serviceData->current->weather[0]->description . "</weathertext>" . PHP_EOL;
+        $returnData .= "    <weathertext>" . xml_escape($serviceData->current->weather[0]->description) . "</weathertext>" . PHP_EOL;
         $returnData .= "    <weathericon>" . map_weather_icon($serviceData->current->weather[0]->icon) . "</weathericon>" . PHP_EOL;
         $returnData .= "    <windgusts>" . $serviceData->hourly[0]->wind_gust . "</windgusts>" . PHP_EOL;
         $returnData .= "    <windspeed>" . $serviceData->current->wind_speed . "</windspeed>" . PHP_EOL;
@@ -191,11 +199,11 @@ function get_daily_forecast_asXml($serviceData, $useMetric, $locationId) {
     $dayCount = 0;
     foreach($serviceData->daily as $day){
         if ($dayCount == 0 && $day->summary)
-            $returnData .= "<url>http://www.accuweather.com/forecast.asp?partner=blstreamhptablet&amp;" . $locationId . "</url>" . PHP_EOL;
+            $returnData .= "<url>http://www.accuweather.com/forecast.asp?partner=blstreamhptablet&amp;" . xml_escape($locationId) . "</url>" . PHP_EOL;
         $dayCount++;
         try {
             $returnData .= "<day number=\"" . $dayCount . "\">" . PHP_EOL;
-            $returnData .= "  <url>http://www.accuweather.com/forecast-details.asp?partner=blstreamhptablet&amp;" . $locationId . "&amp;fday=" . $dayCount . "</url>" . PHP_EOL;
+            $returnData .= "  <url>http://www.accuweather.com/forecast-details.asp?partner=blstreamhptablet&amp;" . xml_escape($locationId) . "&amp;fday=" . $dayCount . "</url>" . PHP_EOL;
             //Note: original dataset used AM/PM or h:i A
             $timestamp = $day->dt + $serviceData->timezone_offset;
             $returnData .= "  <obsdate>" . gmdate("m/d/Y", $timestamp) . "</obsdate>" . PHP_EOL;
@@ -205,8 +213,8 @@ function get_daily_forecast_asXml($serviceData, $useMetric, $locationId) {
             $timestamp = $day->sunset + $serviceData->timezone_offset;
             $returnData .= "  <sunset>" . gmdate("H:i", $timestamp) . "</sunset>" . PHP_EOL;
             $returnData .= "  <daytime>" . PHP_EOL;
-            $returnData .= "    <txtshort>" . $day->weather[0]->description . "</txtshort>" . PHP_EOL;
-            $returnData .= "    <txtlong>" . $day->summary . "</txtlong>" . PHP_EOL;
+            $returnData .= "    <txtshort>" . xml_escape($day->weather[0]->description) . "</txtshort>" . PHP_EOL;
+            $returnData .= "    <txtlong>" . xml_escape($day->summary) . "</txtlong>" . PHP_EOL;
             $returnData .= "    <weathericon>" . map_weather_icon($day->weather[0]->icon) . "</weathericon>" . PHP_EOL;
             $returnData .= "    <hightemperature>" . round($day->temp->max) . "</hightemperature>" . PHP_EOL;
             $returnData .= "    <lowtemperature>" . round($day->temp->min) . "</lowtemperature>" . PHP_EOL;
@@ -221,8 +229,8 @@ function get_daily_forecast_asXml($serviceData, $useMetric, $locationId) {
             $returnData .= "    <tstormprob>" . $day->pop . "</tstormprob>" . PHP_EOL;
             $returnData .= "  </daytime>" . PHP_EOL;
             $returnData .= "  <nighttime>" . PHP_EOL;
-            $returnData .= "    <txtshort>" . $day->weather[0]->description . "</txtshort>" . PHP_EOL;
-            $returnData .= "    <txtlong>" . $day->summary . "</txtlong>" . PHP_EOL;
+            $returnData .= "    <txtshort>" . xml_escape($day->weather[0]->description) . "</txtshort>" . PHP_EOL;
+            $returnData .= "    <txtlong>" . xml_escape($day->summary) . "</txtlong>" . PHP_EOL;
             $returnData .= "    <weathericon>" . map_weather_icon($day->weather[0]->icon) . "</weathericon>" . PHP_EOL;
             $returnData .= "    <hightemperature>" . round($day->temp->night) . "</hightemperature>" . PHP_EOL;
             $returnData .= "    <lowtemperature>" . round($day->temp->min) . "</lowtemperature>" . PHP_EOL;
@@ -264,8 +272,8 @@ function get_hourly_forecast_asXml($serviceData, $useMetric, $locationId) {
             $returnData .= "  <windspeed>" . $hour->wind_speed . "</windspeed>" . PHP_EOL;
             $returnData .= "  <winddirection>" . $hour->wind_deg . "</winddirection>" . PHP_EOL;
             $returnData .= "  <windgust>" . $hour->wind_gust . "</windgust>" . PHP_EOL;
-            $returnData .= "  <txtshort>" . $hour->weather[0]->main . "</txtshort>" . PHP_EOL;
-            $returnData .= "  <traditionalLink>http://www.accuweather.com/forecast-hourly.asp?partner=blstreamhptablet&amp;" . $locationId . "&amp;fday=1&amp;hbhhour=" . $hourCount ."</traditionalLink>";
+            $returnData .= "  <txtshort>" . xml_escape($hour->weather[0]->main) . "</txtshort>" . PHP_EOL;
+            $returnData .= "  <traditionalLink>http://www.accuweather.com/forecast-hourly.asp?partner=blstreamhptablet&amp;" . xml_escape($locationId) . "&amp;fday=1&amp;hbhhour=" . $hourCount ."</traditionalLink>";
             $returnData .= "</hour>" . PHP_EOL;
             
         } catch (Exception $e) {
@@ -280,7 +288,10 @@ function get_indices_asXml($locationId, $apiKey) {
     global $indices, $accuweatherRoot;
     $serviceUrl = $accuweatherRoot . "/indices/v1/daily/1day/" . $locationId;
     $serviceRaw = get_remote_data($serviceUrl, $apiKey, $cacheHours=8);
-    $returnData = "<indices>";
+    $returnData = "<indices></indices>";
+    return $returnData;
+
+    //11/03/2025 - Stubbing this out for now, since its crazy expensive
     if (isset($serviceRaw)) {
         $serviceData = json_decode($serviceRaw);
         if (isset($serviceData) && is_array($serviceData)) {
@@ -312,8 +323,21 @@ function get_indices_asXml($locationId, $apiKey) {
 }
 
 function get_remote_data($url, $apiKey, $cacheDuration) {
-    global $cacheRoot, $accuweatherRoot;
+    global $cacheRoot;
     $cacheName = $cacheRoot . cleanFilename($url). ".json";
+
+    // Validate cache path to prevent directory traversal
+    $realCacheRoot = realpath($cacheRoot);
+    if ($realCacheRoot === false) {
+        // Cache directory doesn't exist yet, will be created later
+        $realCacheRoot = $cacheRoot;
+    }
+    $realCachePath = realpath(dirname($cacheName));
+    if ($realCachePath !== false && strpos($realCachePath, $realCacheRoot) !== 0) {
+        error_log("Weather Proxy - Security Notice: Attempted path traversal blocked: " . $cacheName);
+        return "{error:'Invalid cache path'}";
+    }
+
     //check if cache exists and is still usable
     if (file_exists($cacheName)) {
         $cacheHours = floor((time() - filemtime($cacheName))/3600);
@@ -322,7 +346,7 @@ function get_remote_data($url, $apiKey, $cacheDuration) {
         }
     }
     //otherwise, proceed with remote call
-    error_log("No suitable cache, calling remote API: " . $url);
+    error_log("Weather Proxy - No suitable cache, calling remote API: " . $url);
     //  append API key
     if (strpos($url, "?") === false)
         $url = $url . "?apikey=" . $apiKey;
@@ -374,11 +398,9 @@ function cleanFilename($url) {
     global $openweatherRoot;
     $url = str_replace($accuweatherRoot, "", $url);
     $url = str_replace($openweatherRoot, "", $url);
-    $fileName = base64_encode($url);
-    $fileName = str_replace("=", "", $fileName);
-    $fileName = str_replace("/", "", $fileName);
-    $fileName = str_replace("\\", "", $fileName);
-    $fileName = str_replace(".", "", $fileName);
+    // Use SHA-256 hash for secure, unpredictable cache filenames
+    // This prevents path traversal and cache enumeration attacks
+    $fileName = hash('sha256', $url);
     return $fileName;
 }
 
@@ -394,7 +416,7 @@ function validateJSON(string $json): bool {
         }
         return true;
     } catch  (Exception $e) {
-        error_log($e->getMessage() . PHP_EOL);
+        error_log("Weather Proxy " . $e->getMessage() . PHP_EOL);
         return false;
     }
 }

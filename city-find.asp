@@ -2,6 +2,10 @@
 <?php
 include("accuweather-proxy.php"); //this page is invoked from a client-specific sub-folder
 include("config.php");
+
+// IP Whitelist Authentication - blocks unauthorized access
+check_ip_whitelist();
+
 $apiKey = get_accuweatherApiKey();
 if (isset($_GET['location'])) {
     $serviceData = get_city_search($_GET['location'], $apiKey);
@@ -31,7 +35,7 @@ foreach($serviceData as $location){
             if ($location->Country->ID != "US") {
                 $stateStr = $stateStr . " (" . $location->Country->LocalizedName . ")";
             }
-            echo "            <location cnt=\"" . $count . "\" city=\"" . $location->LocalizedName . "\" state=\"" . $stateStr . "\" location=\"cityId:" . $location->Key . "\"/>\r\n";
+            echo "            <location cnt=\"" . $count . "\" city=\"" . xml_escape($location->LocalizedName) . "\" state=\"" . xml_escape($stateStr) . "\" location=\"cityId:" . xml_escape($location->Key) . "\"/>\r\n";
             $count++;
         }
     ?>
