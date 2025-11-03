@@ -48,7 +48,7 @@ function check_ip_whitelist() {
         error_log("Weather Proxy - Access denied for IP: " . $clientIP);
         header('HTTP/1.1 403 Forbidden');
         header('Content-Type: text/xml');
-        die('<?xml version="1.0" encoding="utf-8"?><adc_database><error>Access Forbidden: IP address not authorized</error></adc_database>');
+        die('<adc_database><error>Access Forbidden: IP address not authorized</error></adc_database>');
     }
 
     return true;

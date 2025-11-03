@@ -286,12 +286,13 @@ function get_hourly_forecast_asXml($serviceData, $useMetric, $locationId) {
 
 function get_indices_asXml($locationId, $apiKey) {
     global $indices, $accuweatherRoot;
-    $serviceUrl = $accuweatherRoot . "/indices/v1/daily/1day/" . $locationId;
-    $serviceRaw = get_remote_data($serviceUrl, $apiKey, $cacheHours=8);
     $returnData = "<indices></indices>";
     return $returnData;
 
-    //11/03/2025 - Stubbing this out for now, since its crazy expensive
+    //11/03/2025 - Stubbing this out for now, since its crazy expensive   
+    $serviceUrl = $accuweatherRoot . "/indices/v1/daily/1day/" . $locationId;
+    $serviceRaw = get_remote_data($serviceUrl, $apiKey, $cacheHours=8);
+
     if (isset($serviceRaw)) {
         $serviceData = json_decode($serviceRaw);
         if (isset($serviceData) && is_array($serviceData)) {

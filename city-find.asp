@@ -1,4 +1,4 @@
-<?xml version="1.0"  encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <?php
 include("accuweather-proxy.php"); //this page is invoked from a client-specific sub-folder
 include("config.php");

@@ -1,9 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <?php
 include("accuweather-proxy.php"); //this page is invoked from a client-specific sub-folder
 include("config.php");
-
-// IP Whitelist Authentication - blocks unauthorized access
-check_ip_whitelist();
 
 $accuweatherKey = get_accuweatherApiKey();
 $openweatherKey = get_openweatherApiKey();
@@ -12,6 +10,9 @@ $theUrl = $openweatherRoot . "onecall?exclude=minutely";
 
 header('Content-Type: text/xml');
 //header('Content-Type: application/json');
+
+// IP Whitelist Authentication - blocks unauthorized access
+check_ip_whitelist();
 
 //TODO: accept location in query, obviously!
 //$locationId = "lat=33.44&lon=-94.04";
@@ -41,7 +42,6 @@ if (isset($_GET['metric']) && $_GET['metric'] != 0) {
 $openWeatherData = openWeatherOneCall($theUrl, $realLocation, $useMetric, $openweatherKey);
 //echo json_encode($openWeatherData);
 ?>
-<?xml version="1.0" encoding="utf-8"?>
 <adc_database xmlns="http://www.accuweather.com">
 <?php
 echo get_units_asXml($useMetric);
