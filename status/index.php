@@ -6,8 +6,6 @@
 $projectRoot = dirname(__DIR__);
 // The .asp pages run from widget/<client>/, so relative paths in config.php are relative to there
 $clientDir = $projectRoot . "/widget/blstreamhptablet/";
-$clientFolders = array("accuwxiphonev4", "blstreamhptablet");
-$endpoints = array("weather-data.asp", "city-find.asp");
 
 $checks = array();
 function add_check($group, $name, $state, $detail) {
@@ -78,44 +76,6 @@ if (isset($cacheRoot)) {
         foreach ($dataFiles as $f)
             $newest = max($newest, filemtime($f));
         add_check("Cache", "Entries", "ok", count($dataFiles) . " cached responses" . ($newest ? ", newest " . describe_age($newest) : ""));
-    }
-}
-
-// --- .asp pages served by PHP ---
-// Request each legacy endpoint from this same server, with no location so no upstream call is made.
-// Pinning the host to 127.0.0.1 means a forged Host header can't point this at another server.
-$scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != "off") ? "https" : "http";
-$port = isset($_SERVER['SERVER_PORT']) ? intval($_SERVER['SERVER_PORT']) : ($scheme == "https" ? 443 : 80);
-$host = isset($_SERVER['HTTP_HOST']) ? preg_replace('/:\d+$/', '', $_SERVER['HTTP_HOST']) : "localhost";
-if (!preg_match('/^[A-Za-z0-9.-]+$/', $host))
-    $host = "localhost";
-$basePath = rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), "/\\");
-foreach ($clientFolders as $folder) {
-    foreach ($endpoints as $endpoint) {
-        $path = $basePath . "/widget/" . $folder . "/" . $endpoint;
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $scheme . "://" . $host . ":" . $port . $path,
-            CURLOPT_RESOLVE => array($host . ":" . $port . ":127.0.0.1"),
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_TIMEOUT => 5,
-            CURLOPT_SSL_VERIFYPEER => false,  // loopback only, see above
-            CURLOPT_SSL_VERIFYHOST => 0,
-        ));
-        $body = curl_exec($curl);
-        $err = curl_error($curl);
-        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-
-        if ($err)
-            add_check("ASP pages", $path, "warn", "couldn't test from the server itself: " . $err);
-        else if (strpos($body, "<?php") !== false)
-            add_check("ASP pages", $path, "fail", "served as plain text; PHP isn't handling .asp files");
-        else if (strpos($body, "<adc_database") !== false)
-            add_check("ASP pages", $path, "ok", "handled by PHP (HTTP " . $httpCode . ")");
-        else if ($httpCode == 404)
-            add_check("ASP pages", $path, "fail", "not found (HTTP 404); check the widget folder symlinks");
-        else
-            add_check("ASP pages", $path, "fail", "unexpected response (HTTP " . $httpCode . "); the PHP handler for .asp may be down");
     }
 }
 
