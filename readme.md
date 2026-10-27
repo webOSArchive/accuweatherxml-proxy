@@ -50,6 +50,10 @@ Obviously this setup will vary depending on your server software of choice, but 
 * Tell PHP that `.asp` is a safe extension to process:
   * [https://serverfault.com/a/683510](https://serverfault.com/a/683510)
 
+## Status page
+
+`/status/` runs a health check and shows the results: PHP extensions, `config.php` and API keys, cache folder permissions, whether each legacy `.asp` endpoint is really being run by PHP, and the outcome of the most recent AccuWeather and OpenWeather calls (such as a rate limit or a rejected key). It never calls the upstream APIs itself, so it doesn't use up your quota, and it never shows keys. It returns HTTP 503 when a check fails, and `/status/?format=json` gives machine-readable output for monitoring.
+
 ## Spoofing the original URL
 
 Fooling the client into connecting to your service, rather than Accuweather's service, usually involves changing the `hosts` file on the client's OS to point to your server's domain. You may achieve a similar outcome if you provide a proxy to legacy clients...

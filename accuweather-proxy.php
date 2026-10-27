@@ -370,16 +370,21 @@ function get_remote_data($url, $apiKey, $cacheDuration) {
     //  call remote service
     $response = curl_exec($curl);
     $err = curl_error($curl);
-    curl_close($curl);
+    $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
     // Return response, cache if appropriate
     if ($err) {
+        record_upstream_result($url, $apiKey, false, $httpCode, $err);
         return "{error:'" . $err . "'}";
     } else {
         if (!isset($response) || $response == "" || $response == null || $response == "null") {
+            record_upstream_result($url, $apiKey, false, $httpCode, "null response");
             return "{error:'null response'}";
         }
-        if (validateJSON($response)) {
+        // OpenWeather errors (eg: {"cod":401,...}) are valid JSON, so the status code is needed to avoid caching them
+        $valid = validateJSON($response) && $httpCode == 200;
+        record_upstream_result($url, $apiKey, $valid, $httpCode, $response);
+        if ($valid) {
             if ($cacheDuration > 0) {
                 //cache response
                 if (!file_exists($cacheRoot)) {
@@ -391,6 +396,38 @@ function get_remote_data($url, $apiKey, $cacheDuration) {
         } else {
             return "{'error':'" . $response . "'}";
         }
+    }
+}
+
+// Remember the outcome of the latest upstream call per service, for the /status page
+// Never stores the URL, since it contains the API key
+function record_upstream_result($url, $apiKey, $ok, $httpCode, $body) {
+    global $cacheRoot;
+    $service = (strpos($url, "openweathermap.org") !== false) ? "openweather" : "accuweather";
+    $statusFile = $cacheRoot . "_status-" . $service . ".json";
+    $status = array();
+    if (file_exists($statusFile)) {
+        $status = json_decode(@file_get_contents($statusFile), true) ?: array();
+    }
+    if ($ok) {
+        $status['lastSuccess'] = time();
+    } else {
+        // Pull a readable message out of the upstream error, if there is one
+        $message = $body;
+        $decoded = json_decode($body);
+        if (is_object($decoded)) {
+            if (isset($decoded->Message))
+                $message = $decoded->Message;
+            else if (isset($decoded->message))
+                $message = $decoded->message;
+        }
+        $status['lastFailure'] = time();
+        $status['lastFailureCode'] = $httpCode;
+        $message = str_replace($apiKey, "[key]", strip_tags((string)$message));
+        $status['lastFailureMessage'] = substr($message, 0, 300);
+    }
+    if (file_exists($cacheRoot)) {
+        @file_put_contents($statusFile, json_encode($status), LOCK_EX);
     }
 }
 
